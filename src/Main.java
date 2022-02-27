@@ -1,4 +1,5 @@
 import basic.Game;
+import gui.Frame;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -6,7 +7,7 @@ public class Main {
         
         for (int i = 0; i < 11; i++) {
             igra.spawnRandomNumber();
-            Thread.sleep(200);
+            Thread.sleep(10);
         }
 
         igra.print();
@@ -16,5 +17,11 @@ public class Main {
         System.out.println("Moving right");
         System.out.println("-----------");
         igra.print();
+
+        // new frame
+        Frame frame = new Frame();
+        frame.pack();
+        frame.setVisible(true);
+
     }
 }
