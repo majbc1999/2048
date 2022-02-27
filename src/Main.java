@@ -11,9 +11,9 @@ public class Main {
 
         igra.print();
 
-        igra.moveUp();
+        igra.moveRight();
         System.out.println("-----------");
-        System.out.println("Moving up");
+        System.out.println("Moving right");
         System.out.println("-----------");
         igra.print();
     }
