@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -12,6 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+
+import basic.Game;
 
 @SuppressWarnings("serial")
 public class Frame extends JFrame implements ActionListener{
@@ -27,7 +30,7 @@ public class Frame extends JFrame implements ActionListener{
 	
 	public int velikost;
 	
-	public Frame() {
+	public Frame(Color[] colorScheme, Game game) {
 		super();
 
 		this.setTitle("2048");
@@ -50,7 +53,7 @@ public class Frame extends JFrame implements ActionListener{
 		menuGameSettings = addMenuItem(menuSettings, "Game Settings");
 		menuInterface = addMenuItem(menuSettings, "Interface");
 
-        polje = new Panel();
+        polje = new Panel(colorScheme, game);
         
         GridBagConstraints polje_layout = new GridBagConstraints();
 		polje_layout.gridx = 0;

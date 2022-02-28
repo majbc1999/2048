@@ -10,49 +10,66 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
+import basic.Game;
+
 
 @SuppressWarnings("serial")
 public class Panel extends JPanel implements MouseListener{
 	
+	// color scheme
+	Color color2;     
+	Color color4;     
+	Color color8;     
+	Color color16;    
+	Color color32;   
+	Color color64;  
+	Color color128; 
+	Color color256; 
+	Color color512; 
+	Color color1024;
+	Color color2048;
+	Color color4096; // all numbers bigger then 4096 are black color
+
+	// current game
+	Game game;
 	
-	Color barvaA;
-	Color barvaB;
-	Color barvaGol;
-	Color barvaKazenski;
-	Color barvaSpawnA;
-	Color barvaSpawnB;
-	public int dolzina;
-	public int sirina;
-	public int gol;
-	
-	boolean siPodaja;
-	
-	
-	
-	public Panel() {
-		setBackground(new Color(0, 204, 0));
-		this.addMouseListener(this);
-		barvaA = new Color(46, 168, 217);
-		barvaB = new Color(201, 9, 2);
-		dolzina = 20;
-		sirina = 15;
-		gol = 7;
-		barvaGol = new Color(255, 255, 196);
-		barvaKazenski = new Color(0, 240, 50);
-		siPodaja = false;
+	// square width (and length)
+
+
+	// main constuctor
+	public Panel(Color[] colorScheme, Game game) {
+
+		// game
+		this.game = game;
+
+		// color scheme
+		this.color2 = colorScheme[0];   
+		this.color4 = colorScheme[0];   
+		this.color8 = colorScheme[0];   
+		this.color16 = colorScheme[0];  
+		this.color32 = colorScheme[0];  
+		this.color64 = colorScheme[0];  
+		this.color128 = colorScheme[0]; 
+		this.color256 = colorScheme[0]; 
+		this.color512 = colorScheme[0]; 
+		this.color1024 = colorScheme[0];
+		this.color2048 = colorScheme[0];
+		this.color4096 = colorScheme[0];
+
 	}
 
+	// preffered dimension of our panel
 	@Override
 	public Dimension getPreferredSize() {
 		return new Dimension(500, 500);
 	}
 
-	// Relativna širina črte
+	// line relative width
 	private final static double LINE_WIDTH = 0.05;
 		
 	// Širina enega kvadratka
 	private double squareWidth() {
-		return Math.min(getWidth(), getHeight()) / (double) (dolzina + 2) - 0.03 * (Math.min(getWidth(), getHeight()) / (double) (dolzina + 2));
+		return Math.min(getWidth(), getHeight()) / (double) (game.N + 2) - 0.03 * (Math.min(getWidth(), getHeight()) / (double) (game.N + 2));
 	}
 	
 	// Relativni prostor okoli X in O
@@ -60,161 +77,44 @@ public class Panel extends JPanel implements MouseListener{
 		
 	private void paintA(Graphics2D g2, int i, int j) { // Pobarvaj igralca 1
 		double w = squareWidth();
-		double dx = (getWidth()/2.0)- ((sirina /2.0) * w);
-		double dy = (getHeight()/2.0)- ((dolzina /2.0) * w);
+		double dx = (getWidth()/2.0)- ((game.N /2.0) * w);
+		double dy = (getHeight()/2.0)- ((game.N /2.0) * w);
 		
 		double d = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer O
 		double x = w * (i + 0.5 * LINE_WIDTH + PADDING) + dx;
 		double y = w * (j + 0.5 * LINE_WIDTH + PADDING) + dy;
-		g2.setColor(barvaA);
+		g2.setColor(Color.YELLOW);
 		g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
 		g2.fillOval((int)x, (int)y, (int)d , (int)d);
 		
 		g2.setColor(Color.BLACK);
 		g2.drawOval((int)x, (int)y, (int) d, (int) d);
 	}
-	
-	
-	private void paintB(Graphics2D g2, int i, int j) { // Pobarvaj igralca 2
-		double w = squareWidth();
-		double dx = (getWidth()/2.0)- ((sirina /2.0) * w);
-		double dy = (getHeight()/2.0)- ((dolzina /2.0) * w);
 		
-		double d = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer O
-		double x = w * (i + 0.5 * LINE_WIDTH + PADDING) + dx;
-		double y = w * (j + 0.5 * LINE_WIDTH + PADDING) + dy;
-		g2.setColor(barvaB);
-		g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
-		g2.fillOval((int)x, (int)y, (int)d , (int)d);
-		
-		g2.setColor(Color.BLACK);
-		g2.drawOval((int)x, (int)y, (int) d, (int) d);
-	}
-	
-	private void paintgolmanA(Graphics2D g2, int i, int j) { // Pobarvaj igralca 2
-		double w = squareWidth();
-		double dx = (getWidth()/2.0)- ((sirina /2.0) * w);
-		double dy = (getHeight()/2.0)- ((dolzina /2.0) * w);
-		
-		double d = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer O
-		double x = w * (i + 0.5 * LINE_WIDTH + PADDING) + dx;
-		double y = w * (j + 0.5 * LINE_WIDTH + PADDING) + dy;
-		g2.setColor(Color.DARK_GRAY);
-		g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
-		g2.fillOval((int)x, (int)y, (int)d , (int)d);
-		
-		g2.setColor(Color.BLACK);
-		g2.drawOval((int)x, (int)y, (int) d, (int) d);
-	}
-	
-	private void paintgolmanB(Graphics2D g2, int i, int j) { // Pobarvaj igralca 2
-		double w = squareWidth();
-		double dx = (getWidth()/2.0)- ((sirina /2.0) * w);
-		double dy = (getHeight()/2.0)- ((dolzina /2.0) * w);
-		
-		double d = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer O
-		double x = w * (i + 0.5 * LINE_WIDTH + PADDING) + dx;
-		double y = w * (j + 0.5 * LINE_WIDTH + PADDING) + dy;
-		g2.setColor(Color.BLACK);
-		g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
-		g2.fillOval((int)x, (int)y, (int)d , (int)d);
-		
-		g2.setColor(Color.BLACK);
-		g2.drawOval((int)x, (int)y, (int) d, (int) d);
-	}
-	
-	
-	
-	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
 
 		double w = squareWidth();
-		double dx = (getWidth()/2.0)- ((sirina/2.0) * w);
-		double dy = (getHeight()/2.0)- ((dolzina/2.0) * w);
-
-		
-		// pobarvajmo polja
-		
-			// goli
-		g2.setColor(barvaGol);
-		for (int i = 0; i < 7; i++) {
-			g2.fillRect((int)(4 * w + i * w + dx), (int)(-w + dy), (int)w, (int)w);
-			g2.fillRect((int)(4 * w + i * w + dx), (int)((dolzina) * w + dy), (int)w, (int)w);
-		}
-
-			// kazenski golmana
-		g2.setColor(barvaKazenski);
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 4; j++) {
-				g2.fillRect((int)(3 * w + i * w + dx), (int)(j * w + dy), (int)w, (int)w);
-				g2.fillRect((int)(3 * w + i * w + dx), (int)((dolzina - 4) * w + j * w + dy), (int)w, (int)w);
-			}
-		}
-		
-		
-			// spawni
-		
-		g2.setColor(Color.CYAN);
-			g2.fillRect((int)(7 * w + dx), (int)(0 * w + dy), (int)w, (int)w);	
-			g2.fillRect((int)(5 * w + dx), (int)(5 * w + dy), (int)w, (int)w);	
-			g2.fillRect((int)(9 * w + dx), (int)(5 * w + dy), (int)w, (int)w);	
-			g2.fillRect((int)(3 * w + dx), (int)(8 * w + dy), (int)w, (int)w);	
-			g2.fillRect((int)(11 * w + dx), (int)(8 * w + dy), (int)w, (int)w);	
-		g2.setColor(Color.ORANGE);
-			g2.fillRect((int)(3 * w + dx), (int)(11 * w + dy), (int)w, (int)w);	
-			g2.fillRect((int)(11 * w + dx), (int)(11 * w + dy), (int)w, (int)w);	
-			g2.fillRect((int)(5 * w + dx), (int)(14 * w + dy), (int)w, (int)w);	
-			g2.fillRect((int)(9 * w + dx), (int)(14 * w + dy), (int)w, (int)w);	
-			g2.fillRect((int)(7 * w + dx), (int)(19 * w + dy), (int)w, (int)w);	
-
-
-			
+		double dx = (getWidth()/2.0)- ((game.N/2.0) * w);
+		double dy = (getHeight()/2.0)- ((game.N/2.0) * w);
 		
 		// črte
 		g2.setColor(Color.BLACK);
 		g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
-		for (int i = 0; i <= sirina; i++) {
+		for (int i = 0; i <= game.N; i++) {
 			g2.drawLine((int)(i * w + dx),
 					    (int)(0 + dy),
 					    (int)(i * w + dx),
-					    (int)(dolzina * w + dy));
+					    (int)(game.N * w + dy));
 		}
-		for (int i = 0; i <= dolzina; i++) {
+		for (int i = 0; i <= game.N; i++) {
 			g2.drawLine((int)(0 + dx),
 					    (int)(i * w + dy),
-					    (int)(sirina * w + dx),
+					    (int)(game.N * w + dx),
 					    (int)(i * w + dy));
 		}
-		
-		// gol vertik
-		for (int i = 4; i <= 11; i++) {
-			g2.drawLine((int)(i * w + dx),
-					    (int)(-w + dy),
-					    (int)(i * w + dx),
-					    (int)((dolzina + 1) * w + dy));
-		}
-		
-		// gol horiz
-		g2.drawLine((int)(4 * w + dx),
-			    (int)((dolzina + 1) * w + dy),
-			    (int)(11 * w + dx),
-			    (int)((dolzina + 1) * w + dy));
-		
-		g2.drawLine((int)(4 * w + dx),
-			    (int)(-w + dy),
-			    (int)(11 * w + dx),
-			    (int)(-w + dy));
-		
-		// sredinska črta
-		g2.setColor(Color.WHITE);
-		
-		g2.drawLine((int)(0 * w + dx),
-			    (int)(dolzina / 2 * w + dy),
-			    (int)(sirina * w + dx),
-			    (int)(dolzina / 2 * w + dy));		
 	}
 	
 	@Override
@@ -226,7 +126,7 @@ public class Panel extends JPanel implements MouseListener{
 	}
 
 	@Override
-	public void mouseReleased(MouseEvent e) {		
+	public void mouseReleased(MouseEvent e) {
 	}
 
 	@Override
@@ -234,6 +134,6 @@ public class Panel extends JPanel implements MouseListener{
 	}
 
 	@Override
-	public void mouseExited(MouseEvent e) {		
+	public void mouseExited(MouseEvent e) {
 	}
 }
