@@ -25,12 +25,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 	// labels for numbers
 	JLabel[][] labels;
 
-	// dictionary for color scheme
-
 	// current game
 	Game game;
 	
-	// square width (and length)
+	// hashtable for colors
 	Hashtable<Integer,Color> colors = new Hashtable<Integer,Color>();
 
 	// main constuctor
@@ -40,7 +38,6 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		this.game = game;
 
 		// color scheme
-		
 		colors.put(0, Color.WHITE);
 		colors.put(2, colorScheme[0]);
 		colors.put(4, colorScheme[1]);
@@ -55,7 +52,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		colors.put(2048, colorScheme[10]);
 		colors.put(4096, colorScheme[11]);
 
-		// labels
+		// labels list
 		this.labels = new JLabel[game.N][game.N];
 		
 		// enable mouse and key listeners
@@ -81,12 +78,13 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 	// space between lines and number squared
 	private final static double PADDING = 0.05;
 			
+	// method that draws and fills rounded square, where the numbers are
 	private void paintNumbers(Graphics2D g2, int i, int j) {
 		double w = squareWidth();
 		double dx = (getWidth()/2.0)- ((game.N/2.0) * w);
 		double dy = (getHeight()/2.0)- ((game.N/2.0) * w);
 
-		double d = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer O
+		double d = w * (1.0 - LINE_WIDTH - 2.0 * PADDING);
 		double x = w * (i + 0.5 * LINE_WIDTH + PADDING) + dx;
 		double y = w * (j + 0.5 * LINE_WIDTH + PADDING) + dy;
 		
@@ -109,7 +107,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		double dx = (getWidth()/2.0)- ((game.N/2.0) * w);
 		double dy = (getHeight()/2.0)- ((game.N/2.0) * w);
 		
-		// game grid
+		// game grid lines
 		g2.setColor(Color.LIGHT_GRAY);
 		g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
 		for (int i = 0; i <= game.N; i++) {
@@ -135,8 +133,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		}
 
 		// setting and drawing labels
-
-		// firstly remove all labels
+		// removing old labels
 		for (int i = 0; i < game.N; i++) {
 			for (int j = 0; j < game.N; j++) {
 				try {
@@ -147,7 +144,6 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 				}
 			}
 		}
-
 		// create all labels
 		for (int i = 0; i < game.N; i++) {
 			for (int j = 0; j < game.N; j++) {
@@ -163,7 +159,6 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 				labels[i][j] = tempLabel;
 			}
 		}
-
 		// spawn the labels on field
 		for (int i = 0; i < game.N; i++) {
 			for (int j = 0; j < game.N; j++) {
@@ -174,9 +169,13 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		}
 	}
 	
+	// typing method
 	@Override
 	public void keyTyped(KeyEvent e) {
+
 		char key = e.getKeyChar();
+		int keyNum = e.getKeyCode();
+
 		// key up
 		if (key == 'w') {
 			System.out.print("x");
