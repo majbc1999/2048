@@ -3,12 +3,15 @@ package gui;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import basic.Game;
 
@@ -16,6 +19,9 @@ import basic.Game;
 @SuppressWarnings("serial")
 public class Panel extends JPanel implements MouseListener{
 	
+	// labels for numbers
+	JLabel[][] labels;
+
 	// color scheme
 	Color color2;     
 	Color color4;     
@@ -56,6 +62,8 @@ public class Panel extends JPanel implements MouseListener{
 		this.color2048 = colorScheme[0];
 		this.color4096 = colorScheme[0];
 
+		// labels
+		this.labels = new JLabel[game.N][game.N];
 	}
 
 	// preffered dimension of our panel
@@ -67,30 +75,31 @@ public class Panel extends JPanel implements MouseListener{
 	// line relative width
 	private final static double LINE_WIDTH = 0.05;
 		
-	// Širina enega kvadratka
+	// width of a square
 	private double squareWidth() {
 		return Math.min(getWidth(), getHeight()) / (double) (game.N + 2) - 0.03 * (Math.min(getWidth(), getHeight()) / (double) (game.N + 2));
 	}
 	
-	// Relativni prostor okoli X in O
-	private final static double PADDING = 0.12;
-		
-	private void paintA(Graphics2D g2, int i, int j) { // Pobarvaj igralca 1
+	// space between lines and number squared
+	private final static double PADDING = 0.05;
+			
+	private void paintNumbers(Graphics2D g2, int i, int j) {
 		double w = squareWidth();
-		double dx = (getWidth()/2.0)- ((game.N /2.0) * w);
-		double dy = (getHeight()/2.0)- ((game.N /2.0) * w);
-		
+		double dx = (getWidth()/2.0)- ((game.N/2.0) * w);
+		double dy = (getHeight()/2.0)- ((game.N/2.0) * w);
+
 		double d = w * (1.0 - LINE_WIDTH - 2.0 * PADDING); // premer O
 		double x = w * (i + 0.5 * LINE_WIDTH + PADDING) + dx;
 		double y = w * (j + 0.5 * LINE_WIDTH + PADDING) + dy;
-		g2.setColor(Color.YELLOW);
+		
+		g2.setColor(Color.ORANGE);
 		g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
-		g2.fillOval((int)x, (int)y, (int)d , (int)d);
-		
-		g2.setColor(Color.BLACK);
-		g2.drawOval((int)x, (int)y, (int) d, (int) d);
+		g2.fillRoundRect((int)x, (int)y, (int)d , (int)d, 5, 5);
+		g2.setColor(Color.ORANGE);
+		g2.drawRoundRect((int)x, (int)y, (int)d , (int)d, 5, 5);
 	}
-		
+
+	// painting
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -100,8 +109,8 @@ public class Panel extends JPanel implements MouseListener{
 		double dx = (getWidth()/2.0)- ((game.N/2.0) * w);
 		double dy = (getHeight()/2.0)- ((game.N/2.0) * w);
 		
-		// črte
-		g2.setColor(Color.BLACK);
+		// game grid
+		g2.setColor(Color.LIGHT_GRAY);
 		g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
 		for (int i = 0; i <= game.N; i++) {
 			g2.drawLine((int)(i * w + dx),
@@ -114,6 +123,40 @@ public class Panel extends JPanel implements MouseListener{
 					    (int)(i * w + dy),
 					    (int)(game.N * w + dx),
 					    (int)(i * w + dy));
+		}
+
+		// painting numbers
+		for (int i = 0; i < game.N; i++) {
+			for (int j = 0; j < game.N; j++) {
+				if (game.board[i][j] != 0) {
+					paintNumbers(g2, j, i);
+				}
+			}
+		}
+
+		// setting and drawing labels
+		for (int i = 0; i < game.N; i++) {
+			for (int j = 0; j < game.N; j++) {
+				JLabel tempLabel = new JLabel(String.valueOf(game.board[i][j]), SwingConstants.CENTER);
+
+				double d = w * (1.0 - LINE_WIDTH - 2.0 * PADDING);
+				double x = w * (j + 0.5 * LINE_WIDTH + PADDING) + dx;
+				double y = w * (i + 0.5 * LINE_WIDTH + PADDING) + dy;
+
+				tempLabel.setBounds((int) x, (int) y, (int) d, (int) d);
+				tempLabel.setFont(new Font("Arial", 0, 30));
+
+
+				labels[i][j] = tempLabel;
+			}
+		}
+
+		for (int i = 0; i < game.N; i++) {
+			for (int j = 0; j < game.N; j++) {
+				if (Integer.valueOf(labels[i][j].getText()) != 0) {
+					add(labels[i][j]);
+				}
+			}
 		}
 	}
 	
