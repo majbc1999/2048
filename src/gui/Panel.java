@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Hashtable;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,25 +25,13 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 	// labels for numbers
 	JLabel[][] labels;
 
-	// color scheme
-	Color color2;     
-	Color color4;     
-	Color color8;     
-	Color color16;    
-	Color color32;   
-	Color color64;  
-	Color color128; 
-	Color color256; 
-	Color color512; 
-	Color color1024;
-	Color color2048;
-	Color color4096; // all numbers bigger then 4096 are black color
+	// dictionary for color scheme
 
 	// current game
 	Game game;
 	
 	// square width (and length)
-
+	Hashtable<Integer,Color> colors = new Hashtable<Integer,Color>();
 
 	// main constuctor
 	public Panel(Color[] colorScheme, Game game) {
@@ -51,18 +40,20 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		this.game = game;
 
 		// color scheme
-		this.color2 = colorScheme[0];   
-		this.color4 = colorScheme[0];   
-		this.color8 = colorScheme[0];   
-		this.color16 = colorScheme[0];  
-		this.color32 = colorScheme[0];  
-		this.color64 = colorScheme[0];  
-		this.color128 = colorScheme[0]; 
-		this.color256 = colorScheme[0]; 
-		this.color512 = colorScheme[0]; 
-		this.color1024 = colorScheme[0];
-		this.color2048 = colorScheme[0];
-		this.color4096 = colorScheme[0];
+		
+		colors.put(0, Color.WHITE);
+		colors.put(2, colorScheme[0]);
+		colors.put(4, colorScheme[1]);
+		colors.put(8, colorScheme[2]);
+		colors.put(16, colorScheme[3]);
+		colors.put(32, colorScheme[4]);
+		colors.put(64, colorScheme[5]);
+		colors.put(128, colorScheme[6]);
+		colors.put(256, colorScheme[7]);
+		colors.put(512, colorScheme[8]);
+		colors.put(1024, colorScheme[9]);
+		colors.put(2048, colorScheme[10]);
+		colors.put(4096, colorScheme[11]);
 
 		// labels
 		this.labels = new JLabel[game.N][game.N];
@@ -99,10 +90,12 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		double x = w * (i + 0.5 * LINE_WIDTH + PADDING) + dx;
 		double y = w * (j + 0.5 * LINE_WIDTH + PADDING) + dy;
 		
-		g2.setColor(Color.ORANGE);
+		Color clr = colors.getOrDefault(Integer.valueOf(game.board[j][i]), Color.BLACK);
+		
+		g2.setColor(clr);
 		g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
 		g2.fillRoundRect((int)x, (int)y, (int)d , (int)d, 5, 5);
-		g2.setColor(Color.ORANGE);
+		g2.setColor(clr);
 		g2.drawRoundRect((int)x, (int)y, (int)d , (int)d, 5, 5);
 	}
 
@@ -167,7 +160,6 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 				tempLabel.setBounds((int) x, (int) y, (int) d, (int) d);
 				tempLabel.setFont(new Font("Arial", 0, 30));
 
-
 				labels[i][j] = tempLabel;
 			}
 		}
@@ -185,7 +177,6 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		char key = e.getKeyChar();
-		System.out.print(key);
 		// key up
 		if (key == 'w') {
 			System.out.print("x");

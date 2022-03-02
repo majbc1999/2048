@@ -11,18 +11,18 @@ public class Main {
         Game game = new Game(4);
 
         Color[] colorSchemeInit = new Color[12];
-        colorSchemeInit[0] = Color.BLUE;
-        colorSchemeInit[1] = Color.RED;
-        colorSchemeInit[2] = Color.YELLOW;
-        colorSchemeInit[3] = Color.BLUE;
-        colorSchemeInit[4] = Color.BLUE;
-        colorSchemeInit[5] = Color.BLUE;
-        colorSchemeInit[6] = Color.BLUE;
-        colorSchemeInit[7] = Color.BLUE;
-        colorSchemeInit[8] = Color.BLUE;
-        colorSchemeInit[9] = Color.BLUE;
-        colorSchemeInit[10] = Color.BLUE;
-        colorSchemeInit[11] = Color.BLUE;
+        colorSchemeInit[0] = new Color(255, 255, 255);   // color of    2
+        colorSchemeInit[2] = new Color(255, 198, 25);   // color of    4
+        colorSchemeInit[3] = new Color(253, 163, 0);   // color of    8
+        colorSchemeInit[4] = new Color(250, 132, 26);   // color of   16
+        colorSchemeInit[5] = new Color(0, 77, 169);   // color of   32
+        colorSchemeInit[6] = new Color(2, 64, 137);   // color of   64
+        colorSchemeInit[1] = new Color(225, 227, 231);   // color of  128
+        colorSchemeInit[7] = new Color(10,10,10);   // color of  256
+        colorSchemeInit[8] = new Color(10,10,10);   // color of  512
+        colorSchemeInit[9] = new Color(10,10,10);   // color of 1024
+        colorSchemeInit[10] = new Color(10,10,10);  // color of 2048
+        colorSchemeInit[11] = new Color(10,10,10);  // color of 4096
 
         // new frame
         game.spawnRandomNumber();
