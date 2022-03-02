@@ -9,19 +9,6 @@ import gui.Frame;
 public class Main {
     public static void main(String[] args) throws Exception {
         Game game = new Game(4);
-        
-        for (int i = 0; i < 11; i++) {
-            game.spawnRandomNumber();
-            Thread.sleep(10);
-        }
-
-        game.print();
-
-        game.moveRight();
-        System.out.println("-----------");
-        System.out.println("Moving right");
-        System.out.println("-----------");
-        game.print();
 
         Color[] colorSchemeInit = new Color[12];
         colorSchemeInit[0] = Color.BLUE;
@@ -38,6 +25,8 @@ public class Main {
         colorSchemeInit[11] = Color.BLUE;
 
         // new frame
+        game.spawnRandomNumber();
+
         Frame frame = new Frame(colorSchemeInit, game);
         frame.setIconImage(ImageIO.read(new File("static/2048.png")));
         frame.pack();

@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -17,7 +19,7 @@ import basic.Game;
 
 
 @SuppressWarnings("serial")
-public class Panel extends JPanel implements MouseListener{
+public class Panel extends JPanel implements MouseListener, KeyListener {
 	
 	// labels for numbers
 	JLabel[][] labels;
@@ -64,6 +66,11 @@ public class Panel extends JPanel implements MouseListener{
 
 		// labels
 		this.labels = new JLabel[game.N][game.N];
+		
+		// enable mouse and key listeners
+		addMouseListener(this); 
+		addKeyListener(this);
+		setFocusable(true);	
 	}
 
 	// preffered dimension of our panel
@@ -135,6 +142,20 @@ public class Panel extends JPanel implements MouseListener{
 		}
 
 		// setting and drawing labels
+
+		// firstly remove all labels
+		for (int i = 0; i < game.N; i++) {
+			for (int j = 0; j < game.N; j++) {
+				try {
+					remove(labels[i][j]);
+				}
+				catch(Exception e) {
+					continue;
+				}
+			}
+		}
+
+		// create all labels
 		for (int i = 0; i < game.N; i++) {
 			for (int j = 0; j < game.N; j++) {
 				JLabel tempLabel = new JLabel(String.valueOf(game.board[i][j]), SwingConstants.CENTER);
@@ -151,6 +172,7 @@ public class Panel extends JPanel implements MouseListener{
 			}
 		}
 
+		// spawn the labels on field
 		for (int i = 0; i < game.N; i++) {
 			for (int j = 0; j < game.N; j++) {
 				if (Integer.valueOf(labels[i][j].getText()) != 0) {
@@ -159,6 +181,40 @@ public class Panel extends JPanel implements MouseListener{
 			}
 		}
 	}
+	
+	@Override
+	public void keyTyped(KeyEvent e) {
+		char key = e.getKeyChar();
+		System.out.print(key);
+		// key up
+		if (key == 'w') {
+			System.out.print("x");
+			game.moveUp();
+			game.spawnRandomNumber();
+			repaint();
+		}
+
+		// keys down
+		if (key == 's') {
+			game.moveDown();
+			game.spawnRandomNumber();
+			repaint();
+		}
+
+		// keys left
+		if (key == 'a') {
+			game.moveLeft();
+			game.spawnRandomNumber();
+			repaint();
+		}
+
+		// key right
+		if (key == 'd') {
+			game.moveRight();
+			game.spawnRandomNumber();
+			repaint();
+		}
+    }
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -179,4 +235,12 @@ public class Panel extends JPanel implements MouseListener{
 	@Override
 	public void mouseExited(MouseEvent e) {
 	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+    }
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+    }
 }
