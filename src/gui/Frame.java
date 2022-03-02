@@ -19,7 +19,7 @@ import basic.Game;
 @SuppressWarnings("serial")
 public class Frame extends JFrame implements ActionListener{
 	
-	private Panel polje;
+	private Panel panel;
 	
 	private JLabel status;
 	private JLabel kocka;
@@ -49,20 +49,20 @@ public class Frame extends JFrame implements ActionListener{
 		menuEndless = addMenuItem(menuNewGame, "Endless");
 		menuComputer = addMenuItem(menuNewGame, "Computer");
 		menuTraining = addMenuItem(menuNewGame, "Training");
-
 		menuGameSettings = addMenuItem(menuSettings, "Game Settings");
 		menuInterface = addMenuItem(menuSettings, "Interface");
 
-        polje = new Panel(colorScheme, game);
+		// panel and layouts
+        panel = new Panel(colorScheme, game);
         
-        GridBagConstraints polje_layout = new GridBagConstraints();
-		polje_layout.gridx = 0;
-		polje_layout.gridy = 0;
-		polje_layout.fill = GridBagConstraints.BOTH;
+        GridBagConstraints panel_layout = new GridBagConstraints();
+		panel_layout.gridx = 0;
+		panel_layout.gridy = 0;
+		panel_layout.fill = GridBagConstraints.BOTH;
 
-		polje_layout.weightx = 1.0;
-		polje_layout.weighty = 1.0;
-		getContentPane().add(polje, polje_layout);
+		panel_layout.weightx = 1.0;
+		panel_layout.weighty = 1.0;
+		getContentPane().add(panel, panel_layout);
 		
 		status = new JLabel();
 		status.setFont(new Font(status.getFont().getName(),
@@ -75,29 +75,17 @@ public class Frame extends JFrame implements ActionListener{
 		status_layout.anchor = GridBagConstraints.CENTER;
 		getContentPane().add(status, status_layout);
 		
-		status.setText("Izberite igro!");
-		
-		kocka = new JLabel();
-		kocka.setFont(new Font(kocka.getFont().getName(),
-							    kocka.getFont().getStyle(),
-							    20));
-		
-		GridBagConstraints kocka_layout = new GridBagConstraints();
-		kocka_layout.gridx = 0;
-		kocka_layout.gridy = 2;
-		kocka_layout.anchor = GridBagConstraints.CENTER;
-		getContentPane().add(kocka, kocka_layout);
-		
-		kocka.setText("");
-		
+		status.setText("Start a new game!");		
 	}
 	
+	// method that adds a new main menu
 	public JMenu addMenu(JMenuBar menubar, String title) {
         JMenu menu = new JMenu(title);
         menubar.add(menu);
         return menu;
     }
 
+	// method that adds a submenu
     public JMenuItem addMenuItem(JMenu menu, String title) {
         JMenuItem menuitem = new JMenuItem(title);
         menu.add(menuitem);
@@ -105,7 +93,7 @@ public class Frame extends JFrame implements ActionListener{
         return menuitem;
     }
     
-    
+    // action listener
     @Override
 	public void actionPerformed(ActionEvent e) {
 
