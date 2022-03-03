@@ -19,6 +19,8 @@ The `gui` package provides user interface for the game. Class `Frame.java` exten
 
 In the `ai` package we will have different classes, each representing a different computer method, that tries to solve the game. 
 
+Controls of the game are keys on the keyboard: *w*- move up, *a*- move left, *s*- move down, *d*- move right.
+
 ## Variants
 Although official game runs in the 4x4 grid, size will be selectable. Interesting aspect of the final analysis will be how different solving methods behave in different sizes.
 
@@ -30,3 +32,6 @@ As per game modes, we will implement 2 similar game modes: *Classic* and *Endles
 ## Solving programs
 
 (to be added when implemented)
+
+## Current bugs
+- [ ] if the move does nothing to the board, a new number should not be spawned

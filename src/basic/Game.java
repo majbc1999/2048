@@ -282,6 +282,44 @@ public class Game {
         }
     }
 
+    // method that returns True if the game is still in progress and False if it is over
+    public Boolean status() {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (board[i][j] == 0) {
+                    return true;
+                }
+            }
+        }
+
+        int tempInt = 0;
+
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (board[i][j] == tempInt) {
+                    return true;
+                }
+                else {
+                    tempInt = board[i][j];
+                }
+            }
+            tempInt = 0;
+        }
+
+        for (int j = 0; j < N; j++) {
+            for (int i = 0; i < N; i++) {
+                if (board[i][j] == tempInt) {
+                    return true;
+                }
+                else {
+                    tempInt = board[i][j];
+                }
+            }
+            tempInt = 0;
+        }
+
+        return false;
+    }
 
     // prints the board (for debugging)
     public void print() {

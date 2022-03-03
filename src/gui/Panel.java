@@ -174,35 +174,46 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 	public void keyTyped(KeyEvent e) {
 
 		char key = e.getKeyChar();
-		int keyNum = e.getKeyCode();
+		System.out.println(game.status());
 
 		// key up
 		if (key == 'w') {
-			System.out.print("x");
+			int[][] tempBoard = game.board.clone();
 			game.moveUp();
-			game.spawnRandomNumber();
-			repaint();
+			if (game.status() && !tempBoard.equals(game.board)) {
+				game.spawnRandomNumber();
+				repaint();	
+			}
 		}
 
 		// keys down
 		if (key == 's') {
+			int[][] tempBoard = game.board.clone();
 			game.moveDown();
-			game.spawnRandomNumber();
-			repaint();
+			if (game.status() && !tempBoard.equals(game.board)) {
+				game.spawnRandomNumber();
+				repaint();	
+			}
 		}
 
 		// keys left
 		if (key == 'a') {
+			int[][] tempBoard = game.board.clone();
 			game.moveLeft();
-			game.spawnRandomNumber();
-			repaint();
+			if (game.status() && !tempBoard.equals(game.board)) {
+				game.spawnRandomNumber();
+				repaint();	
+			}
 		}
 
 		// key right
 		if (key == 'd') {
+			int[][] tempBoard = game.board.clone();
 			game.moveRight();
-			game.spawnRandomNumber();
-			repaint();
+			if (game.status() && !tempBoard.equals(game.board)) {
+				game.spawnRandomNumber();
+				repaint();	
+			}
 		}
     }
 	
