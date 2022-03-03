@@ -1,31 +1,32 @@
 # 2048
 
-## Description (from Wikipedia)
+## Description 
 
-2048 is a single-player sliding tile puzzle video game written by Italian web developer Gabriele Cirulli. The objective of the game is to slide numbered tiles on a grid to combine them to create a tile with the number 2048; however, one can continue to play the game after reaching the goal, creating tiles with larger numbers.
+2048 is a single-player sliding tile puzzle video game written by Italian web developer Gabriele Cirulli. The objective of the game is to slide numbered tiles on a grid to combine them to create a tile with the number 2048; however, one can continue to play the game after reaching the goal, creating tiles with larger numbers. (from [Wikipedia](https://en.wikipedia.org/wiki/2048_(video_game)))
 
 ## Goal of the project
+
 Goals of the project are:
-- implementation of the game (in Java)
-- simple settings manager for the game (color scheme, grid size,...)
-- implementation of AI player (possibly more than one *computer* player)
+- [x] implementation of the game (in Java)
+- [ ] simple settings manager for the game (color scheme, grid size,...)
+- [ ] implementation of AI player (possibly more than one *computer* player)
 
-## Java description
-### Getting Started
+## Implementation of the game
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+The game is represented in class `Game.java` in package `basic`. In Java, the game is represented as a simple matrix (`int[N][N] board`), with `N` representing game size (for example, `N=4` means our game will run on a 4x4 board). Class `Game` also contains methods `moveUp`, `moveDown`, `moveLeft` and `moveRight`: they serve to complete moves and change the board accordingly. Method `status` gives feedback on the current game status (whether it is game over or not). Method `spawnRandomNumber` spawns 2 (probability 90%) or 4 (10%) in a random empty space on the board.
 
-### Folder Structure
+The `gui` package provides user interface for the game. Class `Frame.java` extends JFrame and is used as main window. The class `Panel.java` extends JPanel and is used to draw the game. Both JFrame and JPanel are components of Swing (a GUI widget toolkit for Java).
 
-The workspace contains two folders by default, where:
+In the `ai` package we will have different classes, each representing a different computer method, that tries to solve the game. 
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Variants
+Although official game runs in the 4x4 grid, size will be selectable. Interesting aspect of the final analysis will be how different solving methods behave in different sizes.
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+As per game modes, we will implement 2 similar game modes: *Classic* and *Endless*. *Classic* ends when user reaches 2048 with a win. *Endless* cannot be won as we chase biggest number possible. Note although that in spite of the name, the game cannot run forever: for example, biggest number that we can reach in 4x4 game is [131072](https://qph.fs.quoracdn.net/main-qimg-432256feb5c92d2a35549f120d03dbca).
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+## Game settings
+(to be added when implemented)
 
-### Dependency Management
+## Solving programs
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+(to be added when implemented)
