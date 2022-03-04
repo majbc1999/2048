@@ -174,7 +174,6 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 	public void keyTyped(KeyEvent e) {
 
 		char key = e.getKeyChar();
-		System.out.println(game.status());
 
 		// key up
 		if (key == 'w') {
@@ -212,9 +211,15 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 			game.moveRight();
 			if (game.status() && !tempBoard.equals(game.board)) {
 				game.spawnRandomNumber();
-				repaint();	
+				repaint();
 			}
 		}
+
+		if (key == 'f') {
+				repaint();			
+		}
+
+
     }
 	
 	@Override

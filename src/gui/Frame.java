@@ -96,7 +96,18 @@ public class Frame extends JFrame implements ActionListener{
     // action listener
     @Override
 	public void actionPerformed(ActionEvent e) {
-
+		if (e.getSource() == menuComputer) {
+			Game newGame = new Game(panel.game.N);
+			newGame.player = "random";
+			panel.game = newGame;
+			panel.repaint();
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e1) {
+				System.out.print("damn, it's not working in frame");
+			}
+			panel.game.play();
+			panel.repaint();
+		}
 	}
-
 }

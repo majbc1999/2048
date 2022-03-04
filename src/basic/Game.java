@@ -4,6 +4,8 @@ package basic;
 import java.util.ArrayList;
 import java.util.Random;
 
+import ai.Computer;
+
 public class Game {
 	
 	// size of the game (default 4)
@@ -12,10 +14,14 @@ public class Game {
     // matrix of size N x N, that represents current state on board, 0 means that field is empty
     public int[][] board;
 
+    // player of the game
+    public String player;
+
     // constructor
     public Game(int N) {
         this.board = new int[N][N];
         this.N = N;
+        this.player = "human";
     }
 
     // function that spawns a 2 or 4 in empty place on the board
@@ -319,6 +325,22 @@ public class Game {
         }
 
         return false;
+    }
+
+    // automatically playes moves of the computer
+    public void play() {
+        if (player == "random") {
+            while (this.status()) {
+                Computer comp = new Computer(this);
+                comp.playRandomMove();
+                this.board = comp.game.board;
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    System.out.print("damn, it's not working in game");
+                }
+            }
+        }
     }
 
     // prints the board (for debugging)
