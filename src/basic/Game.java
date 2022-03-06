@@ -325,6 +325,59 @@ public class Game {
         return false;
     }
 
+    // returns array of all possible moves (doesn't work yet)
+    public ArrayList<String> possibleMoves() {
+        ArrayList<String> moves = new ArrayList<String>();
+
+        int[][] copiedBoard = board.clone();
+        
+        Game newGame = new Game(N);
+        newGame.board = copiedBoard;
+        newGame.moveDown();
+        if (!newGame.compareOtherGame(this)) {
+            moves.add("down");
+        }
+
+        newGame = new Game(N);
+        newGame.board = copiedBoard;
+        newGame.moveUp();
+        if (!newGame.compareOtherGame(this)) {
+            moves.add("up");
+        }
+
+        newGame = new Game(N);
+        newGame.board = copiedBoard;
+        newGame.moveLeft();
+        if (!newGame.compareOtherGame(this)) {
+            moves.add("left");
+        }
+
+        newGame = new Game(N);
+        newGame.board = copiedBoard;
+        newGame.moveRight();
+        if (!newGame.compareOtherGame(this)) {
+            moves.add("right");
+        }
+
+        return moves;
+    }
+
+    // compares two games if they are the same (doesn't work yet)
+    public Boolean compareOtherGame(Game otherGame) {
+
+        if (otherGame.N != N) {
+            return false;
+        }
+
+        if (board.equals(otherGame.board)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
     // prints the board (for debugging)
     public void print() {
         for (int i=0; i < this.N; i++) {
