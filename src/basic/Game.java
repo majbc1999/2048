@@ -4,8 +4,6 @@ package basic;
 import java.util.ArrayList;
 import java.util.Random;
 
-import ai.Computer;
-
 public class Game {
 	
 	// size of the game (default 4)
@@ -325,22 +323,6 @@ public class Game {
         }
 
         return false;
-    }
-
-    // automatically playes moves of the computer
-    public void play() {
-        if (player == "random") {
-            while (this.status()) {
-                Computer comp = new Computer(this);
-                comp.playRandomMove();
-                this.board = comp.game.board;
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    System.out.print("damn, it's not working in game");
-                }
-            }
-        }
     }
 
     // prints the board (for debugging)

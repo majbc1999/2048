@@ -9,7 +9,7 @@ import gui.Frame;
 public class Main {
     public static void main(String[] args) throws Exception {
         Game game = new Game(4);
-
+    
         // basic color palette (missing label colors)
         Color[] colorSchemeInit = new Color[12];
         colorSchemeInit[0] = new Color(255, 255, 255);  // color of    2
@@ -33,6 +33,5 @@ public class Main {
         frame.setIconImage(ImageIO.read(new File("static/2048.png")));
         frame.pack();
         frame.setVisible(true);
-
     }
 }

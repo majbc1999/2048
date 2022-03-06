@@ -215,11 +215,6 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 			}
 		}
 
-		if (key == 'f') {
-				repaint();			
-		}
-
-
     }
 	
 	@Override
@@ -249,4 +244,5 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 	@Override
 	public void keyReleased(KeyEvent e) {
     }
+	
 }
