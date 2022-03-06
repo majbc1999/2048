@@ -35,4 +35,5 @@ As per game modes, we will implement 2 similar game modes: *Classic* and *Endles
 
 ## Current bugs
 - [ ] if the move does nothing to the board, a new number should not be spawned
-- [ ] computer play works, it just doesn't show on panel
+- [x] computer play works, it just doesn't show on panel
+- [ ] compareOtherGame method on class Game

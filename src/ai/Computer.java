@@ -13,6 +13,7 @@ public class Computer {
         this.game = game;
     }
 
+    // first ai: plays completely random (possible move)
     public Game playRandomMove() {
         Random random = new Random(System.currentTimeMillis());
 

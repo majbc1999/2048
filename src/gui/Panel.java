@@ -15,7 +15,9 @@ import java.util.Hashtable;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingWorker;
 
+import ai.Computer;
 import basic.Game;
 
 
@@ -59,6 +61,40 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		addMouseListener(this); 
 		addKeyListener(this);
 		setFocusable(true);	
+	}
+
+	// swingworker takes care of background;
+	private static SwingWorker<Game, Void> worker = null;
+	// automatically playes moves of the computer
+	public void play() {					
+		worker = new SwingWorker<Game, Void>() {
+			
+			@Override
+			protected Game doInBackground() {
+				// v ozadju zažene izbrani algoritem izbrane globine, ki potem najde najboljšo potezo
+				Computer comp = new Computer(game);
+				comp.playRandomMove(); 
+				comp.game.spawnRandomNumber();
+				game = comp.game;
+				return game;
+			}
+
+			@Override
+			protected void done() {
+
+				try {
+					Thread.sleep(300);
+				} catch (InterruptedException e) {
+					System.out.println("A stupid mistake happened!?!");
+				}
+				
+				if (game.status()) {
+					repaint();
+					play();
+				}
+			}
+		};
+		worker.execute();
 	}
 
 	// preffered dimension of our panel
@@ -177,9 +213,11 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 
 		// key up
 		if (key == 'w') {
-			int[][] tempBoard = game.board.clone();
+			System.out.print(game.possibleMoves());
+			Game tempBoard = new Game(game.N);
+			tempBoard.board = game.board.clone();
 			game.moveUp();
-			if (game.status() && !tempBoard.equals(game.board)) {
+			if (game.status() && !tempBoard.compareOtherGame(game)) {
 				game.spawnRandomNumber();
 				repaint();	
 			}
@@ -187,9 +225,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 
 		// keys down
 		if (key == 's') {
-			int[][] tempBoard = game.board.clone();
+			Game tempBoard = new Game(game.N);
+			tempBoard.board = game.board.clone();
 			game.moveDown();
-			if (game.status() && !tempBoard.equals(game.board)) {
+			if (game.status() && !tempBoard.compareOtherGame(game)) {
 				game.spawnRandomNumber();
 				repaint();	
 			}
@@ -197,9 +236,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 
 		// keys left
 		if (key == 'a') {
-			int[][] tempBoard = game.board.clone();
+			Game tempBoard = new Game(game.N);
+			tempBoard.board = game.board.clone();
 			game.moveLeft();
-			if (game.status() && !tempBoard.equals(game.board)) {
+			if (game.status() && !tempBoard.compareOtherGame(game)) {
 				game.spawnRandomNumber();
 				repaint();	
 			}
@@ -207,9 +247,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 
 		// key right
 		if (key == 'd') {
-			int[][] tempBoard = game.board.clone();
+			Game tempBoard = new Game(game.N);
+			tempBoard.board = game.board.clone();
 			game.moveRight();
-			if (game.status() && !tempBoard.equals(game.board)) {
+			if (game.status() && !tempBoard.compareOtherGame(game)) {
 				game.spawnRandomNumber();
 				repaint();
 			}
