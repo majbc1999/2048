@@ -39,21 +39,20 @@ public class Frame extends JFrame implements ActionListener{
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(new GridBagLayout());
 		
-		//Create the menu bar.
+		// create the menu bar.
 		menuBar = new JMenuBar();
 
-		//Build the first menu.
+		// build the first menu.
 		menu = new JMenu("New Game");
 		menuBar.add(menu);
 
-		//a group of JMenuItems
+		// a group of JMenuItems
 		menuClassic = new JMenuItem("Classic", new ImageIcon("static/rsz_finish_flag.png"));
 		menu.add(menuClassic);
 
 		menuEndless = new JMenuItem("Endless", new ImageIcon("static/rsz_infinity.png"));
 		menu.add(menuEndless);
 
-		//a group of radio button menu items
 		menu.addSeparator();
 		
 		menuPlayer = new JMenuItem("Player", new ImageIcon("static/rsz_player.png"));
@@ -63,7 +62,7 @@ public class Frame extends JFrame implements ActionListener{
 		menuComputer = new JMenuItem("Computer", new ImageIcon("static/rsz_ai.png"));
 		menu.add(menuComputer);
 
-		//a submenu for algorithm picker
+		// submenu for algorithm picker
 		menu.addSeparator();
 		menuAlgorithm = new JMenu("Computer Algorithm");
 
@@ -75,7 +74,7 @@ public class Frame extends JFrame implements ActionListener{
 
 		menu.add(menuAlgorithm);
 
-		//Build second menu in the menu bar.
+		// build second menu in the menu bar.
 		menu = new JMenu("Settings");
 		menuSettingsUI = new JMenuItem("Interface Settings");
 		menu.add(menuSettingsUI);
@@ -87,6 +86,15 @@ public class Frame extends JFrame implements ActionListener{
 
 		setJMenuBar(menuBar);
 
+		// action listeners for all menu items
+		menuClassic.addActionListener(this); 
+		menuEndless.addActionListener(this);
+		menuPlayer.addActionListener(this);
+		menuComputer.addActionListener(this);
+		menuRandomAlgorithm.addActionListener(this); 
+		menuSimulator.addActionListener(this);
+		menuSettingsUI.addActionListener(this); 
+		menuSettingsGame.addActionListener(this);
 
 
 		// panel and layouts
@@ -118,7 +126,9 @@ public class Frame extends JFrame implements ActionListener{
     // action listener
     @Override
 	public void actionPerformed(ActionEvent e) {
-/* 		if (e.getSource() == menuComputer) {
+ 		if (e.getSource() == menuRandomAlgorithm) {
+
+			System.out.print("obj");
 
 			Game newGame = new Game(panel.game.N);
 			newGame.player = "random";
@@ -143,6 +153,6 @@ public class Frame extends JFrame implements ActionListener{
 			panel.repaint();
 			
 			panel.play();
-		} */
+		} 
 	}
 }
