@@ -7,7 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -22,11 +22,13 @@ public class Frame extends JFrame implements ActionListener{
 	private Panel panel;
 	
 	private JLabel status;
-	private JLabel kocka;
+
+	private JMenuBar menuBar;
+	private JMenu menu, menuAlgorithm;
 	
-	private JMenuItem menuClassic, menuEndless, menuComputer, menuTraining;
-	private JMenuItem menuGameSettings, menuInterface;
-	private JButton razveljavi;
+	private JMenuItem menuClassic, menuEndless, menuPlayer, menuComputer;
+	private JMenuItem menuRandomAlgorithm, menuSimulator;
+	private JMenuItem menuSettingsUI, menuSettingsGame;
 	
 	public int velikost;
 	
@@ -37,20 +39,55 @@ public class Frame extends JFrame implements ActionListener{
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(new GridBagLayout());
 		
-		// menu bar
-		JMenuBar menubar = new JMenuBar();
-        setJMenuBar(menubar);
-        
-        JMenu menuNewGame = addMenu(menubar, "New Game");
-		JMenu menuSettings = addMenu(menubar, "Settings");
+		//Create the menu bar.
+		menuBar = new JMenuBar();
 
-		// submenus
-        menuClassic = addMenuItem(menuNewGame, "Classic");
-		menuEndless = addMenuItem(menuNewGame, "Endless");
-		menuComputer = addMenuItem(menuNewGame, "Computer");
-		menuTraining = addMenuItem(menuNewGame, "Training");
-		menuGameSettings = addMenuItem(menuSettings, "Game Settings");
-		menuInterface = addMenuItem(menuSettings, "Interface");
+		//Build the first menu.
+		menu = new JMenu("New Game");
+		menuBar.add(menu);
+
+		//a group of JMenuItems
+		menuClassic = new JMenuItem("Classic", new ImageIcon("static/rsz_finish_flag.png"));
+		menu.add(menuClassic);
+
+		menuEndless = new JMenuItem("Endless", new ImageIcon("static/rsz_infinity.png"));
+		menu.add(menuEndless);
+
+		//a group of radio button menu items
+		menu.addSeparator();
+		
+		menuPlayer = new JMenuItem("Player", new ImageIcon("static/rsz_player.png"));
+		menuPlayer.setSelected(true);
+		menu.add(menuPlayer);
+
+		menuComputer = new JMenuItem("Computer", new ImageIcon("static/rsz_ai.png"));
+		menu.add(menuComputer);
+
+		//a submenu for algorithm picker
+		menu.addSeparator();
+		menuAlgorithm = new JMenu("Computer Algorithm");
+
+		menuRandomAlgorithm = new JMenuItem("Random Moves");
+		menuAlgorithm.add(menuRandomAlgorithm);
+
+		menuSimulator = new JMenuItem("Simulator");
+		menuAlgorithm.add(menuSimulator);
+
+		menu.add(menuAlgorithm);
+
+		//Build second menu in the menu bar.
+		menu = new JMenu("Settings");
+		menuSettingsUI = new JMenuItem("Interface Settings");
+		menu.add(menuSettingsUI);
+
+		menuSettingsGame = new JMenuItem("Game Settings");
+		menu.add(menuSettingsGame);
+
+		menuBar.add(menu);
+
+		setJMenuBar(menuBar);
+
+
 
 		// panel and layouts
         panel = new Panel(colorScheme, game);
@@ -77,26 +114,11 @@ public class Frame extends JFrame implements ActionListener{
 		
 		status.setText("Start a new game!");		
 	}
-	
-	// method that adds a new main menu
-	public JMenu addMenu(JMenuBar menubar, String title) {
-        JMenu menu = new JMenu(title);
-        menubar.add(menu);
-        return menu;
-    }
-
-	// method that adds a submenu
-    public JMenuItem addMenuItem(JMenu menu, String title) {
-        JMenuItem menuitem = new JMenuItem(title);
-        menu.add(menuitem);
-        menuitem.addActionListener(this);
-        return menuitem;
-    }
     
     // action listener
     @Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == menuComputer) {
+/* 		if (e.getSource() == menuComputer) {
 
 			Game newGame = new Game(panel.game.N);
 			newGame.player = "random";
@@ -121,6 +143,6 @@ public class Frame extends JFrame implements ActionListener{
 			panel.repaint();
 			
 			panel.play();
-		}
+		} */
 	}
 }
