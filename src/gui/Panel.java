@@ -17,7 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
 
-import ai.Computer;
 import basic.Game;
 
 
@@ -70,17 +69,20 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 
 	// swingworker takes care of background;
 	private static SwingWorker<Game, Void> worker = null;
+
 	// automatically playes moves of the computer
-	public void play() {					
+	public void play(String alg) {					
 		worker = new SwingWorker<Game, Void>() {
 			
 			@Override
 			protected Game doInBackground() {
-				// v ozadju zažene izbrani algoritem izbrane globine, ki potem najde najboljšo potezo
-				Computer comp = new Computer(game);
-				comp.playRandomMove(); 
-				comp.game.spawnRandomNumber();
-				game = comp.game;
+				
+				if (alg.equals("random")) {
+					game.playRandomMove();
+				}
+				else if (alg.equals("simulate")) {
+					game.simulateMove(100);
+				}
 				return game;
 			}
 
@@ -95,7 +97,12 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 				
 				if (game.status()) {
 					repaint();
-					play();
+					if (alg.equals("random")) {
+						play("random");
+					}
+					else if (alg.equals("simulate")) {
+						play("simulate");
+					}
 				}
 			}
 		};
@@ -209,7 +216,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 			}
 		}
 
-		// label for score
+		// label for scored
 		try {
 			remove(scoreLabel);
 		}
@@ -219,8 +226,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		// relative score size (based on window size)
 		if (Math.min((int) getHeight(), (int) getWidth()) < 350) {
 			scoreLabel = new JLabel("Score: " + Integer.toString(game.score), SwingConstants.RIGHT);
-			scoreLabel.setBounds(0, 0, getWidth() - 5, 16);
-			scoreLabel.setFont(new Font("Arial", 0, 12));
+			scoreLabel.setBounds(0, 0, getWidth() - 9, 16);
+			scoreLabel.setFont(new Font("Arial", 0, 15));
 			add(scoreLabel);
 		}
 		else if (Math.min((int) getHeight(), (int) getWidth()) < 600) {
@@ -231,7 +238,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		}
 		else {
 			scoreLabel = new JLabel("Score: " + Integer.toString(game.score), SwingConstants.RIGHT);
-			scoreLabel.setBounds(0, 10, getWidth() - 100, 31);
+			scoreLabel.setBounds(0, 10, getWidth() - 30, 31);
 			scoreLabel.setFont(new Font("Arial", 0, 30));
 			add(scoreLabel);
 		}
