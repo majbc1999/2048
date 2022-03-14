@@ -33,6 +33,9 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 	// hashtable for colors
 	Hashtable<Integer,Color> colors = new Hashtable<Integer,Color>();
 
+	// label for score
+	JLabel scoreLabel;
+
 	// main constuctor
 	public Panel(Color[] colorScheme, Game game) {
 
@@ -56,7 +59,9 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 
 		// labels list
 		this.labels = new JLabel[game.N][game.N];
-		
+
+		this.scoreLabel = new JLabel("Score: " + Integer.toString(game.score));
+
 		// enable mouse and key listeners
 		addMouseListener(this); 
 		addKeyListener(this);
@@ -108,7 +113,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		
 	// width of a square
 	private double squareWidth() {
-		return Math.min(getWidth(), getHeight()) / (double) (game.N + 2) - 0.03 * (Math.min(getWidth(), getHeight()) / (double) (game.N + 2));
+		return Math.min(getWidth(), getHeight()) / (double) (game.N + 1) - 0.03 * (Math.min(getWidth(), getHeight()) / (double) (game.N + 1));
 	}
 	
 	// space between lines and number squared
@@ -203,6 +208,34 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 				}
 			}
 		}
+
+		// label for score
+		try {
+			remove(scoreLabel);
+		}
+		catch(Exception e) {
+		}
+		
+		// relative score size (based on window size)
+		if (Math.min((int) getHeight(), (int) getWidth()) < 350) {
+			scoreLabel = new JLabel("Score: " + Integer.toString(game.score), SwingConstants.RIGHT);
+			scoreLabel.setBounds(0, 0, getWidth() - 5, 16);
+			scoreLabel.setFont(new Font("Arial", 0, 12));
+			add(scoreLabel);
+		}
+		else if (Math.min((int) getHeight(), (int) getWidth()) < 600) {
+			scoreLabel = new JLabel("Score: " + Integer.toString(game.score), SwingConstants.RIGHT);
+			scoreLabel.setBounds(0, 5, getWidth() - 30, 21);
+			scoreLabel.setFont(new Font("Arial", 0, 20));
+			add(scoreLabel);		
+		}
+		else {
+			scoreLabel = new JLabel("Score: " + Integer.toString(game.score), SwingConstants.RIGHT);
+			scoreLabel.setBounds(0, 10, getWidth() - 100, 31);
+			scoreLabel.setFont(new Font("Arial", 0, 30));
+			add(scoreLabel);
+		}
+
 	}
 	
 	// typing method
@@ -213,7 +246,6 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 
 		// key up
 		if (key == 'w') {
-			System.out.print(game.possibleMoves());
 			Game tempBoard = new Game(game.N);
 			tempBoard.board = game.board.clone();
 			game.moveUp();
@@ -230,7 +262,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 			game.moveDown();
 			if (game.status() && !tempBoard.compareOtherGame(game)) {
 				game.spawnRandomNumber();
-				repaint();	
+				repaint();
 			}
 		}
 

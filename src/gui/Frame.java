@@ -1,7 +1,6 @@
 package gui;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -9,7 +8,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -20,8 +18,6 @@ import basic.Game;
 public class Frame extends JFrame implements ActionListener{
 	
 	private Panel panel;
-	
-	private JLabel status;
 
 	private JMenuBar menuBar;
 	private JMenu menu, menuAlgorithm;
@@ -108,27 +104,14 @@ public class Frame extends JFrame implements ActionListener{
 		panel_layout.weightx = 1.0;
 		panel_layout.weighty = 1.0;
 		getContentPane().add(panel, panel_layout);
-		
-		status = new JLabel();
-		status.setFont(new Font(status.getFont().getName(),
-							    status.getFont().getStyle(),
-							    20));
-	
-		GridBagConstraints status_layout = new GridBagConstraints();
-		status_layout.gridx = 0;
-		status_layout.gridy = 1;
-		status_layout.anchor = GridBagConstraints.CENTER;
-		getContentPane().add(status, status_layout);
-		
-		status.setText("Start a new game!");		
+			
 	}
+
     
     // action listener
     @Override
 	public void actionPerformed(ActionEvent e) {
  		if (e.getSource() == menuRandomAlgorithm) {
-
-			System.out.print("obj");
 
 			Game newGame = new Game(panel.game.N);
 			newGame.player = "random";
