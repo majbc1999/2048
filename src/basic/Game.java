@@ -388,6 +388,105 @@ public class Game {
         }
     }
 
+    // first ai: plays completely random (possible move)
+    public void playRandomMove() {
+        Random random = new Random(System.currentTimeMillis());
+
+        double randomDbl = Math.pow(10, 4) * random.nextDouble();
+        double floor =  Math.floor(randomDbl);
+
+        double randomDouble = randomDbl - floor;
+
+        if (randomDouble < 0.25) {
+            moveUp();
+            spawnRandomNumber();
+        }
+
+        if (randomDouble >= 0.25 && randomDouble < 0.5) {
+            moveDown();
+            spawnRandomNumber();
+        }
+
+        if (randomDouble >= 0.5 &&  randomDouble < 0.75) {
+            moveLeft();
+            spawnRandomNumber();
+        }
+
+        else {
+            moveRight();
+            spawnRandomNumber();
+        }
+    }
+
+    // second ai: simulates n-times for every move
+    public void simulateMove(int n) {
+        // simulate moveUp
+        int scoreMoveUp = 0;
+        for (int i = 0; i < n; i++) {
+            Game newGame = new Game(N);
+            newGame.board = this.board.clone();
+            newGame.moveUp();
+            while (newGame.status()) {
+                newGame.playRandomMove();
+            }
+            scoreMoveUp += 1/n * newGame.score;
+        }
+
+        // simulate moveDown
+        int scoreMoveDown = 0;
+        for (int i = 0; i < n; i++) {
+            Game newGame = new Game(N);
+            newGame.board = this.board.clone();
+            newGame.moveDown();
+            while (newGame.status()) {
+                newGame.playRandomMove();
+            }
+            scoreMoveDown += 1/n * newGame.score;
+        }
+
+        // simulate moveLeft
+        int scoreMoveLeft = 0;
+        for (int i = 0; i < n; i++) {
+            Game newGame = new Game(N);
+            newGame.board = this.board.clone();
+            newGame.moveLeft();
+            while (newGame.status()) {
+                newGame.playRandomMove();
+            }
+            scoreMoveLeft += 1/n * newGame.score;
+        }
+
+        // simulate moveRight
+        int scoreMoveRight = 0;
+        for (int i = 0; i < n; i++) {
+            Game newGame = new Game(N);
+            newGame.board = this.board.clone();
+            newGame.moveRight();
+            while (newGame.status()) {
+                newGame.playRandomMove();
+            }
+            scoreMoveRight += 1/n * newGame.score;
+        }
+
+        if (scoreMoveDown >= scoreMoveUp && scoreMoveDown >= scoreMoveLeft && scoreMoveDown >= scoreMoveRight) {
+            moveDown();
+            spawnRandomNumber();
+        }
+        else if (scoreMoveUp >= scoreMoveDown && scoreMoveUp >= scoreMoveLeft && scoreMoveUp >= scoreMoveRight) {
+            moveUp();
+            spawnRandomNumber();
+        }
+        else if (scoreMoveLeft >= scoreMoveUp && scoreMoveLeft >= scoreMoveDown && scoreMoveLeft >= scoreMoveRight) {
+            moveLeft();
+            spawnRandomNumber();
+        }
+        else if (scoreMoveRight >= scoreMoveUp && scoreMoveRight >= scoreMoveLeft && scoreMoveRight >= scoreMoveDown) {
+            moveRight();
+            spawnRandomNumber();
+        }
+    }
+
+
     // prints the board (for debugging)
     public void print() {
         for (int i=0; i < this.N; i++) {
