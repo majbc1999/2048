@@ -31,6 +31,12 @@ As per game modes, we will implement 2 similar game modes: *Classic* and *Endles
 
 ## Solving programs
 
+### AI 1: Random moves
+This AI just playes random moves until the game is over.
+
+### AI 2: Simulating algorithm
+Playes every possible move in the background and then for each simulates the whole game (until game over). For every possible move we repeat that for $n$ times and calculate the average score. Then we play the move with highest average score.
+
 (to be added when implemented)
 
 ## Current bugs
