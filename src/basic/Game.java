@@ -8,6 +8,7 @@ public class Game {
 	
 	// size of the game (default 4)
 	public int N;
+    public int score;
 
     // matrix of size N x N, that represents current state on board, 0 means that field is empty
     public int[][] board;
@@ -20,6 +21,7 @@ public class Game {
         this.board = new int[N][N];
         this.N = N;
         this.player = "human";
+        this.score = 0;
     }
 
     // function that spawns a 2 or 4 in empty place on the board
@@ -30,7 +32,12 @@ public class Game {
         Random random = new Random(System.currentTimeMillis());
 
         // we imply that 2 is spawned with 90% probability and 4 with 10% probability (as is in 2048 rulebook)
-        double randomDouble = random.nextDouble();
+
+        double randomDbl = Math.pow(10, 4) * random.nextDouble();
+        double floor =  Math.floor(randomDbl);
+
+        double randomDouble = randomDbl - floor;
+
         if (randomDouble <= 0.1) {
             newNumber = 4;
         }
@@ -79,6 +86,7 @@ public class Game {
                         // same number above
                         if (board[j - k][i] == number) {
                             board[j - k][i] = 2 * number + 1;
+                            score += 2 * number;
                             board[j][i] = 0;
                             moveDone = true;
                             break;
@@ -134,6 +142,7 @@ public class Game {
                         // same number below
                         if (board[k][i] == number) {
                             board[k][i] = 2 * number + 1;
+                            score += 2 * number;
                             board[N - j - 1][i] = 0;
                             moveDone = true;
                             break;
@@ -190,6 +199,7 @@ public class Game {
                         // same number left
                         if (board[i][j - k] == number) {
                             board[i][j - k] = 2 * number + 1;
+                            score += 2 * number;
                             board[i][j] = 0;
                             moveDone = true;
                             break;
@@ -246,6 +256,7 @@ public class Game {
                         // same number in the right
                         if (board[i][k] == number) {
                             board[i][k] = 2 * number + 1;
+                            score += 2 * number;
                             board[i][N - j - 1] = 0;
                             moveDone = true;
                             break;
@@ -376,7 +387,6 @@ public class Game {
             return false;
         }
     }
-
 
     // prints the board (for debugging)
     public void print() {

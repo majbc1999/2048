@@ -17,7 +17,10 @@ public class Computer {
     public Game playRandomMove() {
         Random random = new Random(System.currentTimeMillis());
 
-        double randomDouble = random.nextDouble();
+        double randomDbl = Math.pow(10, 4) * random.nextDouble();
+        double floor =  Math.floor(randomDbl);
+
+        double randomDouble = randomDbl - floor;
 
         if (randomDouble < 0.25) {
             game.moveUp();
