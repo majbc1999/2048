@@ -16,6 +16,11 @@ public class Game {
     // player of the game
     public String player;
 
+    // history of moves and spawns 
+    public ArrayList<String> movesHistory;
+    public ArrayList<Coordinates> spawnPositions;
+    public ArrayList<Integer> numbersSpawned;
+
     // constructor
     public Game(int N) {
         this.board = new int[N][N];
@@ -62,6 +67,8 @@ public class Game {
                 if (board[i][j] == 0) {
                     if (numberOfEmptySpaces == randomInt) {
                         this.board[i][j] = newNumber;
+                        numbersSpawned.add(newNumber);
+                        spawnPositions.add(new Coordinates(i,j));
                     }
                     numberOfEmptySpaces++;
                 }
@@ -125,6 +132,8 @@ public class Game {
                 }
             }
         }
+
+        movesHistory.add("up");
     }
 
     // method that moves numbers down
@@ -181,6 +190,8 @@ public class Game {
                 }
             }
         }
+
+        movesHistory.add("down");
     }
 
     // method that moves numbers up
@@ -238,6 +249,8 @@ public class Game {
                 }
             }
         }
+
+        movesHistory.add("left");
     }
 
     // method that moves numbers right
@@ -295,6 +308,33 @@ public class Game {
                 }
             }
         }
+
+        movesHistory.add("right");
+    }
+
+    // method that spawns a custom number on a custom coorinate
+    public void spawnNumber(int number, Coordinates coords) {
+        board[coords.x][coords.y] = number;
+    }
+
+    // method that playes sequence of given moves
+    public void playMoves(ArrayList<String> moves, ArrayList<Integer> numbers, ArrayList<Coordinates> coords) {
+        for (int i = 0; i < moves.size(); i++) {
+            spawnNumber(numbers.get(i), coords.get(i));
+            if (moves.get(i) == "up") {
+                moveUp();
+            }
+            else if (moves.get(i) == "down") {
+                moveDown();
+            }
+            else if (moves.get(i) == "left") {
+                moveLeft();
+            }
+            else if (moves.get(i) == "right") {
+                moveRight();
+            }
+        }
+        spawnNumber(numbers.get(numbers.size() - 1), coords.get(coords.size() - 1));
     }
 
     // method that returns True if the game is still in progress and False if it is over
@@ -424,9 +464,10 @@ public class Game {
         int scoreMoveUp = 0;
         for (int i = 0; i < n; i++) {
             Game newGame = new Game(N);
-            newGame.board = this.board.clone();
+            newGame.board = this.board.clone(); // we can avoid deep copy by listing moves and spawns and replicate the game
             newGame.moveUp();
             while (newGame.status()) {
+                this.print();
                 newGame.playRandomMove();
             }
             scoreMoveUp += 1/n * newGame.score;
@@ -485,7 +526,6 @@ public class Game {
             spawnRandomNumber();
         }
     }
-
 
     // prints the board (for debugging)
     public void print() {
