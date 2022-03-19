@@ -135,12 +135,6 @@ public class Frame extends JFrame implements ActionListener{
 			panel.game = newGame;
 			panel.repaint();
 			
-			try {
-				Thread.sleep(300);
-			} catch (InterruptedException ex) {
-				System.out.println("A stupid mistake happened!?!");
-			}
-
 			panel.play("random");
 		} 
 	
@@ -168,12 +162,6 @@ public class Frame extends JFrame implements ActionListener{
 		   panel.game = newGame;
 		   panel.repaint();
 		   
-		   try {
-			   Thread.sleep(300);
-		   } catch (InterruptedException ex) {
-			   System.out.println("A stupid mistake happened!?!");
-		   }
-
 		   panel.play("simulate");
 	   } 
    }

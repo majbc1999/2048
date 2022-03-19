@@ -27,6 +27,9 @@ public class Game {
         this.N = N;
         this.player = "human";
         this.score = 0;
+        this.movesHistory = new ArrayList<String>();
+        this.spawnPositions = new ArrayList<Coordinates>();
+        this.numbersSpawned = new ArrayList<Integer>();
     }
 
     // function that spawns a 2 or 4 in empty place on the board
@@ -423,6 +426,7 @@ public class Game {
         if (board.equals(otherGame.board)) {
             return true;
         }
+
         else {
             return false;
         }
@@ -464,49 +468,52 @@ public class Game {
         int scoreMoveUp = 0;
         for (int i = 0; i < n; i++) {
             Game newGame = new Game(N);
-            newGame.board = this.board.clone(); // we can avoid deep copy by listing moves and spawns and replicate the game
+            newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
             newGame.moveUp();
             while (newGame.status()) {
-                this.print();
                 newGame.playRandomMove();
             }
-            scoreMoveUp += 1/n * newGame.score;
+            scoreMoveUp += newGame.score;
+            System.out.println(i);
         }
 
         // simulate moveDown
         int scoreMoveDown = 0;
         for (int i = 0; i < n; i++) {
             Game newGame = new Game(N);
-            newGame.board = this.board.clone();
+            newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
             newGame.moveDown();
             while (newGame.status()) {
                 newGame.playRandomMove();
             }
-            scoreMoveDown += 1/n * newGame.score;
+            scoreMoveDown += newGame.score;
+            System.out.println(n + i);
         }
 
         // simulate moveLeft
         int scoreMoveLeft = 0;
         for (int i = 0; i < n; i++) {
             Game newGame = new Game(N);
-            newGame.board = this.board.clone();
+            newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
             newGame.moveLeft();
             while (newGame.status()) {
                 newGame.playRandomMove();
             }
-            scoreMoveLeft += 1/n * newGame.score;
+            scoreMoveLeft += newGame.score;
+            System.out.println(2 * n + i);
         }
 
         // simulate moveRight
         int scoreMoveRight = 0;
         for (int i = 0; i < n; i++) {
             Game newGame = new Game(N);
-            newGame.board = this.board.clone();
+            newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
             newGame.moveRight();
             while (newGame.status()) {
                 newGame.playRandomMove();
             }
-            scoreMoveRight += 1/n * newGame.score;
+            scoreMoveRight += newGame.score;
+            System.out.println(3 * n + i);
         }
 
         if (scoreMoveDown >= scoreMoveUp && scoreMoveDown >= scoreMoveLeft && scoreMoveDown >= scoreMoveRight) {
@@ -536,5 +543,6 @@ public class Game {
             }
             System.out.println();
         }
+        System.out.println("-------------");
     }
 }
