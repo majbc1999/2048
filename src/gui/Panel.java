@@ -35,6 +35,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 	// label for score
 	JLabel scoreLabel;
 
+	// label for game over
+	JLabel gameOverLabel;
+
+
 	// main constuctor
 	public Panel(Color[] colorScheme, Game game) {
 
@@ -148,6 +152,20 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		double dx = (getWidth()/2.0)- ((game.N/2.0) * w);
 		double dy = (getHeight()/2.0)- ((game.N/2.0) * w);
 		
+		// game over rectangle
+		try {
+			remove(gameOverLabel);
+		}
+		catch(Exception e) {
+		}
+		if (!game.status()) {
+			gameOverLabel = new JLabel("Game Over", SwingConstants.CENTER);
+			gameOverLabel.setBounds(0, 10, getWidth() - 10, getHeight() - 10);
+			gameOverLabel.setFont(new Font("Arial", 0, 50));
+			gameOverLabel.setForeground(Color.YELLOW);
+			add(gameOverLabel);
+		}
+
 		// game grid lines
 		g2.setColor(Color.LIGHT_GRAY);
 		g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
@@ -236,6 +254,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 			add(scoreLabel);
 		}
 
+		if (!game.status()) {
+			g2.setColor(new Color(1f,0f,0f,.6f));
+			g2.fillRect(0, 0, getWidth(), getHeight());
+		}
 	}
 	
 	// typing method
