@@ -21,6 +21,10 @@ public class Game {
     public ArrayList<Coordinates> spawnPositions;
     public ArrayList<Integer> numbersSpawned;
 
+    // random seed
+    public Random random;
+
+
     // constructor
     public Game(int N) {
         this.board = new int[N][N];
@@ -30,14 +34,13 @@ public class Game {
         this.movesHistory = new ArrayList<String>();
         this.spawnPositions = new ArrayList<Coordinates>();
         this.numbersSpawned = new ArrayList<Integer>();
+        this.random = new Random(System.currentTimeMillis());
     }
 
     // function that spawns a 2 or 4 in empty place on the board (if no empty place it does nothing)
     public void spawnRandomNumber() {
         int newNumber;
         int numberOfEmptySpaces = 0;
-        
-        Random random = new Random(System.currentTimeMillis());
 
         // we imply that 2 is spawned with 90% probability and 4 with 10% probability (as is in 2048 rulebook)
 
@@ -77,6 +80,9 @@ public class Game {
                     }
                 }
             }
+        }
+        else {
+            System.out.print("Can't spawn a number. There are insufficient empty spaces.");
         }
     }
 
@@ -319,6 +325,8 @@ public class Game {
     // method that spawns a custom number on a custom coorinate
     public void spawnNumber(int number, Coordinates coords) {
         board[coords.x][coords.y] = number;
+        spawnPositions.add(coords);
+        numbersSpawned.add(number);
     }
 
     // method that playes sequence of given moves
@@ -335,7 +343,7 @@ public class Game {
                 moveLeft();
             }
             else if (moves.get(i) == "right") {
-                moveRight();
+                moveRight();    
             }
         }
         spawnNumber(numbers.get(numbers.size() - 1), coords.get(coords.size() - 1));
@@ -434,8 +442,6 @@ public class Game {
 
     // first ai: plays completely random (possible move)
     public void playRandomMove() {
-        Random random = new Random(System.currentTimeMillis());
-
         double randomDbl = Math.pow(10, 4) * random.nextDouble();
         double floor =  Math.floor(randomDbl);
 

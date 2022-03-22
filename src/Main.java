@@ -8,7 +8,7 @@ import gui.Frame;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Game game = new Game(3);
+        Game game = new Game(4);
     
         // basic color palette (missing label colors)
         Color[] colorSchemeInit = new Color[12];
@@ -27,8 +27,6 @@ public class Main {
         
         // spawn first number before starting the game
         game.spawnRandomNumber();
-
-        game.simulateMove(10);
 
         // frame and panel initialization
         Frame frame = new Frame(colorSchemeInit, game);

@@ -85,7 +85,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 					game.playRandomMove();
 				}
 				else if (alg.equals("simulate")) {
-					game.simulateMove(5);
+					game.simulateMove(25);
 				}
 				return game;
 			}
