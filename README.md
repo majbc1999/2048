@@ -35,9 +35,14 @@ This AI just playes random moves until the game is over.
 ### AI 2: Simulating algorithm
 Playes every possible move in the background and then for each simulates the whole game (until game over). For every possible move we repeat that for $n$ times and calculate the average score. Then we play the move with highest average score.
 
-(to be added when implemented)
+### AI 3: Position evaluation
+(to add description)
+
+## Referencing papers
+- [Using Artificial Intelligence to solve the 2048 Game, Vasilis Vryniotis, 2014](https://blog.datumbox.com/using-artificial-intelligence-to-solve-the-2048-game-java-code/)
 
 ## Current bugs
-- [ ] if the move does nothing to the board, a new number should not be spawned
+- [x] if the move does nothing to the board, a new number should not be spawned
+- [x] compareOtherGame method on class Game (both these methods have trouble with deep copy)
 - [x] computer play works, it just doesn't show on panel
-- [ ] compareOtherGame method on class Game
+- [ ] simulating algorithm loops don't work (maybe put loops in Swingworker)
