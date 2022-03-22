@@ -382,32 +382,30 @@ public class Game {
     // returns array of all possible moves (doesn't work yet)
     public ArrayList<String> possibleMoves() {
         ArrayList<String> moves = new ArrayList<String>();
-
-        int[][] copiedBoard = board.clone();
         
         Game newGame = new Game(N);
-        newGame.board = copiedBoard;
+        newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
         newGame.moveDown();
         if (!newGame.compareOtherGame(this)) {
             moves.add("down");
         }
 
         newGame = new Game(N);
-        newGame.board = copiedBoard;
+        newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
         newGame.moveUp();
         if (!newGame.compareOtherGame(this)) {
             moves.add("up");
         }
 
         newGame = new Game(N);
-        newGame.board = copiedBoard;
+        newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
         newGame.moveLeft();
         if (!newGame.compareOtherGame(this)) {
             moves.add("left");
         }
 
         newGame = new Game(N);
-        newGame.board = copiedBoard;
+        newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
         newGame.moveRight();
         if (!newGame.compareOtherGame(this)) {
             moves.add("right");
@@ -423,13 +421,14 @@ public class Game {
             return false;
         }
 
-        if (board.equals(otherGame.board)) {
-            return true;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (this.board[i][j] != otherGame.board[i][j]) {
+                    return false;
+                }
+            }
         }
-
-        else {
-            return false;
-        }
+        return true;
     }
 
     // first ai: plays completely random (possible move)
@@ -440,6 +439,7 @@ public class Game {
         double floor =  Math.floor(randomDbl);
 
         double randomDouble = randomDbl - floor;
+        System.out.println(this.possibleMoves());
 
         if (randomDouble < 0.25) {
             moveUp();
@@ -462,7 +462,7 @@ public class Game {
         }
     }
 
-    // second ai: simulates n-times for every move
+    // second ai: simulates n-times for every move (fix this)
     public void simulateMove(int n) {
         // simulate moveUp
         int scoreMoveUp = 0;
@@ -470,11 +470,15 @@ public class Game {
             Game newGame = new Game(N);
             newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
             newGame.moveUp();
+            newGame.print();
+
             while (newGame.status()) {
                 newGame.playRandomMove();
+                newGame.print();
             }
+
             scoreMoveUp += newGame.score;
-            System.out.println(i);
+            System.out.println(scoreMoveUp);
         }
 
         // simulate moveDown
@@ -487,7 +491,7 @@ public class Game {
                 newGame.playRandomMove();
             }
             scoreMoveDown += newGame.score;
-            System.out.println(n + i);
+            newGame = null;
         }
 
         // simulate moveLeft
@@ -500,7 +504,7 @@ public class Game {
                 newGame.playRandomMove();
             }
             scoreMoveLeft += newGame.score;
-            System.out.println(2 * n + i);
+            newGame = null;
         }
 
         // simulate moveRight
@@ -513,7 +517,7 @@ public class Game {
                 newGame.playRandomMove();
             }
             scoreMoveRight += newGame.score;
-            System.out.println(3 * n + i);
+            newGame = null;
         }
 
         if (scoreMoveDown >= scoreMoveUp && scoreMoveDown >= scoreMoveLeft && scoreMoveDown >= scoreMoveRight) {

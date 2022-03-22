@@ -87,14 +87,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 			}
 
 			@Override
-			protected void done() {
-
-				try {
-					Thread.sleep(300);
-				} catch (InterruptedException e) {
-					System.out.println("A stupid mistake happened!?!");
-				}
-				
+			protected void done() {			
 				if (game.status()) {
 					repaint();
 					if (alg.equals("random")) {
@@ -253,44 +246,44 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 
 		// key up
 		if (key == 'w') {
-			Game tempBoard = new Game(game.N);
-			tempBoard.board = game.board.clone();
-			game.moveUp();
-			if (game.status() && !tempBoard.compareOtherGame(game)) {
-				game.spawnRandomNumber();
-				repaint();	
+			if (game.possibleMoves().contains("up")) {
+				game.moveUp();
+				if (game.status()) {
+					game.spawnRandomNumber();
+				}
+				repaint();
 			}
 		}
 
 		// keys down
 		if (key == 's') {
-			Game tempBoard = new Game(game.N);
-			tempBoard.board = game.board.clone();
-			game.moveDown();
-			if (game.status() && !tempBoard.compareOtherGame(game)) {
-				game.spawnRandomNumber();
+			if (game.possibleMoves().contains("down")) {
+				game.moveDown();
+				if (game.status()) {
+					game.spawnRandomNumber();
+				}
 				repaint();
 			}
 		}
 
 		// keys left
 		if (key == 'a') {
-			Game tempBoard = new Game(game.N);
-			tempBoard.board = game.board.clone();
-			game.moveLeft();
-			if (game.status() && !tempBoard.compareOtherGame(game)) {
-				game.spawnRandomNumber();
-				repaint();	
+			if (game.possibleMoves().contains("left")) {
+				game.moveLeft();
+				if (game.status()) {
+					game.spawnRandomNumber();
+				}
+				repaint();
 			}
 		}
 
 		// key right
 		if (key == 'd') {
-			Game tempBoard = new Game(game.N);
-			tempBoard.board = game.board.clone();
-			game.moveRight();
-			if (game.status() && !tempBoard.compareOtherGame(game)) {
-				game.spawnRandomNumber();
+			if (game.possibleMoves().contains("right")) {
+				game.moveRight();
+				if (game.status()) {
+					game.spawnRandomNumber();
+				}
 				repaint();
 			}
 		}
