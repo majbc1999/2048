@@ -28,6 +28,8 @@ public class Main {
         // spawn first number before starting the game
         game.spawnRandomNumber();
 
+        game.simulateMove(10);
+
         // frame and panel initialization
         Frame frame = new Frame(colorSchemeInit, game);
         frame.setIconImage(ImageIO.read(new File("static/2048.png")));

@@ -45,4 +45,5 @@ Playes every possible move in the background and then for each simulates the who
 - [x] if the move does nothing to the board, a new number should not be spawned
 - [x] compareOtherGame method on class Game (both these methods have trouble with deep copy)
 - [x] computer play works, it just doesn't show on panel
-- [ ] simulating algorithm loops don't work (maybe put loops in Swingworker)
+- [x] simulating algorithm loops don't work (maybe put loops in Swingworker)
+- [ ] problem with spawning random numbers
