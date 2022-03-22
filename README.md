@@ -33,10 +33,10 @@ As per game modes, we will implement 2 similar game modes: *Classic* and *Endles
 This AI just playes random moves until the game is over.
 
 ### AI 2: Simulating algorithm
-Playes every possible move in the background and then for each simulates the whole game (until game over). For every possible move we repeat that for $n$ times and calculate the average score. Then we play the move with highest average score.
+Playes every possible move in the background and then for each simulates the whole game (until game over). For every possible move we repeat that for $n$ times and calculate the average score. Then we play the move with highest average score. Idea for this algorithm was found on [stack overflow](https://stackoverflow.com/questions/22342854/what-is-the-optimal-algorithm-for-the-game-2048#:~:text=AI%20Algorithm&text=The%20starting%20move%20with%20the,1%25%20for%20the%208192%20tile). For $n=25$ the results are already satisfying and the program has successfully beaten the game. However this method of problem solving is very time-wasteful: we have to wait several seconds for the move.
 
 ### AI 3: Position evaluation
-(to add description)
+This algorithm will work based on position evaluation and then minimax or alpha-beta algorithm of a selected depth.
 
 ## Referencing papers
 - [Using Artificial Intelligence to solve the 2048 Game, Vasilis Vryniotis, 2014](https://blog.datumbox.com/using-artificial-intelligence-to-solve-the-2048-game-java-code/)
@@ -46,4 +46,4 @@ Playes every possible move in the background and then for each simulates the who
 - [x] compareOtherGame method on class Game (both these methods have trouble with deep copy)
 - [x] computer play works, it just doesn't show on panel
 - [x] simulating algorithm loops don't work (maybe put loops in Swingworker)
-- [ ] problem with spawning random numbers
+- [x] problem with spawning random numbers
