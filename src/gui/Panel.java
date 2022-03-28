@@ -35,9 +35,9 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 	// label for score
 	JLabel scoreLabel;
 
-	// label for game over
+	// label for game over and game won
 	JLabel gameOverLabel;
-
+	JLabel gameWonLabel;
 
 	// main constuctor
 	public Panel(Color[] colorScheme, Game game) {
@@ -92,7 +92,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 
 			@Override
 			protected void done() {			
-				if (game.status()) {
+				if (game.status() && !game.win()) {
 					repaint();
 					if (alg.equals("random")) {
 						play("random");
@@ -101,6 +101,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 						play("simulate");
 					}
 				}
+				repaint();
 			}
 		};
 		worker.execute();
@@ -152,7 +153,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		double dx = (getWidth()/2.0)- ((game.N/2.0) * w);
 		double dy = (getHeight()/2.0)- ((game.N/2.0) * w);
 		
-		// game over rectangle
+		// game-over rectangle
 		try {
 			remove(gameOverLabel);
 		}
@@ -164,6 +165,20 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 			gameOverLabel.setFont(new Font("Arial", 0, 50));
 			gameOverLabel.setForeground(Color.YELLOW);
 			add(gameOverLabel);
+		}
+
+		// game-won rectangle
+		try {
+			remove(gameWonLabel);
+		}
+		catch(Exception e) {
+		}
+		if (game.win()) {
+			gameWonLabel = new JLabel("Game Won", SwingConstants.CENTER);
+			gameWonLabel.setBounds(0, 10, getWidth() - 10, getHeight() - 10);
+			gameWonLabel.setFont(new Font("Arial", 0, 50));
+			gameWonLabel.setForeground(new Color(0,102,0));
+			add(gameWonLabel);
 		}
 
 		// game grid lines
@@ -258,6 +273,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 			g2.setColor(new Color(1f,0f,0f,.6f));
 			g2.fillRect(0, 0, getWidth(), getHeight());
 		}
+		if (game.win()) {
+			g2.setColor(new Color(0f,1f,0f,.6f));
+			g2.fillRect(0, 0, getWidth(), getHeight());
+		}
 	}
 	
 	// typing method
@@ -270,7 +289,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		if (key == 'w') {
 			if (game.possibleMoves().contains("up")) {
 				game.moveUp();
-				if (game.status()) {
+				if (game.status() && !game.win()) {
 					game.spawnRandomNumber();
 				}
 				repaint();
@@ -281,7 +300,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		if (key == 's') {
 			if (game.possibleMoves().contains("down")) {
 				game.moveDown();
-				if (game.status()) {
+				if (game.status() && !game.win()) {
 					game.spawnRandomNumber();
 				}
 				repaint();
@@ -292,7 +311,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		if (key == 'a') {
 			if (game.possibleMoves().contains("left")) {
 				game.moveLeft();
-				if (game.status()) {
+				if (game.status() && !game.win()) {
 					game.spawnRandomNumber();
 				}
 				repaint();
@@ -303,7 +322,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		if (key == 'd') {
 			if (game.possibleMoves().contains("right")) {
 				game.moveRight();
-				if (game.status()) {
+				if (game.status() && !game.win()) {
 					game.spawnRandomNumber();
 				}
 				repaint();
