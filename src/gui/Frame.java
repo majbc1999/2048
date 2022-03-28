@@ -11,11 +11,12 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JRadioButtonMenuItem;
 
 import basic.Game;
 
 @SuppressWarnings("serial")
-public class Frame extends JFrame implements ActionListener{
+public class Frame extends JFrame implements ActionListener {
 	
 	private Panel panel;
 
@@ -24,8 +25,12 @@ public class Frame extends JFrame implements ActionListener{
 	
 	private JMenuItem menuClassic, menuEndless, menuPlayer, menuComputer;
 	private JMenuItem menuRandomAlgorithm, menuSimulator;
-	private JMenuItem menuSettingsUI, menuSettingsGame;
+
+	private JMenuItem menuSettingsUI, menuColorScheme, menuSize;
 	
+	private JRadioButtonMenuItem game3, game4, game5, game6, game8, game12, classicScheme, darkScheme;
+
+
 	public int velikost;
 	
 	public Frame(Color[] colorScheme, Game game) {
@@ -58,6 +63,16 @@ public class Frame extends JFrame implements ActionListener{
 		menuComputer = new JMenuItem("Computer", new ImageIcon("static/rsz_ai.png"));
 		menu.add(menuComputer);
 
+		// size and colors
+		game3 = new JRadioButtonMenuItem("3", false);
+		game4 = new JRadioButtonMenuItem("4", true);
+		game5 = new JRadioButtonMenuItem("5", false);
+		game6 = new JRadioButtonMenuItem("6", false);
+		game8 = new JRadioButtonMenuItem("8", false);
+		game12 = new JRadioButtonMenuItem("12", false);
+		classicScheme = new JRadioButtonMenuItem("Vintage 2048", false);
+		darkScheme = new JRadioButtonMenuItem("Dark Night", false);
+
 		// submenu for algorithm picker
 		menu.addSeparator();
 		menuAlgorithm = new JMenu("Computer Algorithm");
@@ -70,15 +85,20 @@ public class Frame extends JFrame implements ActionListener{
 
 		menu.add(menuAlgorithm);
 
-		// build second menu in the menu bar.
-		menu = new JMenu("Settings");
-		menuSettingsUI = new JMenuItem("Interface Settings");
-		menu.add(menuSettingsUI);
+		// build second and third menu in the menu bar.
+		menuSize = new JMenu("Game Size");
+		menuSize.add(game3);
+		menuSize.add(game4);
+		menuSize.add(game5);
+		menuSize.add(game6);
+		menuSize.add(game8);
+		menuSize.add(game12);
+		menuBar.add(menuSize);
 
-		menuSettingsGame = new JMenuItem("Game Settings");
-		menu.add(menuSettingsGame);
-
-		menuBar.add(menu);
+		menuColorScheme = new JMenu("Color Scheme");
+		menuColorScheme.add(classicScheme);
+		menuColorScheme.add(darkScheme);
+		menuBar.add(menuColorScheme);
 
 		setJMenuBar(menuBar);
 
@@ -89,8 +109,9 @@ public class Frame extends JFrame implements ActionListener{
 		menuComputer.addActionListener(this);
 		menuRandomAlgorithm.addActionListener(this); 
 		menuSimulator.addActionListener(this);
-		menuSettingsUI.addActionListener(this); 
-		menuSettingsGame.addActionListener(this);
+
+		menuSize.addActionListener(this);
+		menuColorScheme.addActionListener(this);
 
 
 		// panel and layouts
