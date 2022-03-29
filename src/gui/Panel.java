@@ -39,6 +39,13 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 	JLabel gameOverLabel;
 	JLabel gameWonLabel;
 
+	// label for colors
+	Color backgroundColor;
+	Color gridColor;
+	Color primaryFontColor;
+	Color secondaryFontColor;
+	Color zerosColor;
+
 	// main constuctor
 	public Panel(Color[] colorScheme, Game game) {
 
@@ -59,6 +66,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		colors.put(1024, colorScheme[9]);
 		colors.put(2048, colorScheme[10]);
 		colors.put(4096, colorScheme[11]);
+
+		this.gridColor = Color.LIGHT_GRAY;
+		this.primaryFontColor = Color.BLACK;
+		this.secondaryFontColor	= Color.WHITE;
 
 		// labels list
 		this.labels = new JLabel[game.N][game.N];
@@ -182,7 +193,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		}
 
 		// game grid lines
-		g2.setColor(Color.LIGHT_GRAY);
+		g2.setColor(gridColor);
 		g2.setStroke(new BasicStroke((float) (w * LINE_WIDTH)));
 		for (int i = 0; i <= game.N; i++) {
 			g2.drawLine((int)(i * w + dx),
@@ -231,10 +242,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 				tempLabel.setFont(new Font("Arial", 0, 30));
 
 				if (game.board[i][j] >= 256) {
-					tempLabel.setForeground(Color.WHITE);
+					tempLabel.setForeground(secondaryFontColor);
 				}
 				else {
-					tempLabel.setForeground(Color.DARK_GRAY);
+					tempLabel.setForeground(primaryFontColor);
 				}
 				labels[i][j] = tempLabel;
 			}
@@ -260,18 +271,21 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 			scoreLabel = new JLabel("Score: " + Integer.toString(game.score), SwingConstants.RIGHT);
 			scoreLabel.setBounds(0, 0, getWidth() - 9, 16);
 			scoreLabel.setFont(new Font("Arial", 0, 15));
+			scoreLabel.setForeground(primaryFontColor);
 			add(scoreLabel);
 		}
 		else if (Math.min((int) getHeight(), (int) getWidth()) < 600) {
 			scoreLabel = new JLabel("Score: " + Integer.toString(game.score), SwingConstants.RIGHT);
 			scoreLabel.setBounds(0, 5, getWidth() - 30, 21);
 			scoreLabel.setFont(new Font("Arial", 0, 20));
+			scoreLabel.setForeground(primaryFontColor);
 			add(scoreLabel);		
 		}
 		else {
 			scoreLabel = new JLabel("Score: " + Integer.toString(game.score), SwingConstants.RIGHT);
 			scoreLabel.setBounds(0, 10, getWidth() - 30, 31);
 			scoreLabel.setFont(new Font("Arial", 0, 30));
+			scoreLabel.setForeground(primaryFontColor);
 			add(scoreLabel);
 		}
 

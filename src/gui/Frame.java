@@ -5,13 +5,13 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Hashtable;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JRadioButtonMenuItem;
 
 import basic.Game;
 
@@ -26,9 +26,9 @@ public class Frame extends JFrame implements ActionListener {
 	private JMenuItem menuClassic, menuEndless, menuPlayer, menuComputer;
 	private JMenuItem menuRandomAlgorithm, menuSimulator;
 
-	private JMenuItem menuSettingsUI, menuColorScheme, menuSize;
+	private JMenuItem menuColorScheme, menuSize;
 	
-	private JRadioButtonMenuItem game3, game4, game5, game6, game8, game12, classicScheme, darkScheme;
+	private JMenuItem game3, game4, game5, game6, game8, game12, classicScheme, darkScheme;
 
 
 	public int velikost;
@@ -64,14 +64,14 @@ public class Frame extends JFrame implements ActionListener {
 		menu.add(menuComputer);
 
 		// size and colors
-		game3 = new JRadioButtonMenuItem("3", false);
-		game4 = new JRadioButtonMenuItem("4", true);
-		game5 = new JRadioButtonMenuItem("5", false);
-		game6 = new JRadioButtonMenuItem("6", false);
-		game8 = new JRadioButtonMenuItem("8", false);
-		game12 = new JRadioButtonMenuItem("12", false);
-		classicScheme = new JRadioButtonMenuItem("Vintage 2048", false);
-		darkScheme = new JRadioButtonMenuItem("Dark Night", false);
+		game3 = new JMenuItem("3");
+		game4 = new JMenuItem("4");
+		game5 = new JMenuItem("5");
+		game6 = new JMenuItem("6");
+		game8 = new JMenuItem("8");
+		game12 = new JMenuItem("12");
+		classicScheme = new JMenuItem("Vintage 2048");
+		darkScheme = new JMenuItem("Dark Night");
 
 		// submenu for algorithm picker
 		menu.addSeparator();
@@ -112,7 +112,14 @@ public class Frame extends JFrame implements ActionListener {
 
 		menuSize.addActionListener(this);
 		menuColorScheme.addActionListener(this);
-
+		game3.addActionListener(this);
+		game4.addActionListener(this);
+		game5.addActionListener(this);
+		game6.addActionListener(this);
+		game8.addActionListener(this);
+		game12.addActionListener(this);
+		classicScheme.addActionListener(this);
+		darkScheme.addActionListener(this);
 
 		// panel and layouts
         panel = new Panel(colorScheme, game);
@@ -234,6 +241,82 @@ public class Frame extends JFrame implements ActionListener {
 		panel.repaint();
 	}
 
+	if (e.getSource() == classicScheme) {
+		Color[] classicColorScheme = new Color[12];
+		classicColorScheme[0] = new Color(255, 255, 255);  // color of    2
+		classicColorScheme[1] = new Color(252, 248, 172);   // color of    4
+		classicColorScheme[2] = new Color(255, 198, 25);   // color of    8
+		classicColorScheme[3] = new Color(253, 163, 0);    // color of   16
+		classicColorScheme[4] = new Color(250, 132, 26);   // color of   32
+		classicColorScheme[5] = new Color(96, 214, 198);     // color of   64
+		classicColorScheme[6] = new Color(103, 124, 245);   // color of  128
+		classicColorScheme[7] = new Color(0, 77, 169);  // color of  256
+		classicColorScheme[8] = new Color(2, 64, 137);     // color of  512
+		classicColorScheme[9] = new Color(10,10,10);  // color of 1024
+		classicColorScheme[10] = new Color(10,10,10);      // color of 2048
+		classicColorScheme[11] = new Color(10,10,10);      // color of 4096
+		
+		panel.colors = new Hashtable<Integer,Color>();
+		panel.colors.put(0, Color.WHITE);
+		panel.colors.put(2, classicColorScheme[0]);
+		panel.colors.put(4, classicColorScheme[1]);
+		panel.colors.put(8, classicColorScheme[2]);
+		panel.colors.put(16, classicColorScheme[3]);
+		panel.colors.put(32, classicColorScheme[4]);
+		panel.colors.put(64, classicColorScheme[5]);
+		panel.colors.put(128, classicColorScheme[6]);
+		panel.colors.put(256, classicColorScheme[7]);
+		panel.colors.put(512, classicColorScheme[8]);
+		panel.colors.put(1024, classicColorScheme[9]);
+		panel.colors.put(2048, classicColorScheme[10]);
+		panel.colors.put(4096, classicColorScheme[11]);
+
+		panel.gridColor = Color.LIGHT_GRAY;
+		panel.primaryFontColor = Color.BLACK;
+		panel.secondaryFontColor	= Color.WHITE;
+
+		panel.setBackground(Color.WHITE);
+
+		panel.repaint();
+	}
+
+	if (e.getSource() == darkScheme) {
+		Color[] darkColorScheme = new Color[12];
+		darkColorScheme[0] = new Color(0, 44, 110);  // color of    2
+		darkColorScheme[1] = new Color(8, 116, 130);   // color of    4
+		darkColorScheme[2] = new Color(6, 138, 109);   // color of    8
+		darkColorScheme[3] = new Color(6, 138, 54);    // color of   16
+		darkColorScheme[4] = new Color(17, 138, 6);   // color of   32
+		darkColorScheme[5] = new Color(134, 138, 6);     // color of   64
+		darkColorScheme[6] = new Color(163, 58, 39);   // color of  128
+		darkColorScheme[7] = new Color(110, 29, 14);  // color of  256
+		darkColorScheme[8] = new Color(129, 27, 140);     // color of  512
+		darkColorScheme[9] = new Color(98, 13, 107);  // color of 1024
+		darkColorScheme[10] = new Color(79, 4, 87);      // color of 2048
+		darkColorScheme[11] = new Color(87, 4, 69);      // color of 4096
+		
+		panel.colors = new Hashtable<Integer,Color>();
+		panel.colors.put(0, Color.WHITE);
+		panel.colors.put(2, darkColorScheme[0]);
+		panel.colors.put(4, darkColorScheme[1]);
+		panel.colors.put(8, darkColorScheme[2]);
+		panel.colors.put(16, darkColorScheme[3]);
+		panel.colors.put(32, darkColorScheme[4]);
+		panel.colors.put(64, darkColorScheme[5]);
+		panel.colors.put(128, darkColorScheme[6]);
+		panel.colors.put(256, darkColorScheme[7]);
+		panel.colors.put(512, darkColorScheme[8]);
+		panel.colors.put(1024, darkColorScheme[9]);
+		panel.colors.put(2048, darkColorScheme[10]);
+		panel.colors.put(4096, darkColorScheme[11]);
+
+		panel.gridColor = Color.DARK_GRAY;
+		panel.primaryFontColor = Color.WHITE;
+		panel.secondaryFontColor = Color.WHITE;
+		panel.setBackground(Color.BLACK);
+
+		panel.repaint();
+	}
 
    }
 }

@@ -47,3 +47,4 @@ This algorithm will work based on position evaluation and then minimax or alpha-
 - [x] computer play works, it just doesn't show on panel
 - [x] simulating algorithm loops don't work (maybe put loops in Swingworker)
 - [x] problem with spawning random numbers
+- [ ] ugly colors in dark mode
