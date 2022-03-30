@@ -25,17 +25,19 @@ Although official game runs in the 4x4 grid, size will be selectable. Interestin
 As per game modes, we will implement 2 similar game modes: *Classic* and *Endless*. *Classic* ends when user reaches 2048 with a win. *Endless* cannot be won as we chase biggest number possible. Note although that in spite of the name, the game cannot run forever: for example, biggest number that we can reach in 4x4 game is [131072](https://qph.fs.quoracdn.net/main-qimg-432256feb5c92d2a35549f120d03dbca).
 
 ## Game settings
-(to be added when implemented)
+We can control game size (choose from menubar). Game sizes available *3x3*,*4x4*,*5x5*,*6x6*,*8x8*. Note however, it is not possible to beat the game in 3x3 mode (we get maximum 4-8-16-32-64-128-256-512-1024 in the 9 squares).
+
+Different color themes can be chosen. For now only *Vintage 2048* and *Dark Blue Night* can be chosen.
 
 ## Solving programs
 
-### AI 1: Random moves
+### **AI 1**: Random moves
 This AI just playes random moves until the game is over.
 
-### AI 2: Simulating algorithm
+### **AI 2**: Simulating algorithm
 Playes every possible move in the background and then for each simulates the whole game (until game over). For every possible move we repeat that for $n$ times and calculate the average score. Then we play the move with highest average score. Idea for this algorithm was found on [stack overflow](https://stackoverflow.com/questions/22342854/what-is-the-optimal-algorithm-for-the-game-2048#:~:text=AI%20Algorithm&text=The%20starting%20move%20with%20the,1%25%20for%20the%208192%20tile). For $n=25$ the results are already satisfying and the program has successfully beaten the game. However this method of problem solving is very time-wasteful: we have to wait several seconds for the move.
 
-### AI 3: Position evaluation
+### **AI 3**: Position evaluation
 This algorithm will work based on position evaluation and then minimax or alpha-beta algorithm of a selected depth.
 
 ## Referencing papers
@@ -47,4 +49,6 @@ This algorithm will work based on position evaluation and then minimax or alpha-
 - [x] computer play works, it just doesn't show on panel
 - [x] simulating algorithm loops don't work (maybe put loops in Swingworker)
 - [x] problem with spawning random numbers
-- [ ] ugly colors in dark mode
+- [x] ugly colors in dark mode
+- [ ] what to do with *Player* and *Computer* buttons in *New game* menu
+- [ ] classic mode icon not seen in dark mode
