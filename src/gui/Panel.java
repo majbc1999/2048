@@ -10,8 +10,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.Hashtable;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -31,6 +36,11 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 	
 	// hashtable for colors
 	Hashtable<Integer,Color> colors = new Hashtable<Integer,Color>();
+
+	// images for game mode
+	BufferedImage imageClassic;
+	BufferedImage imageEndless;
+	JLabel imageLabel;
 
 	// label for score
 	JLabel scoreLabel;
@@ -72,9 +82,18 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		this.secondaryFontColor	= Color.WHITE;
 
 		// labels list
-		this.labels = new JLabel[game.N][game.N];
+		this.labels = new JLabel[8][8];
 
 		this.scoreLabel = new JLabel("Score: " + Integer.toString(game.score));
+		
+		// load both pictures
+		try {                
+			imageEndless = ImageIO.read(new File("static/rsz_finish_flag.png"));
+			imageClassic = ImageIO.read(new File("static/rsz_infinity.png"));
+		} catch (IOException ex) {
+		}
+		
+		this.imageLabel = new JLabel(new ImageIcon(imageClassic));
 
 		// enable mouse and key listeners
 		addMouseListener(this); 
@@ -102,7 +121,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 			}
 
 			@Override
-			protected void done() {			
+			protected void done() {
 				if (game.status() && !game.win()) {
 					repaint();
 					if (alg.equals("random")) {
@@ -219,8 +238,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 
 		// setting and drawing labels
 		// removing old labels
-		for (int i = 0; i < game.N; i++) {
-			for (int j = 0; j < game.N; j++) {
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
 				try {
 					remove(labels[i][j]);
 				}
@@ -229,6 +248,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 				}
 			}
 		}
+
 		// create all labels
 		for (int i = 0; i < game.N; i++) {
 			for (int j = 0; j < game.N; j++) {
@@ -266,27 +286,64 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		catch(Exception e) {
 		}
 		
+		// label for gamemode
+		try {
+			remove(imageLabel);
+		}
+		catch(Exception e) {
+		}
+
+
 		// relative score size (based on window size)
 		if (Math.min((int) getHeight(), (int) getWidth()) < 350) {
 			scoreLabel = new JLabel("Score: " + Integer.toString(game.score), SwingConstants.RIGHT);
-			scoreLabel.setBounds(0, 0, getWidth() - 9, 16);
+			scoreLabel.setBounds(0, 5, getWidth() - 9, 16);
 			scoreLabel.setFont(new Font("Arial", 0, 15));
 			scoreLabel.setForeground(primaryFontColor);
 			add(scoreLabel);
+			if (this.game.gameMode) {
+				imageLabel = new JLabel(new ImageIcon(imageEndless));
+				imageLabel.setBounds(5, 5, 25, 25);
+			}
+			else {	
+				imageLabel = new JLabel(new ImageIcon(imageClassic));
+				imageLabel.setBounds(5, 5, 25, 25);
+			}
+			add(imageLabel);
 		}
+
 		else if (Math.min((int) getHeight(), (int) getWidth()) < 600) {
 			scoreLabel = new JLabel("Score: " + Integer.toString(game.score), SwingConstants.RIGHT);
 			scoreLabel.setBounds(0, 5, getWidth() - 30, 21);
 			scoreLabel.setFont(new Font("Arial", 0, 20));
 			scoreLabel.setForeground(primaryFontColor);
-			add(scoreLabel);		
+			add(scoreLabel);	
+			if (this.game.gameMode)	 {
+				imageLabel = new JLabel(new ImageIcon(imageEndless));
+				imageLabel.setBounds(15, 8, 25, 25);
+			}
+			else {	
+				imageLabel = new JLabel(new ImageIcon(imageClassic));
+				imageLabel.setBounds(15, 8, 25, 25);
+			}
+			add(imageLabel);
 		}
+
 		else {
 			scoreLabel = new JLabel("Score: " + Integer.toString(game.score), SwingConstants.RIGHT);
 			scoreLabel.setBounds(0, 10, getWidth() - 30, 31);
-			scoreLabel.setFont(new Font("Arial", 0, 30));
+			scoreLabel.setFont(new Font("Arial", 0, 25));
 			scoreLabel.setForeground(primaryFontColor);
 			add(scoreLabel);
+			if (this.game.gameMode)	 {
+				imageLabel = new JLabel(new ImageIcon(imageEndless));
+				imageLabel.setBounds(15, 20, 25, 25);
+			}
+			else {	
+				imageLabel = new JLabel(new ImageIcon(imageClassic));
+				imageLabel.setBounds(15, 20, 25, 25);
+			}
+			add(imageLabel);
 		}
 
 		if (!game.status()) {
