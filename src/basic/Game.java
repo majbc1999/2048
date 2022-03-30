@@ -412,6 +412,12 @@ public class Game {
         ArrayList<String> moves = new ArrayList<String>();
         
         Game newGame = new Game(N);
+		if (this.gameMode) {
+			newGame.gameMode = true;
+		}
+		else {
+			newGame.gameMode = false;
+		}
         newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
         newGame.moveDown();
         if (!newGame.compareOtherGame(this)) {
@@ -419,6 +425,12 @@ public class Game {
         }
 
         newGame = new Game(N);
+		if (this.gameMode) {
+			newGame.gameMode = true;
+		}
+		else {
+			newGame.gameMode = false;
+		}
         newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
         newGame.moveUp();
         if (!newGame.compareOtherGame(this)) {
@@ -426,6 +438,12 @@ public class Game {
         }
 
         newGame = new Game(N);
+		if (this.gameMode) {
+			newGame.gameMode = true;
+		}
+		else {
+			newGame.gameMode = false;
+		}
         newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
         newGame.moveLeft();
         if (!newGame.compareOtherGame(this)) {
@@ -433,6 +451,12 @@ public class Game {
         }
 
         newGame = new Game(N);
+		if (this.gameMode) {
+			newGame.gameMode = true;
+		}
+		else {
+			newGame.gameMode = false;
+		}
         newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
         newGame.moveRight();
         if (!newGame.compareOtherGame(this)) {
@@ -516,6 +540,12 @@ public class Game {
         if (possibleMoves().contains("up")) {
             for (int i = 0; i < n; i++) {
                 Game newGame = new Game(N);
+                if (this.gameMode) {
+                    newGame.gameMode = true;
+                }
+                else {
+                    newGame.gameMode = false;
+                }
                 newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
                 newGame.moveUp();
                 newGame.spawnRandomNumber();
@@ -523,7 +553,6 @@ public class Game {
                 while (newGame.status() && !newGame.win()) {
                     newGame.playRandomMove();
                 }
-
                 scoreMoveUp += newGame.score;                
             }
         }
@@ -534,6 +563,12 @@ public class Game {
         if (possibleMoves().contains("down")) {
             for (int i = 0; i < n; i++) {
                 Game newGame = new Game(N);
+                if (this.gameMode) {
+                    newGame.gameMode = true;
+                }
+                else {
+                    newGame.gameMode = false;
+                }
                 newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
                 newGame.moveDown();
                 newGame.spawnRandomNumber();
@@ -541,10 +576,7 @@ public class Game {
                 while (newGame.status() && !newGame.win()) {
                     newGame.playRandomMove();
                 }
-
                 scoreMoveDown += newGame.score;
-
-                System.out.println(n + i);
             }
         }
 
@@ -554,6 +586,12 @@ public class Game {
         if (possibleMoves().contains("left")) {
             for (int i = 0; i < n; i++) {
                 Game newGame = new Game(N);
+                if (this.gameMode) {
+                    newGame.gameMode = true;
+                }
+                else {
+                    newGame.gameMode = false;
+                }
                 newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
                 newGame.moveLeft();
                 newGame.spawnRandomNumber();
@@ -561,10 +599,7 @@ public class Game {
                 while (newGame.status() && !newGame.win()) {
                     newGame.playRandomMove();
                 }
-
                 scoreMoveLeft += newGame.score;
-
-                System.out.println(2*n + i);
             }
         }
 
@@ -574,6 +609,12 @@ public class Game {
         if (possibleMoves().contains("right")) {
             for (int i = 0; i < n; i++) {
                 Game newGame = new Game(N);
+                if (this.gameMode) {
+                    newGame.gameMode = true;
+                }
+                else {
+                    newGame.gameMode = false;
+                }
                 newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
                 newGame.moveRight();
                 newGame.spawnRandomNumber();
@@ -581,10 +622,7 @@ public class Game {
                 while (newGame.status() && !newGame.win()) {
                     newGame.playRandomMove();
                 }
-
                 scoreMoveRight += newGame.score;
-
-                System.out.println(3*n + i);
             }
         }
 

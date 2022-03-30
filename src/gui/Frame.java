@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.UIManager;
 
 import basic.Game;
 
@@ -28,7 +29,7 @@ public class Frame extends JFrame implements ActionListener {
 
 	private JMenuItem menuColorScheme, menuSize;
 	
-	private JMenuItem game3, game4, game5, game6, game8, game12, classicScheme, darkScheme;
+	private JMenuItem game3, game4, game5, game6, game8, classicScheme, darkScheme;
 
 
 	public int velikost;
@@ -64,14 +65,13 @@ public class Frame extends JFrame implements ActionListener {
 		menu.add(menuComputer);
 
 		// size and colors
-		game3 = new JMenuItem("3");
-		game4 = new JMenuItem("4");
-		game5 = new JMenuItem("5");
-		game6 = new JMenuItem("6");
-		game8 = new JMenuItem("8");
-		game12 = new JMenuItem("12");
+		game3 = new JMenuItem("3x3");
+		game4 = new JMenuItem("4x4");
+		game5 = new JMenuItem("5x5");
+		game6 = new JMenuItem("6x6");
+		game8 = new JMenuItem("8x8");
 		classicScheme = new JMenuItem("Vintage 2048");
-		darkScheme = new JMenuItem("Dark Night");
+		darkScheme = new JMenuItem("Dark Blue Night");
 
 		// submenu for algorithm picker
 		menu.addSeparator();
@@ -92,7 +92,6 @@ public class Frame extends JFrame implements ActionListener {
 		menuSize.add(game5);
 		menuSize.add(game6);
 		menuSize.add(game8);
-		menuSize.add(game12);
 		menuBar.add(menuSize);
 
 		menuColorScheme = new JMenu("Color Scheme");
@@ -117,7 +116,6 @@ public class Frame extends JFrame implements ActionListener {
 		game5.addActionListener(this);
 		game6.addActionListener(this);
 		game8.addActionListener(this);
-		game12.addActionListener(this);
 		classicScheme.addActionListener(this);
 		darkScheme.addActionListener(this);
 
@@ -142,6 +140,14 @@ public class Frame extends JFrame implements ActionListener {
  		if (e.getSource() == menuRandomAlgorithm) {
 
 			Game newGame = new Game(panel.game.N);
+
+			if (panel.game.gameMode) {
+				newGame.gameMode = true;
+			}
+			else {
+				newGame.gameMode = false;
+			}
+
 			newGame.spawnRandomNumber();
 	
 			// basic color palette (missing label colors)
@@ -157,22 +163,29 @@ public class Frame extends JFrame implements ActionListener {
 			colorSchemeInit[8] = new Color(2, 64, 137);     // color of  512
 			colorSchemeInit[9] = new Color(10,10,10);  // color of 1024
 			colorSchemeInit[10] = new Color(10,10,10);      // color of 2048
-				colorSchemeInit[11] = new Color(10,10,10);      // color of 4096
+			colorSchemeInit[11] = new Color(10,10,10);      // color of 4096
 
-				panel.game = newGame;
-				panel.repaint();
-
-				panel.play("random");
+			panel.game = newGame;
+			panel.repaint();
+			panel.play("random");
 		} 
 		
 		if (e.getSource() == menuSimulator) {
 
 			Game newGame = new Game(panel.game.N);
+
+			if (panel.game.gameMode) {
+				newGame.gameMode = true;
+			}
+			else {
+				newGame.gameMode = false;
+			}
+
 			newGame.spawnRandomNumber();
 		
 			// basic color palette (missing label colors)
 			Color[] colorSchemeInit = new Color[12];
-			colorSchemeInit[0] = new Color(255, 255, 255);  // color of    2
+			colorSchemeInit[0] = new Color(50, 60, 110);  // color of    2
 			colorSchemeInit[1] = new Color(252, 248, 172);   // color of    4
 			colorSchemeInit[2] = new Color(255, 198, 25);   // color of    8
 			colorSchemeInit[3] = new Color(253, 163, 0);    // color of   16
@@ -187,7 +200,6 @@ public class Frame extends JFrame implements ActionListener {
 		
 			panel.game = newGame;
 			panel.repaint();
-		
 			panel.play("simulate");
 		}
 
@@ -276,7 +288,7 @@ public class Frame extends JFrame implements ActionListener {
 			panel.primaryFontColor = Color.BLACK;
 
 			panel.secondaryFontColor = Color.WHITE;
-			panel.setBackground(Color.WHITE);
+			panel.setBackground(UIManager.getColor("Panel.background"));
 
 			panel.repaint();
 		}
@@ -284,18 +296,18 @@ public class Frame extends JFrame implements ActionListener {
 		if (e.getSource() == darkScheme) {
 			Color[] darkColorScheme = new Color[12];
 
-			darkColorScheme[0] = new Color(11, 94, 97);  // color of    2
-			darkColorScheme[1] = new Color(11, 63, 97);   // color of    4
-			darkColorScheme[2] = new Color(11, 40, 97);   // color of    8
-			darkColorScheme[3] = new Color(33, 11, 97);    // color of   16
-			darkColorScheme[4] = new Color(89, 22, 110);   // color of   32
-			darkColorScheme[5] = new Color(134, 14, 138);     // color of   64
-			darkColorScheme[6] = new Color(125, 67, 115);   // color of  128
-			darkColorScheme[7] = new Color(128, 23, 80);  // color of  256
-			darkColorScheme[8] = new Color(130, 16, 48);     // color of  512
-			darkColorScheme[9] = new Color(148, 16, 16);  // color of 1024
-			darkColorScheme[10] = new Color(105, 0, 0);      // color of 2048
-			darkColorScheme[11] = new Color(10, 10, 10);      // color of 4096
+			darkColorScheme[0] = new Color(2, 7, 40);  // color of    2
+			darkColorScheme[1] = new Color(8, 2, 60);   // color of    4
+			darkColorScheme[2] = new Color(8, 18, 102);   // color of    8
+			darkColorScheme[3] = new Color(15, 39, 163);    // color of   16
+			darkColorScheme[4] = new Color(78, 47, 235);   // color of   32
+			darkColorScheme[5] = new Color(102, 72, 250);     // color of   64
+			darkColorScheme[6] = new Color(72, 137, 250);   // color of  128
+			darkColorScheme[7] = new Color(109, 159, 247);  // color of  256
+			darkColorScheme[8] = new Color(129, 165, 230);     // color of  512
+			darkColorScheme[9] = new Color(161, 195, 255);  // color of 1024
+		   darkColorScheme[10] = new Color(77, 216, 255);      // color of 2048
+	       darkColorScheme[11] = new Color(128, 227, 255);      // color of 4096
 
 			panel.colors = new Hashtable<Integer,Color>();
 			panel.colors.put(0, Color.WHITE);
@@ -321,6 +333,12 @@ public class Frame extends JFrame implements ActionListener {
 
 		if (e.getSource() == game3) {
 			Game newGame = new Game(3);
+			if (panel.game.gameMode) {
+				newGame.gameMode = true;
+			}
+			else {
+				newGame.gameMode = false;
+			}
 			newGame.spawnRandomNumber();
 			panel.game = newGame;
 			panel.repaint();
@@ -328,6 +346,12 @@ public class Frame extends JFrame implements ActionListener {
 
 		if (e.getSource() == game4) {
 			Game newGame = new Game(4);
+			if (panel.game.gameMode) {
+				newGame.gameMode = true;
+			}
+			else {
+				newGame.gameMode = false;
+			}
 			newGame.spawnRandomNumber();
 			panel.game = newGame;
 			panel.repaint();
@@ -335,6 +359,12 @@ public class Frame extends JFrame implements ActionListener {
 
 		if (e.getSource() == game5) {
 			Game newGame = new Game(5);
+			if (panel.game.gameMode) {
+				newGame.gameMode = true;
+			}
+			else {
+				newGame.gameMode = false;
+			}
 			newGame.spawnRandomNumber();
 			panel.game = newGame;
 			panel.repaint();
@@ -342,6 +372,12 @@ public class Frame extends JFrame implements ActionListener {
 
 		if (e.getSource() == game6) {
 			Game newGame = new Game(6);
+			if (panel.game.gameMode) {
+				newGame.gameMode = true;
+			}
+			else {
+				newGame.gameMode = false;
+			}
 			newGame.spawnRandomNumber();
 			panel.game = newGame;
 			panel.repaint();
@@ -349,13 +385,12 @@ public class Frame extends JFrame implements ActionListener {
 
 		if (e.getSource() == game8) {
 			Game newGame = new Game(8);
-			newGame.spawnRandomNumber();
-			panel.game = newGame;
-			panel.repaint();
-		}
-
-		if (e.getSource() == game12) {
-			Game newGame = new Game(12);
+			if (panel.game.gameMode) {
+				newGame.gameMode = true;
+			}
+			else {
+				newGame.gameMode = false;
+			}
 			newGame.spawnRandomNumber();
 			panel.game = newGame;
 			panel.repaint();
