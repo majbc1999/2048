@@ -157,166 +157,208 @@ public class Frame extends JFrame implements ActionListener {
 			colorSchemeInit[8] = new Color(2, 64, 137);     // color of  512
 			colorSchemeInit[9] = new Color(10,10,10);  // color of 1024
 			colorSchemeInit[10] = new Color(10,10,10);      // color of 2048
-			colorSchemeInit[11] = new Color(10,10,10);      // color of 4096
-			
-			panel.game = newGame;
-			panel.repaint();
-			
-			panel.play("random");
+				colorSchemeInit[11] = new Color(10,10,10);      // color of 4096
+
+				panel.game = newGame;
+				panel.repaint();
+
+				panel.play("random");
 		} 
-	
+		
 		if (e.getSource() == menuSimulator) {
 
-		   Game newGame = new Game(panel.game.N);
-		   newGame.spawnRandomNumber();
-   
-		   // basic color palette (missing label colors)
-		   Color[] colorSchemeInit = new Color[12];
-		   colorSchemeInit[0] = new Color(255, 255, 255);  // color of    2
-		   colorSchemeInit[1] = new Color(252, 248, 172);   // color of    4
-		   colorSchemeInit[2] = new Color(255, 198, 25);   // color of    8
-		   colorSchemeInit[3] = new Color(253, 163, 0);    // color of   16
-		   colorSchemeInit[4] = new Color(250, 132, 26);   // color of   32
-		   colorSchemeInit[5] = new Color(96, 214, 198);     // color of   64
-		   colorSchemeInit[6] = new Color(103, 124, 245);   // color of  128
-		   colorSchemeInit[7] = new Color(0, 77, 169);  // color of  256
-		   colorSchemeInit[8] = new Color(2, 64, 137);     // color of  512
-		   colorSchemeInit[9] = new Color(10,10,10);  // color of 1024
-		   colorSchemeInit[10] = new Color(10,10,10);      // color of 2048
-		   colorSchemeInit[11] = new Color(10,10,10);      // color of 4096
-		   
-		   panel.game = newGame;
-		   panel.repaint();
-		   
-		   panel.play("simulate");
-	   }
-
-	   if (e.getSource() == menuClassic) {
-
-		Game newGame = new Game(panel.game.N);
-		newGame.gameMode = true;
-		newGame.spawnRandomNumber();
-
-		// basic color palette (missing label colors)
-		Color[] colorSchemeInit = new Color[12];
-		colorSchemeInit[0] = new Color(255, 255, 255);  // color of    2
-		colorSchemeInit[1] = new Color(252, 248, 172);   // color of    4
-		colorSchemeInit[2] = new Color(255, 198, 25);   // color of    8
-		colorSchemeInit[3] = new Color(253, 163, 0);    // color of   16
-		colorSchemeInit[4] = new Color(250, 132, 26);   // color of   32
-		colorSchemeInit[5] = new Color(96, 214, 198);     // color of   64
-		colorSchemeInit[6] = new Color(103, 124, 245);   // color of  128
-		colorSchemeInit[7] = new Color(0, 77, 169);  // color of  256
-		colorSchemeInit[8] = new Color(2, 64, 137);     // color of  512
-		colorSchemeInit[9] = new Color(10,10,10);  // color of 1024
-		colorSchemeInit[10] = new Color(10,10,10);      // color of 2048
-		colorSchemeInit[11] = new Color(10,10,10);      // color of 4096
+			Game newGame = new Game(panel.game.N);
+			newGame.spawnRandomNumber();
 		
-		panel.game = newGame;
-		panel.repaint();
-	}
-
-	if (e.getSource() == menuEndless) {
-
-		Game newGame = new Game(panel.game.N);
-		newGame.gameMode = false;
-		newGame.spawnRandomNumber();
-
-		// basic color palette (missing label colors)
-		Color[] colorSchemeInit = new Color[12];
-		colorSchemeInit[0] = new Color(255, 255, 255);  // color of    2
-		colorSchemeInit[1] = new Color(252, 248, 172);   // color of    4
-		colorSchemeInit[2] = new Color(255, 198, 25);   // color of    8
-		colorSchemeInit[3] = new Color(253, 163, 0);    // color of   16
-		colorSchemeInit[4] = new Color(250, 132, 26);   // color of   32
-		colorSchemeInit[5] = new Color(96, 214, 198);     // color of   64
-		colorSchemeInit[6] = new Color(103, 124, 245);   // color of  128
-		colorSchemeInit[7] = new Color(0, 77, 169);  // color of  256
-		colorSchemeInit[8] = new Color(2, 64, 137);     // color of  512
-		colorSchemeInit[9] = new Color(10,10,10);  // color of 1024
-		colorSchemeInit[10] = new Color(10,10,10);      // color of 2048
-		colorSchemeInit[11] = new Color(10,10,10);      // color of 4096
+			// basic color palette (missing label colors)
+			Color[] colorSchemeInit = new Color[12];
+			colorSchemeInit[0] = new Color(255, 255, 255);  // color of    2
+			colorSchemeInit[1] = new Color(252, 248, 172);   // color of    4
+			colorSchemeInit[2] = new Color(255, 198, 25);   // color of    8
+			colorSchemeInit[3] = new Color(253, 163, 0);    // color of   16
+			colorSchemeInit[4] = new Color(250, 132, 26);   // color of   32
+			colorSchemeInit[5] = new Color(96, 214, 198);     // color of   64
+			colorSchemeInit[6] = new Color(103, 124, 245);   // color of  128
+			colorSchemeInit[7] = new Color(0, 77, 169);  // color of  256
+			colorSchemeInit[8] = new Color(2, 64, 137);     // color of  512
+			colorSchemeInit[9] = new Color(10,10,10);  // color of 1024
+			colorSchemeInit[10] = new Color(10,10,10);      // color of 2048
+			colorSchemeInit[11] = new Color(10,10,10);      // color of 4096
 		
-		panel.game = newGame;
-		panel.repaint();
-	}
-
-	if (e.getSource() == classicScheme) {
-		Color[] classicColorScheme = new Color[12];
-		classicColorScheme[0] = new Color(255, 255, 255);  // color of    2
-		classicColorScheme[1] = new Color(252, 248, 172);   // color of    4
-		classicColorScheme[2] = new Color(255, 198, 25);   // color of    8
-		classicColorScheme[3] = new Color(253, 163, 0);    // color of   16
-		classicColorScheme[4] = new Color(250, 132, 26);   // color of   32
-		classicColorScheme[5] = new Color(96, 214, 198);     // color of   64
-		classicColorScheme[6] = new Color(103, 124, 245);   // color of  128
-		classicColorScheme[7] = new Color(0, 77, 169);  // color of  256
-		classicColorScheme[8] = new Color(2, 64, 137);     // color of  512
-		classicColorScheme[9] = new Color(10,10,10);  // color of 1024
-		classicColorScheme[10] = new Color(10,10,10);      // color of 2048
-		classicColorScheme[11] = new Color(10,10,10);      // color of 4096
+			panel.game = newGame;
+			panel.repaint();
 		
-		panel.colors = new Hashtable<Integer,Color>();
-		panel.colors.put(0, Color.WHITE);
-		panel.colors.put(2, classicColorScheme[0]);
-		panel.colors.put(4, classicColorScheme[1]);
-		panel.colors.put(8, classicColorScheme[2]);
-		panel.colors.put(16, classicColorScheme[3]);
-		panel.colors.put(32, classicColorScheme[4]);
-		panel.colors.put(64, classicColorScheme[5]);
-		panel.colors.put(128, classicColorScheme[6]);
-		panel.colors.put(256, classicColorScheme[7]);
-		panel.colors.put(512, classicColorScheme[8]);
-		panel.colors.put(1024, classicColorScheme[9]);
-		panel.colors.put(2048, classicColorScheme[10]);
-		panel.colors.put(4096, classicColorScheme[11]);
+			panel.play("simulate");
+		}
 
-		panel.gridColor = Color.LIGHT_GRAY;
-		panel.primaryFontColor = Color.BLACK;
-		panel.secondaryFontColor	= Color.WHITE;
 
-		panel.setBackground(Color.WHITE);
+		if (e.getSource() == menuClassic) {		
+			Game newGame = new Game(panel.game.N);
+			newGame.gameMode = true;
 
-		panel.repaint();
+			newGame.spawnRandomNumber();
+			// basic color palette (missing label colors)
+			Color[] colorSchemeInit = new Color[12];
+
+			colorSchemeInit[0] = new Color(255, 255, 255);  // color of    2
+			colorSchemeInit[1] = new Color(252, 248, 172);   // color of    4
+			colorSchemeInit[2] = new Color(255, 198, 25);   // color of    8
+			colorSchemeInit[3] = new Color(253, 163, 0);    // color of   16
+			colorSchemeInit[4] = new Color(250, 132, 26);   // color of   32
+			colorSchemeInit[5] = new Color(96, 214, 198);     // color of   64
+			colorSchemeInit[6] = new Color(103, 124, 245);   // color of  128
+			colorSchemeInit[7] = new Color(0, 77, 169);  // color of  256
+			colorSchemeInit[8] = new Color(2, 64, 137);     // color of  512
+			colorSchemeInit[9] = new Color(10,10,10);  // color of 1024
+			colorSchemeInit[10] = new Color(10,10,10);      // color of 2048
+			colorSchemeInit[11] = new Color(10,10,10);      // color of 4096
+
+			panel.game = newGame;
+			panel.repaint();
+		}
+
+		if (e.getSource() == menuEndless) {
+			Game newGame = new Game(panel.game.N);
+			newGame.gameMode = false;
+
+			newGame.spawnRandomNumber();
+			// basic color palette (missing label colors)
+			Color[] colorSchemeInit = new Color[12];
+
+			colorSchemeInit[0] = new Color(255, 255, 255);  // color of    2
+			colorSchemeInit[1] = new Color(252, 248, 172);   // color of    4
+			colorSchemeInit[2] = new Color(255, 198, 25);   // color of    8
+			colorSchemeInit[3] = new Color(253, 163, 0);    // color of   16
+			colorSchemeInit[4] = new Color(250, 132, 26);   // color of   32
+			colorSchemeInit[5] = new Color(96, 214, 198);     // color of   64
+			colorSchemeInit[6] = new Color(103, 124, 245);   // color of  128
+			colorSchemeInit[7] = new Color(0, 77, 169);  // color of  256
+			colorSchemeInit[8] = new Color(2, 64, 137);     // color of  512
+			colorSchemeInit[9] = new Color(10,10,10);  // color of 1024
+			colorSchemeInit[10] = new Color(10,10,10);      // color of 2048
+			colorSchemeInit[11] = new Color(10,10,10);      // color of 4096
+
+			panel.game = newGame;
+			panel.repaint();
+		}
+
+		if (e.getSource() == classicScheme) {
+			Color[] classicColorScheme = new Color[12];
+
+			classicColorScheme[0] = new Color(255, 255, 255);  // color of    2
+			classicColorScheme[1] = new Color(252, 248, 172);   // color of    4
+			classicColorScheme[2] = new Color(255, 198, 25);   // color of    8
+			classicColorScheme[3] = new Color(253, 163, 0);    // color of   16
+			classicColorScheme[4] = new Color(250, 132, 26);   // color of   32
+			classicColorScheme[5] = new Color(96, 214, 198);     // color of   64
+			classicColorScheme[6] = new Color(103, 124, 245);   // color of  128
+			classicColorScheme[7] = new Color(0, 77, 169);  // color of  256
+			classicColorScheme[8] = new Color(2, 64, 137);     // color of  512
+			classicColorScheme[9] = new Color(10,10,10);  // color of 1024
+			classicColorScheme[10] = new Color(10,10,10);      // color of 2048
+			classicColorScheme[11] = new Color(10,10,10);      // color of 4096
+
+			panel.colors = new Hashtable<Integer,Color>();
+			panel.colors.put(0, Color.WHITE);
+			panel.colors.put(2, classicColorScheme[0]);
+			panel.colors.put(4, classicColorScheme[1]);
+			panel.colors.put(8, classicColorScheme[2]);
+			panel.colors.put(16, classicColorScheme[3]);
+			panel.colors.put(32, classicColorScheme[4]);
+			panel.colors.put(64, classicColorScheme[5]);
+			panel.colors.put(128, classicColorScheme[6]);
+			panel.colors.put(256, classicColorScheme[7]);
+			panel.colors.put(512, classicColorScheme[8]);
+			panel.colors.put(1024, classicColorScheme[9]);
+			panel.colors.put(2048, classicColorScheme[10]);
+			panel.colors.put(4096, classicColorScheme[11]);
+			panel.gridColor = Color.LIGHT_GRAY;
+			panel.primaryFontColor = Color.BLACK;
+
+			panel.secondaryFontColor = Color.WHITE;
+			panel.setBackground(Color.WHITE);
+
+			panel.repaint();
+		}
+
+		if (e.getSource() == darkScheme) {
+			Color[] darkColorScheme = new Color[12];
+
+			darkColorScheme[0] = new Color(11, 94, 97);  // color of    2
+			darkColorScheme[1] = new Color(11, 63, 97);   // color of    4
+			darkColorScheme[2] = new Color(11, 40, 97);   // color of    8
+			darkColorScheme[3] = new Color(33, 11, 97);    // color of   16
+			darkColorScheme[4] = new Color(89, 22, 110);   // color of   32
+			darkColorScheme[5] = new Color(134, 14, 138);     // color of   64
+			darkColorScheme[6] = new Color(125, 67, 115);   // color of  128
+			darkColorScheme[7] = new Color(128, 23, 80);  // color of  256
+			darkColorScheme[8] = new Color(130, 16, 48);     // color of  512
+			darkColorScheme[9] = new Color(148, 16, 16);  // color of 1024
+			darkColorScheme[10] = new Color(105, 0, 0);      // color of 2048
+			darkColorScheme[11] = new Color(10, 10, 10);      // color of 4096
+
+			panel.colors = new Hashtable<Integer,Color>();
+			panel.colors.put(0, Color.WHITE);
+			panel.colors.put(2, darkColorScheme[0]);
+			panel.colors.put(4, darkColorScheme[1]);
+			panel.colors.put(8, darkColorScheme[2]);
+			panel.colors.put(16, darkColorScheme[3]);
+			panel.colors.put(32, darkColorScheme[4]);
+			panel.colors.put(64, darkColorScheme[5]);
+			panel.colors.put(128, darkColorScheme[6]);
+			panel.colors.put(256, darkColorScheme[7]);
+			panel.colors.put(512, darkColorScheme[8]);
+			panel.colors.put(1024, darkColorScheme[9]);
+			panel.colors.put(2048, darkColorScheme[10]);
+			panel.colors.put(4096, darkColorScheme[11]);
+			panel.gridColor = Color.DARK_GRAY;
+			panel.primaryFontColor = Color.WHITE;
+
+			panel.secondaryFontColor = Color.WHITE;
+			panel.setBackground(Color.BLACK);
+			panel.repaint();
+		}
+
+		if (e.getSource() == game3) {
+			Game newGame = new Game(3);
+			newGame.spawnRandomNumber();
+			panel.game = newGame;
+			panel.repaint();
+		}
+
+		if (e.getSource() == game4) {
+			Game newGame = new Game(4);
+			newGame.spawnRandomNumber();
+			panel.game = newGame;
+			panel.repaint();
+		}
+
+		if (e.getSource() == game5) {
+			Game newGame = new Game(5);
+			newGame.spawnRandomNumber();
+			panel.game = newGame;
+			panel.repaint();
+		}
+
+		if (e.getSource() == game6) {
+			Game newGame = new Game(6);
+			newGame.spawnRandomNumber();
+			panel.game = newGame;
+			panel.repaint();
+		}
+
+		if (e.getSource() == game8) {
+			Game newGame = new Game(8);
+			newGame.spawnRandomNumber();
+			panel.game = newGame;
+			panel.repaint();
+		}
+
+		if (e.getSource() == game12) {
+			Game newGame = new Game(12);
+			newGame.spawnRandomNumber();
+			panel.game = newGame;
+			panel.repaint();
+		}
 	}
-
-	if (e.getSource() == darkScheme) {
-		Color[] darkColorScheme = new Color[12];
-		darkColorScheme[0] = new Color(0, 44, 110);  // color of    2
-		darkColorScheme[1] = new Color(8, 116, 130);   // color of    4
-		darkColorScheme[2] = new Color(6, 138, 109);   // color of    8
-		darkColorScheme[3] = new Color(6, 138, 54);    // color of   16
-		darkColorScheme[4] = new Color(17, 138, 6);   // color of   32
-		darkColorScheme[5] = new Color(134, 138, 6);     // color of   64
-		darkColorScheme[6] = new Color(163, 58, 39);   // color of  128
-		darkColorScheme[7] = new Color(110, 29, 14);  // color of  256
-		darkColorScheme[8] = new Color(129, 27, 140);     // color of  512
-		darkColorScheme[9] = new Color(98, 13, 107);  // color of 1024
-		darkColorScheme[10] = new Color(79, 4, 87);      // color of 2048
-		darkColorScheme[11] = new Color(87, 4, 69);      // color of 4096
-		
-		panel.colors = new Hashtable<Integer,Color>();
-		panel.colors.put(0, Color.WHITE);
-		panel.colors.put(2, darkColorScheme[0]);
-		panel.colors.put(4, darkColorScheme[1]);
-		panel.colors.put(8, darkColorScheme[2]);
-		panel.colors.put(16, darkColorScheme[3]);
-		panel.colors.put(32, darkColorScheme[4]);
-		panel.colors.put(64, darkColorScheme[5]);
-		panel.colors.put(128, darkColorScheme[6]);
-		panel.colors.put(256, darkColorScheme[7]);
-		panel.colors.put(512, darkColorScheme[8]);
-		panel.colors.put(1024, darkColorScheme[9]);
-		panel.colors.put(2048, darkColorScheme[10]);
-		panel.colors.put(4096, darkColorScheme[11]);
-
-		panel.gridColor = Color.DARK_GRAY;
-		panel.primaryFontColor = Color.WHITE;
-		panel.secondaryFontColor = Color.WHITE;
-		panel.setBackground(Color.BLACK);
-
-		panel.repaint();
-	}
-
-   }
 }

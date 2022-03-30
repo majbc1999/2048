@@ -8,7 +8,7 @@ import gui.Frame;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        Game game = new Game(6);
+        Game game = new Game(4);
     
         // basic color palette (missing label colors)
         Color[] colorSchemeInit = new Color[12];
