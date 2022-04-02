@@ -289,6 +289,7 @@ public class Frame extends JFrame implements ActionListener {
 
 			panel.secondaryFontColor = Color.WHITE;
 			panel.setBackground(UIManager.getColor("Panel.background"));
+			panel.theme = "classic";
 
 			panel.repaint();
 		}
@@ -306,8 +307,8 @@ public class Frame extends JFrame implements ActionListener {
 			darkColorScheme[7] = new Color(109, 159, 247);  // color of  256
 			darkColorScheme[8] = new Color(129, 165, 230);     // color of  512
 			darkColorScheme[9] = new Color(161, 195, 255);  // color of 1024
-		   darkColorScheme[10] = new Color(77, 216, 255);      // color of 2048
-	       darkColorScheme[11] = new Color(128, 227, 255);      // color of 4096
+		   	darkColorScheme[10] = new Color(77, 216, 255);      // color of 2048
+	       	darkColorScheme[11] = new Color(128, 227, 255);      // color of 4096
 
 			panel.colors = new Hashtable<Integer,Color>();
 			panel.colors.put(0, Color.WHITE);
@@ -328,6 +329,7 @@ public class Frame extends JFrame implements ActionListener {
 
 			panel.secondaryFontColor = Color.WHITE;
 			panel.setBackground(Color.BLACK);
+			panel.theme = "dark";
 			panel.repaint();
 		}
 

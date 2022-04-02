@@ -40,6 +40,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 	// images for game mode
 	BufferedImage imageClassic;
 	BufferedImage imageEndless;
+	BufferedImage imageClassicInv;
 	JLabel imageLabel;
 
 	// label for score
@@ -55,6 +56,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 	Color primaryFontColor;
 	Color secondaryFontColor;
 	Color zerosColor;
+
+	String theme;
 
 	// main constuctor
 	public Panel(Color[] colorScheme, Game game) {
@@ -80,16 +83,18 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		this.gridColor = Color.LIGHT_GRAY;
 		this.primaryFontColor = Color.BLACK;
 		this.secondaryFontColor	= Color.WHITE;
+		this.theme = "classic";
 
 		// labels list
 		this.labels = new JLabel[8][8];
 
 		this.scoreLabel = new JLabel("Score: " + Integer.toString(game.score));
 		
-		// load both pictures
+		// load all 3 pictures
 		try {                
-			imageEndless = ImageIO.read(new File("static/rsz_finish_flag.png"));
-			imageClassic = ImageIO.read(new File("static/rsz_infinity.png"));
+			imageClassic = ImageIO.read(new File("static/rsz_finish_flag.png"));
+			imageEndless = ImageIO.read(new File("static/rsz_infinity.png"));
+			imageClassicInv = ImageIO.read(new File("static/rsz_finish_flag_inverted.png"));
 		} catch (IOException ex) {
 		}
 		
@@ -302,11 +307,16 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 			scoreLabel.setForeground(primaryFontColor);
 			add(scoreLabel);
 			if (this.game.gameMode) {
-				imageLabel = new JLabel(new ImageIcon(imageEndless));
+				if (this.theme.equals("dark")) {
+					imageLabel = new JLabel(new ImageIcon(imageClassicInv));
+				}
+				else {
+					imageLabel = new JLabel(new ImageIcon(imageClassic));
+				}
 				imageLabel.setBounds(5, 5, 25, 25);
 			}
-			else {	
-				imageLabel = new JLabel(new ImageIcon(imageClassic));
+			else {
+				imageLabel = new JLabel(new ImageIcon(imageEndless));
 				imageLabel.setBounds(5, 5, 25, 25);
 			}
 			add(imageLabel);
@@ -319,11 +329,16 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 			scoreLabel.setForeground(primaryFontColor);
 			add(scoreLabel);	
 			if (this.game.gameMode)	 {
-				imageLabel = new JLabel(new ImageIcon(imageEndless));
+				if (this.theme.equals("dark")) {
+					imageLabel = new JLabel(new ImageIcon(imageClassicInv));
+				}
+				else {
+					imageLabel = new JLabel(new ImageIcon(imageClassic));
+				}
 				imageLabel.setBounds(15, 8, 25, 25);
 			}
-			else {	
-				imageLabel = new JLabel(new ImageIcon(imageClassic));
+			else {
+				imageLabel = new JLabel(new ImageIcon(imageEndless));
 				imageLabel.setBounds(15, 8, 25, 25);
 			}
 			add(imageLabel);
@@ -336,11 +351,16 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 			scoreLabel.setForeground(primaryFontColor);
 			add(scoreLabel);
 			if (this.game.gameMode)	 {
-				imageLabel = new JLabel(new ImageIcon(imageEndless));
+				if (this.theme.equals("dark")) {
+					imageLabel = new JLabel(new ImageIcon(imageClassicInv));
+				}
+				else {
+					imageLabel = new JLabel(new ImageIcon(imageClassic));
+				}
 				imageLabel.setBounds(15, 20, 25, 25);
 			}
-			else {	
-				imageLabel = new JLabel(new ImageIcon(imageClassic));
+			else {
+				imageLabel = new JLabel(new ImageIcon(imageEndless));
 				imageLabel.setBounds(15, 20, 25, 25);
 			}
 			add(imageLabel);

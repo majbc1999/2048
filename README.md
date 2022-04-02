@@ -51,4 +51,4 @@ This algorithm will work based on position evaluation and then minimax or alpha-
 - [x] problem with spawning random numbers
 - [x] ugly colors in dark mode
 - [ ] what to do with *Player* and *Computer* buttons in *New game* menu
-- [ ] classic mode icon not seen in dark mode
+- [x] classic mode icon not seen in dark mode
