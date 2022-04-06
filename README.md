@@ -8,7 +8,7 @@
 
 Goals of the project are:
 - [x] implementation of the game (in Java)
-- [ ] simple settings manager for the game (color scheme, grid size,...)
+- [x] simple settings manager for the game (color scheme, grid size,...)
 - [ ] implementation of AI player (possibly more than one *computer* player)
 
 ## Implementation of the game
@@ -37,11 +37,15 @@ This AI just playes random moves until the game is over.
 ### **AI 2**: Simulating algorithm
 Playes every possible move in the background and then for each simulates the whole game (until game over). For every possible move we repeat that for $n$ times and calculate the average score. Then we play the move with highest average score. Idea for this algorithm was found on [stack overflow](https://stackoverflow.com/questions/22342854/what-is-the-optimal-algorithm-for-the-game-2048#:~:text=AI%20Algorithm&text=The%20starting%20move%20with%20the,1%25%20for%20the%208192%20tile). For $n=25$ the results are already satisfying and the program has successfully beaten the game. However this method of problem solving is very time-wasteful: we have to wait several seconds for the move.
 
-### **AI 3**: Position evaluation
+### **AI 3**: Experimenting with empty spaces
+Here, the goal is to make the move, that minimizes number of empty spaces on the board. If the same number of empty spaces appear, we prioritize certain moves. This works really fast and is quite efficient. It reaches 256 and 512 on a 4x4 board respectivelly, however seems unlikely to beat the game with this algorithm. It seems though, that structure of the game is really good in this algorithm.
+
+### **AI 4**: Position evaluation (yet to be made)
 This algorithm will work based on position evaluation and then minimax or alpha-beta algorithm of a selected depth.
 
 ## Referencing papers
 - [Using Artificial Intelligence to solve the 2048 Game, Vasilis Vryniotis, 2014](https://blog.datumbox.com/using-artificial-intelligence-to-solve-the-2048-game-java-code/)
+- [Composition of Basic Heuristics for the Game 2048](https://theresamigler.files.wordpress.com/2020/03/2048.pdf)
 
 ## Current bugs
 - [x] if the move does nothing to the board, a new number should not be spawned
@@ -50,5 +54,5 @@ This algorithm will work based on position evaluation and then minimax or alpha-
 - [x] simulating algorithm loops don't work (maybe put loops in Swingworker)
 - [x] problem with spawning random numbers
 - [x] ugly colors in dark mode
-- [ ] what to do with *Player* and *Computer* buttons in *New game* menu
+- [ ] what to do with *Player* and *Computer* buttons in *New game* menu: solution is that if computer plays, *Player* stops him and lets human to continue. Similarly *Computer* button works to start playing this game. 
 - [x] classic mode icon not seen in dark mode
