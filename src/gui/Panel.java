@@ -122,6 +122,9 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 				else if (alg.equals("simulate")) {
 					game.simulateMove(25);
 				}
+				else if (alg.equals("emptyspaces")) {
+					game.playEmptySpaces();
+				}
 				return game;
 			}
 
@@ -134,6 +137,9 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 					}
 					else if (alg.equals("simulate")) {
 						play("simulate");
+					}
+					else if (alg.equals("emptyspaces")) {
+						play("emptyspaces");
 					}
 				}
 				repaint();

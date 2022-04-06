@@ -85,6 +85,19 @@ public class Game {
         }
     }
 
+    // counts empty spaces on the board
+    public int countEmptySpaces() {
+        int emptySpaces = 0;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (board[i][j] == 0) {
+                    emptySpaces++;
+                }
+            }
+        }
+        return emptySpaces;
+    }
+
     // method that moves numbers up
     public void moveUp() {
         ArrayList<Integer> emptyIndexes = new ArrayList<Integer>();
@@ -641,6 +654,81 @@ public class Game {
         else if (scoreMoveRight >= scoreMoveUp && scoreMoveRight >= scoreMoveLeft && scoreMoveRight >= scoreMoveDown) {
             moveRight();
             spawnRandomNumber();
+        }
+    }
+
+    // third ai: prioritizes least amount of empty spaces
+    public void playEmptySpaces() {
+        Game newGame = new Game(N);
+        newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+        int upSpaces = -1;
+        if (possibleMoves().contains("up")) {
+            newGame.moveUp();
+            upSpaces = newGame.countEmptySpaces();
+        }
+
+        newGame = new Game(N);
+        newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+        int downSpaces = -1;
+        if (possibleMoves().contains("down")) {
+            newGame.moveDown();
+            downSpaces = newGame.countEmptySpaces();
+        }
+
+        newGame = new Game(N);
+        newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+        int leftSpaces = -1;
+        if (possibleMoves().contains("left")) {
+            newGame.moveLeft();
+            leftSpaces = newGame.countEmptySpaces();
+        }
+
+        newGame = new Game(N);
+        newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+        int rightSpaces = -1;
+        if (possibleMoves().contains("right")) {
+            newGame.moveRight();
+            rightSpaces = newGame.countEmptySpaces();
+        }
+
+        ArrayList<String> bestPossibleMoves = new ArrayList<String>();
+        
+        // left spaces
+        if (leftSpaces >= rightSpaces && leftSpaces >= upSpaces && leftSpaces >= downSpaces) {
+            bestPossibleMoves.add("left");
+        }
+
+        // right
+        if (rightSpaces >= leftSpaces && rightSpaces >= upSpaces && rightSpaces >= downSpaces) {
+            bestPossibleMoves.add("right");
+        }
+
+        // down
+        if (downSpaces >= rightSpaces && downSpaces >= upSpaces && downSpaces >= leftSpaces) {
+            bestPossibleMoves.add("down");
+        }
+
+        // up
+        if (upSpaces >= rightSpaces && upSpaces >= leftSpaces && upSpaces >= downSpaces) {
+            bestPossibleMoves.add("up");
+        }
+        
+        // we prioritize 1. up 2. right 3. left 4. down
+        if (bestPossibleMoves.contains("up")) {
+            this.moveUp();
+            this.spawnRandomNumber();
+        }
+        else if (bestPossibleMoves.contains("right")) {
+            this.moveRight();
+            this.spawnRandomNumber();
+        }
+        else if (bestPossibleMoves.contains("left")) {
+            this.moveLeft();
+            this.spawnRandomNumber();
+        }
+        else if (bestPossibleMoves.contains("down")) {
+            this.moveDown();
+            this.spawnRandomNumber();
         }
     }
 
