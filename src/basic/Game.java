@@ -743,4 +743,18 @@ public class Game {
         }
         System.out.println("-------------");
     }
+
+    // biggest number reached
+    public int maxNumber() {
+        int biggest = 0;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (board[i][j] > biggest) {
+                    biggest = board[i][j];
+                }
+            }
+        }
+        return biggest;
+    }
+
 }

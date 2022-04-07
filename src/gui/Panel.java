@@ -32,7 +32,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 	JLabel[][] labels;
 
 	// current game
-	Game game;
+	public Game game;
 	
 	// hashtable for colors
 	Hashtable<Integer,Color> colors = new Hashtable<Integer,Color>();
