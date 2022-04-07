@@ -40,10 +40,7 @@ Playes every possible move in the background and then for each simulates the who
 ### **AI 3**: Experimenting with empty spaces
 Here, the goal is to make the move, that minimizes number of empty spaces on the board. If the same number of empty spaces appear, we prioritize certain moves. This works really fast and is quite efficient. It reaches 256 and 512 on a 4x4 board respectivelly, however seems unlikely to beat the game with this algorithm. It seems though, that structure of the game is really good in this algorithm. Note: *AI 2* would probably play better if instead of random moves, we would use this algorithm. However, even with $n=5$, algorithm takes too long to simulate.
 
-### **AI 4**: Position evaluation (yet to be made)
-This algorithm will work based on position evaluation and then minimax or alpha-beta algorithm of a selected depth.
-
-## Referencing papers
+## Referencing papers (ideas)
 - [Using Artificial Intelligence to solve the 2048 Game, Vasilis Vryniotis, 2014](https://blog.datumbox.com/using-artificial-intelligence-to-solve-the-2048-game-java-code/)
 - [Composition of Basic Heuristics for the Game 2048](https://theresamigler.files.wordpress.com/2020/03/2048.pdf)
 
