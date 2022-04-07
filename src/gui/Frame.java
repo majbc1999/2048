@@ -142,6 +142,8 @@ public class Frame extends JFrame implements ActionListener {
     @Override
 	public void actionPerformed(ActionEvent e) {
  		if (e.getSource() == menuRandomAlgorithm) {
+			panel.stopSwingworker = false;
+			panel.lastComputer = "random";
 
 			Game newGame = new Game(panel.game.N);
 
@@ -160,6 +162,8 @@ public class Frame extends JFrame implements ActionListener {
 		} 
 
 		if (e.getSource() == menuEmptySpacesAlgorithm) {
+			panel.stopSwingworker = false;
+			panel.lastComputer = "emptyspaces";
 
 			Game newGame = new Game(panel.game.N);
 
@@ -178,6 +182,8 @@ public class Frame extends JFrame implements ActionListener {
 		} 
 		
 		if (e.getSource() == menuSimulator) {
+			panel.stopSwingworker = false;
+			panel.lastComputer = "simulate";
 
 			Game newGame = new Game(panel.game.N);
 
@@ -194,7 +200,6 @@ public class Frame extends JFrame implements ActionListener {
 			panel.repaint();
 			panel.play("simulate");
 		}
-
 
 		if (e.getSource() == menuClassic) {		
 			Game newGame = new Game(panel.game.N);
@@ -388,6 +393,16 @@ public class Frame extends JFrame implements ActionListener {
 			newGame.spawnRandomNumber();
 			panel.game = newGame;
 			panel.repaint();
+		}
+	
+		if (e.getSource() == menuPlayer) {
+			panel.stopSwingworker = true;
+		}
+
+		if (e.getSource() == menuComputer) {
+			panel.stopSwingworker = false;
+			panel.repaint();
+			panel.play(panel.lastComputer);
 		}
 	}
 }

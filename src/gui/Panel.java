@@ -59,6 +59,12 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 
 	String theme;
 
+	// variable to stop computer swingworker
+	Boolean stopSwingworker;
+
+	// last computer algorithm (for button computer)
+	String lastComputer;
+
 	// main constuctor
 	public Panel(Color[] colorScheme, Game game) {
 
@@ -100,6 +106,9 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		
 		this.imageLabel = new JLabel(new ImageIcon(imageClassic));
 
+		this.stopSwingworker = false;
+		this.lastComputer = "random";
+
 		// enable mouse and key listeners
 		addMouseListener(this); 
 		addKeyListener(this);
@@ -107,23 +116,29 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 	}
 
 	// swingworker takes care of background;
-	private static SwingWorker<Game, Void> worker = null;
+	public SwingWorker<Game, Void> worker = null;
 
 	// automatically playes moves of the computer
-	public void play(String alg) {					
+	public void play(String alg) {
 		worker = new SwingWorker<Game, Void>() {
-			
+		
 			@Override
 			protected Game doInBackground() {
-				
+				Game newGame = new Game(game.N);
+				newGame.playMoves(game.movesHistory, game.numbersSpawned, game.spawnPositions);
 				if (alg.equals("random")) {
 					game.playRandomMove();
 				}
 				else if (alg.equals("simulate")) {
-					game.simulateMove(25);
+					game.simulateMove(10);
 				}
 				else if (alg.equals("emptyspaces")) {
 					game.playEmptySpaces();
+				}
+				
+				// we cancel the move if someone stops computer in between
+				if (stopSwingworker) {
+					game = newGame;
 				}
 				return game;
 			}
@@ -132,20 +147,22 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 			protected void done() {
 				if (game.status() && !game.win()) {
 					repaint();
-					if (alg.equals("random")) {
-						play("random");
-					}
-					else if (alg.equals("simulate")) {
-						play("simulate");
-					}
-					else if (alg.equals("emptyspaces")) {
-						play("emptyspaces");
+					if (!stopSwingworker) {
+						if (alg.equals("random")) {
+							play("random");
+						}
+						else if (alg.equals("simulate")) {
+							play("simulate");
+						}
+						else if (alg.equals("emptyspaces")) {
+							play("emptyspaces");
+						}
 					}
 				}
 				repaint();
 			}
 		};
-		worker.execute();
+		worker.execute();				
 	}
 
 	// preffered dimension of our panel
