@@ -346,7 +346,7 @@ public class Game {
         numbersSpawned.add(number);
     }
 
-    // method that playes sequence of given moves
+    // method that plays sequence of given moves
     public void playMoves(ArrayList<String> moves, ArrayList<Integer> numbers, ArrayList<Coordinates> coords) {
         for (int i = 0; i < moves.size(); i++) {
             spawnNumber(numbers.get(i), coords.get(i));
@@ -364,6 +364,28 @@ public class Game {
             }
         }
         spawnNumber(numbers.get(numbers.size() - 1), coords.get(coords.size() - 1));
+    }
+
+    // method that plays sequence of given moves until last move
+    public void playMovesUntilLast(ArrayList<String> moves, ArrayList<Integer> numbers, ArrayList<Coordinates> coords) {
+        if (moves.size() > 0) {
+            for (int i = 0; i < moves.size() - 1; i++) {
+                spawnNumber(numbers.get(i), coords.get(i));
+                if (moves.get(i) == "up") {
+                    moveUp();
+                }
+                else if (moves.get(i) == "down") {
+                    moveDown();
+                }
+                else if (moves.get(i) == "left") {
+                    moveLeft();
+                }
+                else if (moves.get(i) == "right") {
+                    moveRight();    
+                }
+            }
+            spawnNumber(numbers.get(numbers.size() - 2), coords.get(coords.size() - 2));
+        }
     }
 
     // method that returns True if the game is still in progress and False if it is over
@@ -755,6 +777,13 @@ public class Game {
             }
         }
         return biggest;
+    }
+
+    // undo
+    public void undo() {
+        Game newGame = new Game(N);
+        newGame.playMovesUntilLast(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+        this.playMoves(newGame.movesHistory, newGame.numbersSpawned, newGame.spawnPositions);
     }
 
 }
