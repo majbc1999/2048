@@ -1,17 +1,21 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Hashtable;
 
+import javax.swing.Box;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JSeparator;
 import javax.swing.UIManager;
 
 import basic.Game;
@@ -22,7 +26,7 @@ public class Frame extends JFrame implements ActionListener {
 	private Panel panel;
 
 	private JMenuBar menuBar;
-	private JMenu menu, menuAlgorithm;
+	private JMenu menu, menuAlgorithm, menuNewSettings;
 	
 	private JMenuItem menuClassic, menuEndless, menuPlayer, menuComputer;
 	private JMenuItem menuRandomAlgorithm, menuSimulator, menuEmptySpacesAlgorithm;
@@ -31,6 +35,7 @@ public class Frame extends JFrame implements ActionListener {
 	
 	private JMenuItem game3, game4, game5, game6, game8, classicScheme, darkScheme;
 
+	private JButton undo;
 
 	public int velikost;
 	
@@ -48,21 +53,22 @@ public class Frame extends JFrame implements ActionListener {
 		menu = new JMenu("New Game");
 		menuBar.add(menu);
 
+		menuNewSettings = new JMenu("Players");
+		menuBar.add(menuNewSettings);
+
 		// a group of JMenuItems
 		menuClassic = new JMenuItem("Classic", new ImageIcon("static/rsz_finish_flag.png"));
 		menu.add(menuClassic);
 
 		menuEndless = new JMenuItem("Endless", new ImageIcon("static/rsz_infinity.png"));
 		menu.add(menuEndless);
-
-		menu.addSeparator();
 		
 		menuPlayer = new JMenuItem("Player", new ImageIcon("static/rsz_player.png"));
 		menuPlayer.setSelected(true);
-		menu.add(menuPlayer);
+		menuNewSettings.add(menuPlayer);
 
 		menuComputer = new JMenuItem("Computer", new ImageIcon("static/rsz_ai.png"));
-		menu.add(menuComputer);
+		menuNewSettings.add(menuComputer);
 
 		// size and colors
 		game3 = new JMenuItem("3x3");
@@ -74,10 +80,11 @@ public class Frame extends JFrame implements ActionListener {
 		darkScheme = new JMenuItem("Dark Blue Night");
 
 		// submenu for algorithm picker
-		menu.addSeparator();
 		menuAlgorithm = new JMenu("Computer Algorithm");
 
 		menuRandomAlgorithm = new JMenuItem("Random Moves");
+		menuRandomAlgorithm.setOpaque(true);
+		menuRandomAlgorithm.setBackground(new Color(163,184,204));	
 		menuAlgorithm.add(menuRandomAlgorithm);
 
 		menuSimulator = new JMenuItem("Simulator");
@@ -86,7 +93,8 @@ public class Frame extends JFrame implements ActionListener {
 		menuEmptySpacesAlgorithm = new JMenuItem("Minimum Empty Spaces");
 		menuAlgorithm.add(menuEmptySpacesAlgorithm);
 
-		menu.add(menuAlgorithm);
+		menuNewSettings.addSeparator();
+		menuNewSettings.add(menuAlgorithm);
 
 		// build second and third menu in the menu bar.
 		menuSize = new JMenu("Game Size");
@@ -101,6 +109,18 @@ public class Frame extends JFrame implements ActionListener {
 		menuColorScheme.add(classicScheme);
 		menuColorScheme.add(darkScheme);
 		menuBar.add(menuColorScheme);
+
+		// undo button added
+		menuBar.add(Box.createGlue());
+		undo = new JButton("Undo");
+		undo.setPreferredSize(new Dimension(75, 31));
+		undo.setFocusable(false);
+		menuBar.add(new JSeparator());
+		menuBar.add(new JSeparator());
+		menuBar.add(new JSeparator());
+		menuBar.add(new JSeparator());
+		menuBar.add(undo);
+		menuBar.add(new JSeparator());
 
 		setJMenuBar(menuBar);
 
@@ -122,6 +142,7 @@ public class Frame extends JFrame implements ActionListener {
 		game8.addActionListener(this);
 		classicScheme.addActionListener(this);
 		darkScheme.addActionListener(this);
+		undo.addActionListener(this);
 
 		// panel and layouts
         panel = new Panel(colorScheme, game);
@@ -134,7 +155,6 @@ public class Frame extends JFrame implements ActionListener {
 		panel_layout.weightx = 1.0;
 		panel_layout.weighty = 1.0;
 		getContentPane().add(panel, panel_layout);
-			
 	}
 
     
@@ -142,63 +162,27 @@ public class Frame extends JFrame implements ActionListener {
     @Override
 	public void actionPerformed(ActionEvent e) {
  		if (e.getSource() == menuRandomAlgorithm) {
-			panel.stopSwingworker = false;
 			panel.lastComputer = "random";
-
-			Game newGame = new Game(panel.game.N);
-
-			if (panel.game.gameMode) {
-				newGame.gameMode = true;
-			}
-			else {
-				newGame.gameMode = false;
-			}
-
-			newGame.spawnRandomNumber();
-			
-			panel.game = newGame;
-			panel.repaint();
-			panel.play("random");
+			menuEmptySpacesAlgorithm.setOpaque(false);
+			menuSimulator.setOpaque(false);
+			menuRandomAlgorithm.setOpaque(true);
+			menuRandomAlgorithm.setBackground(new Color(163,184,204));
 		} 
 
 		if (e.getSource() == menuEmptySpacesAlgorithm) {
-			panel.stopSwingworker = false;
 			panel.lastComputer = "emptyspaces";
-
-			Game newGame = new Game(panel.game.N);
-
-			if (panel.game.gameMode) {
-				newGame.gameMode = true;
-			}
-			else {
-				newGame.gameMode = false;
-			}
-
-			newGame.spawnRandomNumber();
-
-			panel.game = newGame;
-			panel.repaint();
-			panel.play("emptyspaces");
+			menuRandomAlgorithm.setOpaque(false);
+			menuSimulator.setOpaque(false);
+			menuEmptySpacesAlgorithm.setOpaque(true);
+			menuEmptySpacesAlgorithm.setBackground(new Color(163,184,204));
 		} 
 		
 		if (e.getSource() == menuSimulator) {
-			panel.stopSwingworker = false;
 			panel.lastComputer = "simulate";
-
-			Game newGame = new Game(panel.game.N);
-
-			if (panel.game.gameMode) {
-				newGame.gameMode = true;
-			}
-			else {
-				newGame.gameMode = false;
-			}
-
-			newGame.spawnRandomNumber();
-		
-			panel.game = newGame;
-			panel.repaint();
-			panel.play("simulate");
+			menuRandomAlgorithm.setOpaque(false);
+			menuEmptySpacesAlgorithm.setOpaque(false);
+			menuSimulator.setOpaque(true);
+			menuSimulator.setBackground(new Color(163,184,204));
 		}
 
 		if (e.getSource() == menuClassic) {		
@@ -206,21 +190,6 @@ public class Frame extends JFrame implements ActionListener {
 			newGame.gameMode = true;
 
 			newGame.spawnRandomNumber();
-			// basic color palette (missing label colors)
-			Color[] colorSchemeInit = new Color[12];
-
-			colorSchemeInit[0] = new Color(255, 255, 255);  // color of    2
-			colorSchemeInit[1] = new Color(252, 248, 172);   // color of    4
-			colorSchemeInit[2] = new Color(255, 198, 25);   // color of    8
-			colorSchemeInit[3] = new Color(253, 163, 0);    // color of   16
-			colorSchemeInit[4] = new Color(250, 132, 26);   // color of   32
-			colorSchemeInit[5] = new Color(96, 214, 198);     // color of   64
-			colorSchemeInit[6] = new Color(103, 124, 245);   // color of  128
-			colorSchemeInit[7] = new Color(0, 77, 169);  // color of  256
-			colorSchemeInit[8] = new Color(2, 64, 137);     // color of  512
-			colorSchemeInit[9] = new Color(10,10,10);  // color of 1024
-			colorSchemeInit[10] = new Color(10,10,10);      // color of 2048
-			colorSchemeInit[11] = new Color(10,10,10);      // color of 4096
 
 			panel.game = newGame;
 			panel.repaint();
@@ -231,21 +200,6 @@ public class Frame extends JFrame implements ActionListener {
 			newGame.gameMode = false;
 
 			newGame.spawnRandomNumber();
-			// basic color palette (missing label colors)
-			Color[] colorSchemeInit = new Color[12];
-
-			colorSchemeInit[0] = new Color(255, 255, 255);  // color of    2
-			colorSchemeInit[1] = new Color(252, 248, 172);   // color of    4
-			colorSchemeInit[2] = new Color(255, 198, 25);   // color of    8
-			colorSchemeInit[3] = new Color(253, 163, 0);    // color of   16
-			colorSchemeInit[4] = new Color(250, 132, 26);   // color of   32
-			colorSchemeInit[5] = new Color(96, 214, 198);     // color of   64
-			colorSchemeInit[6] = new Color(103, 124, 245);   // color of  128
-			colorSchemeInit[7] = new Color(0, 77, 169);  // color of  256
-			colorSchemeInit[8] = new Color(2, 64, 137);     // color of  512
-			colorSchemeInit[9] = new Color(10,10,10);  // color of 1024
-			colorSchemeInit[10] = new Color(10,10,10);      // color of 2048
-			colorSchemeInit[11] = new Color(10,10,10);      // color of 4096
 
 			panel.game = newGame;
 			panel.repaint();
@@ -403,6 +357,11 @@ public class Frame extends JFrame implements ActionListener {
 			panel.stopSwingworker = false;
 			panel.repaint();
 			panel.play(panel.lastComputer);
+		}
+
+		if (e.getSource() == undo) {
+			panel.game.undo();
+			repaint();
 		}
 	}
 }

@@ -781,9 +781,16 @@ public class Game {
 
     // undo
     public void undo() {
-        Game newGame = new Game(N);
-        newGame.playMovesUntilLast(this.movesHistory, this.numbersSpawned, this.spawnPositions);
-        this.playMoves(newGame.movesHistory, newGame.numbersSpawned, newGame.spawnPositions);
+        if (this.movesHistory.size() >= 1) {
+            Game newGame = new Game(N);
+            newGame.playMovesUntilLast(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+            this.board = new int[N][N];
+            this.score = 0;
+            this.movesHistory = new ArrayList<String>();
+            this.spawnPositions = new ArrayList<Coordinates>();
+            this.numbersSpawned = new ArrayList<Integer>();
+            this.playMoves(newGame.movesHistory, newGame.numbersSpawned, newGame.spawnPositions);
+        }
     }
 
 }
