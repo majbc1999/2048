@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.io.File;
+import java.io.FileWriter;
 
 import javax.imageio.ImageIO;
 
@@ -32,6 +33,26 @@ public class Main {
         Frame frame = new Frame(colorSchemeInit, game);
         frame.setIconImage(ImageIO.read(new File("static/2048.png")));
         frame.pack();
+        
+        Game newGame = new Game(4);
+        FileWriter fw = new FileWriter("data/simulator1.txt");
+        for (int i = 0; i < 100; i++) {
+            newGame = new Game(4);
+            newGame.gameMode = false;
+            newGame.spawnRandomNumber();
+
+            while (newGame.status()) {
+                newGame.simulateMove(1);
+            }
+
+            String str = Integer.toString(newGame.score) + "," + Integer.toString(newGame.maxNumber());
+
+            fw.write(str);
+            fw.write("\n");
+            System.out.println(i + 1);
+        }
+
+        fw.close();
         frame.setVisible(true);
     }
 }
