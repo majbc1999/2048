@@ -33,26 +33,28 @@ public class Main {
         Frame frame = new Frame(colorSchemeInit, game);
         frame.setIconImage(ImageIO.read(new File("static/2048.png")));
         frame.pack();
+        frame.setVisible(true);
         
         Game newGame = new Game(4);
-        FileWriter fw = new FileWriter("data/simulator1.txt");
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10; i++) {
+            FileWriter fw = new FileWriter("data/simulator10.txt", true);
             newGame = new Game(4);
             newGame.gameMode = false;
             newGame.spawnRandomNumber();
+            frame.panel.game = newGame;
 
             while (newGame.status()) {
-                newGame.simulateMove(1);
+                newGame.simulateMove(10);
+                frame.panel.repaint();
             }
 
             String str = Integer.toString(newGame.score) + "," + Integer.toString(newGame.maxNumber());
 
             fw.write(str);
             fw.write("\n");
+            fw.close();
             System.out.println(i + 1);
         }
 
-        fw.close();
-        frame.setVisible(true);
     }
 }
