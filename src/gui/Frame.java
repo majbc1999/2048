@@ -95,7 +95,7 @@ public class Frame extends JFrame implements ActionListener {
 		menuNewSettings.add(menuAlgorithm);
 
 		// build second and third menu in the menu bar.
-		menuSize = new JMenu("Game Size");
+		menuSize = new JMenu("Size");
 		menuSize.add(game3);
 		menuSize.add(game4);
 		menuSize.add(game5);
@@ -103,7 +103,7 @@ public class Frame extends JFrame implements ActionListener {
 		menuSize.add(game8);
 		menuBar.add(menuSize);
 
-		menuColorScheme = new JMenu("Color Scheme");
+		menuColorScheme = new JMenu("Colors");
 		menuColorScheme.add(classicScheme);
 		menuColorScheme.add(darkScheme);
 		menuBar.add(menuColorScheme);
