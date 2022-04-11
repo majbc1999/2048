@@ -53,5 +53,6 @@ Here, the goal is to make the move, that minimizes number of empty spaces on the
 - [x] ugly colors in dark mode
 - [x] what to do with *Player* and *Computer* buttons in *New game* menu: solution is that if computer plays, *Player* stops him and lets human to continue. Similarly *Computer* button works to start playing this game. 
 - [x] classic mode icon not seen in dark mode
-- [ ] the user has to see which computer algorithm is playing
+- [x] the user has to see which computer algorithm is playing
 - [ ] the user should be able to select depth of the *simulating* algorithm
+- [ ] arrow keys should also make moves, not only *a, w, s, d* (not everybody is a gamer)

@@ -23,7 +23,7 @@ import basic.Game;
 @SuppressWarnings("serial")
 public class Frame extends JFrame implements ActionListener {
 	
-	private Panel panel;
+	public Panel panel;
 
 	private JMenuBar menuBar;
 	private JMenu menu, menuAlgorithm, menuNewSettings;
@@ -36,8 +36,6 @@ public class Frame extends JFrame implements ActionListener {
 	private JMenuItem game3, game4, game5, game6, game8, classicScheme, darkScheme;
 
 	private JButton undo;
-
-	public int velikost;
 	
 	public Frame(Color[] colorScheme, Game game) {
 		super();
