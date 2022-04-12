@@ -36,6 +36,18 @@ public class Game {
         this.gameMode = true;
     }
 
+    // constructor with random
+    public Game(int N, Random rand) {
+        this.board = new int[N][N];
+        this.N = N;
+        this.score = 0;
+        this.movesHistory = new ArrayList<String>();
+        this.spawnPositions = new ArrayList<Coordinates>();
+        this.numbersSpawned = new ArrayList<Integer>();
+        this.random = rand;
+        this.gameMode = true;
+    }
+
     // function that spawns a 2 or 4 in empty place on the board (if no empty place it does nothing)
     public void spawnRandomNumber() {
         int newNumber;
@@ -348,6 +360,7 @@ public class Game {
 
     // method that plays sequence of given moves
     public void playMoves(ArrayList<String> moves, ArrayList<Integer> numbers, ArrayList<Coordinates> coords) {
+        // very time-wasteful
         for (int i = 0; i < moves.size(); i++) {
             spawnNumber(numbers.get(i), coords.get(i));
             if (moves.get(i) == "up") {
@@ -364,6 +377,14 @@ public class Game {
             }
         }
         spawnNumber(numbers.get(numbers.size() - 1), coords.get(coords.size() - 1));
+    }
+
+    public void copyGame(Game otherGame) {
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                this.board[i][j] = otherGame.board[i][j];
+            }
+        }
     }
 
     // method that plays sequence of given moves until last move
@@ -442,7 +463,7 @@ public class Game {
         return false;
     }
 
-    // returns array of all possible moves (doesn't work yet)
+    // returns array of all possible moves
     public ArrayList<String> possibleMoves() {
         ArrayList<String> moves = new ArrayList<String>();
         
@@ -453,7 +474,7 @@ public class Game {
 		else {
 			newGame.gameMode = false;
 		}
-        newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+        newGame.copyGame(this);
         newGame.moveDown();
         if (!newGame.compareOtherGame(this)) {
             moves.add("down");
@@ -466,7 +487,7 @@ public class Game {
 		else {
 			newGame.gameMode = false;
 		}
-        newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+        newGame.copyGame(this);
         newGame.moveUp();
         if (!newGame.compareOtherGame(this)) {
             moves.add("up");
@@ -479,7 +500,7 @@ public class Game {
 		else {
 			newGame.gameMode = false;
 		}
-        newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+        newGame.copyGame(this);
         newGame.moveLeft();
         if (!newGame.compareOtherGame(this)) {
             moves.add("left");
@@ -492,7 +513,7 @@ public class Game {
 		else {
 			newGame.gameMode = false;
 		}
-        newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+        newGame.copyGame(this);
         newGame.moveRight();
         if (!newGame.compareOtherGame(this)) {
             moves.add("right");
@@ -567,21 +588,22 @@ public class Game {
     }
 
     // second ai: simulates only once for each move
-    public void simulateMove(int n) {
+    public void simulateMove(int n, Random rand) {
         
         // simulate moveUp
         int scoreMoveUp = 0;
 
         if (possibleMoves().contains("up")) {
             for (int i = 0; i < n; i++) {
-                Game newGame = new Game(N);
+                Game newGame = new Game(N, rand);
                 if (this.gameMode) {
                     newGame.gameMode = true;
                 }
                 else {
                     newGame.gameMode = false;
                 }
-                newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+                
+                newGame.copyGame(this);
                 newGame.moveUp();
                 newGame.spawnRandomNumber();
 
@@ -597,14 +619,15 @@ public class Game {
         
         if (possibleMoves().contains("down")) {
             for (int i = 0; i < n; i++) {
-                Game newGame = new Game(N);
+                Game newGame = new Game(N, rand);
                 if (this.gameMode) {
                     newGame.gameMode = true;
                 }
                 else {
                     newGame.gameMode = false;
                 }
-                newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+                
+                newGame.copyGame(this);
                 newGame.moveDown();
                 newGame.spawnRandomNumber();
 
@@ -620,14 +643,15 @@ public class Game {
 
         if (possibleMoves().contains("left")) {
             for (int i = 0; i < n; i++) {
-                Game newGame = new Game(N);
+                Game newGame = new Game(N, rand);
                 if (this.gameMode) {
                     newGame.gameMode = true;
                 }
                 else {
                     newGame.gameMode = false;
                 }
-                newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+                
+                newGame.copyGame(this);
                 newGame.moveLeft();
                 newGame.spawnRandomNumber();
 
@@ -643,14 +667,15 @@ public class Game {
 
         if (possibleMoves().contains("right")) {
             for (int i = 0; i < n; i++) {
-                Game newGame = new Game(N);
+                Game newGame = new Game(N, rand);
                 if (this.gameMode) {
                     newGame.gameMode = true;
                 }
                 else {
                     newGame.gameMode = false;
                 }
-                newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+                
+                newGame.copyGame(this);
                 newGame.moveRight();
                 newGame.spawnRandomNumber();
 

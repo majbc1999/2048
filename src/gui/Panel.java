@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Hashtable;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -65,6 +66,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 	// last computer algorithm (for button computer)
 	String lastComputer;
 
+	// random 
+	Random random;
+
+
 	// main constuctor
 	public Panel(Color[] colorScheme, Game game) {
 
@@ -109,6 +114,8 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		this.stopSwingworker = false;
 		this.lastComputer = "random";
 
+		this.random = new Random(System.currentTimeMillis());
+
 		// enable mouse and key listeners
 		addMouseListener(this); 
 		addKeyListener(this);
@@ -130,7 +137,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 					game.playRandomMove();
 				}
 				else if (alg.equals("simulate")) {
-					game.simulateMove(10);
+					game.simulateMove(10, random);
 				}
 				else if (alg.equals("emptyspaces")) {
 					game.playEmptySpaces();

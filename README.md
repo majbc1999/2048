@@ -56,8 +56,5 @@ Here, the goal is to make the move, that minimizes number of empty spaces on the
 - [x] the user has to see which computer algorithm is playing
 - [ ] the user should be able to select depth of the *simulating* algorithm
 - [ ] arrow keys should also make moves, not only *a, w, s, d* (not everybody is a gamer)
-- [ ] problem of slow simulator algorithm comes mainly from slow copying of the games (find a better way to copy a game)
+- [x] problem of slow simulator algorithm comes mainly from slow copying of the games (find a better way to copy a game)
 - [ ] when computer plays, human shall not interrupt it (also undo should not work then)
-- [ ] changing computer algorithm should instantly change it 
-- [ ] another algorithm: **better simulating algorithm**, which simulates and decides based on score, empty fields and max number (try to find best such function)
-- [ ] another algorithm: based on data changes depths depending on score and minimizing time (big depth is only needed right before new highest number)
