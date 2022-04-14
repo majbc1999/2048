@@ -35,7 +35,7 @@ Different color themes can be chosen. For now only *Vintage 2048* and *Dark Blue
 This AI just playes random moves until the game is over.
 
 ### **AI 2**: Simulating algorithm with random moves
-Playes every possible move in the background and then for each simulates the whole game with playing random moves (until game over). For every possible move we repeat that for $n$ times and calculate the average score. Then we play the move with highest average score. Idea for this algorithm was found on [stack overflow](https://stackoverflow.com/questions/22342854/what-is-the-optimal-algorithm-for-the-game-2048#:~:text=AI%20Algorithm&text=The%20starting%20move%20with%20the,1%25%20for%20the%208192%20tile). For $n=25$ the results are already satisfying and the program has successfully beaten the game. Even for $n=5$ algorithm successfully beats the game in first try. However this method of problem solving is a little bit time-wasteful: we have to wait several seconds for the move. Time per move is linearly increasing with increased depth.
+Playes every possible move in the background and then for each simulates the whole game with playing random moves (until game over). For every possible move we repeat that for $n$ times and calculate the average score. Then we play the move with highest average score. Idea for this algorithm was found on [stack overflow](https://stackoverflow.com/questions/22342854/what-is-the-optimal-algorithm-for-the-game-2048#:~:text=AI%20Algorithm&text=The%20starting%20move%20with%20the,1%25%20for%20the%208192%20tile). For $n=25$ the results are already satisfying and the program has successfully beaten the game. Even for $n=5$ algorithm successfully beats the game in first try. However this method of problem solving is a little bit time-wasteful: we have to wait several seconds for the move. Time per move is linearly increasing with increased depth. This method is called *Pure Monte Carlo game search*.
 
 ### **AI 3**: Experimenting with empty spaces
 Here, the goal is to make the move, that minimizes number of empty spaces on the board. If the same number of empty spaces appear, we prioritize certain moves. This works really fast and is quite efficient. It reaches 256 and 512 on a 4x4 board respectivelly, however seems unlikely to beat the game with this algorithm. It seems though, that structure of the game is really good in this algorithm. Note: *AI 2* would probably play better if instead of random moves, we would use this algorithm. However, even with $n=5$, algorithm takes too long to simulate.
@@ -54,7 +54,8 @@ Here, the goal is to make the move, that minimizes number of empty spaces on the
 - [x] what to do with *Player* and *Computer* buttons in *New game* menu: solution is that if computer plays, *Player* stops him and lets human to continue. Similarly *Computer* button works to start playing this game. 
 - [x] classic mode icon not seen in dark mode
 - [x] the user has to see which computer algorithm is playing
-- [ ] the user should be able to select depth of the *simulating* algorithm
-- [ ] arrow keys should also make moves, not only *a, w, s, d* (not everybody is a gamer)
+- [x] the user should be able to select depth of the *simulating* algorithm -> no need, for $k=500$ the algorithm is good and fast enough
+- [ ] arrow keys should also make moves, not only *a, w, s, d* -> maybe problem with slovenian keyboard? simple solution doesn't work
 - [x] problem of slow simulator algorithm comes mainly from slow copying of the games (find a better way to copy a game)
-- [ ] when computer plays, human shall not interrupt it (also undo should not work then)
+- [x] when computer plays, human shall not interrupt it (also undo should not work then)
+- [ ] another algorithm: simulator with dynamic depth

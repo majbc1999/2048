@@ -111,7 +111,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 		
 		this.imageLabel = new JLabel(new ImageIcon(imageClassic));
 
-		this.stopSwingworker = false;
+		this.stopSwingworker = true;
 		this.lastComputer = "random";
 
 		this.random = new Random(System.currentTimeMillis());
@@ -408,54 +408,55 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 	
 	// typing method
 	@Override
-	public void keyTyped(KeyEvent e) {
+	public void keyTyped(KeyEvent e) {		
 
 		char key = e.getKeyChar();
 
-		// key up
-		if (key == 'w') {
-			if (game.possibleMoves().contains("up")) {
-				game.moveUp();
-				if (game.status() && !game.win()) {
-					game.spawnRandomNumber();
+		if (stopSwingworker) {
+			// key up
+			if (key == 'w') {
+				if (game.possibleMoves().contains("up")) {
+					game.moveUp();
+					if (game.status() && !game.win()) {
+						game.spawnRandomNumber();
+					}
+					repaint();
 				}
-				repaint();
+			}
+
+			// keys down
+			if (key == 's') {
+				if (game.possibleMoves().contains("down")) {
+					game.moveDown();
+					if (game.status() && !game.win()) {
+						game.spawnRandomNumber();
+					}
+					repaint();
+				}
+			}
+
+			// keys left
+			if (key == 'a') {
+				if (game.possibleMoves().contains("left")) {
+					game.moveLeft();
+					if (game.status() && !game.win()) {
+						game.spawnRandomNumber();
+					}
+					repaint();
+				}
+			}
+
+			// key right
+			if (key == 'd') {
+				if (game.possibleMoves().contains("right")) {
+					game.moveRight();
+					if (game.status() && !game.win()) {
+						game.spawnRandomNumber();
+					}
+					repaint();
+				}
 			}
 		}
-
-		// keys down
-		if (key == 's') {
-			if (game.possibleMoves().contains("down")) {
-				game.moveDown();
-				if (game.status() && !game.win()) {
-					game.spawnRandomNumber();
-				}
-				repaint();
-			}
-		}
-
-		// keys left
-		if (key == 'a') {
-			if (game.possibleMoves().contains("left")) {
-				game.moveLeft();
-				if (game.status() && !game.win()) {
-					game.spawnRandomNumber();
-				}
-				repaint();
-			}
-		}
-
-		// key right
-		if (key == 'd') {
-			if (game.possibleMoves().contains("right")) {
-				game.moveRight();
-				if (game.status() && !game.win()) {
-					game.spawnRandomNumber();
-				}
-				repaint();
-			}
-		}
-
     }
 	
 	@Override

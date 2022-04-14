@@ -1,7 +1,5 @@
 import java.awt.Color;
 import java.io.File;
-import java.io.FileWriter;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -36,18 +34,18 @@ public class Main {
         frame.pack();
         frame.setVisible(true);
         
-        Random rand = new Random(System.currentTimeMillis());
+/*         Random rand = new Random(System.currentTimeMillis());
 
         Game newGame = new Game(4);
-        for (int i = 0; i < 100; i++) {
-            FileWriter fw = new FileWriter("data/simulator100.txt", true);
+        for (int i = 0; i < 11; i++) {
+            FileWriter fw = new FileWriter("data/simulator500.txt", true);
             newGame = new Game(4);
             newGame.gameMode = false;
             newGame.spawnRandomNumber();
             frame.panel.game = newGame;
 
             while (newGame.status()) {
-                newGame.simulateMove(100, rand);
+                newGame.simulateMove(500, rand);
                 frame.panel.repaint();
             }
 
@@ -57,7 +55,7 @@ public class Main {
             fw.write("\n");
             fw.close();
             System.out.println(i + 1);
-        }
+        } */
 
     }
 }
