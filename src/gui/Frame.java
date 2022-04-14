@@ -33,7 +33,7 @@ public class Frame extends JFrame implements ActionListener {
 
 	private JMenuItem menuColorScheme, menuSize;
 	
-	private JMenuItem game3, game4, game5, game6, game8, classicScheme, darkScheme;
+	private JMenuItem game3, game4, game5, game6, game8, classicScheme, darkScheme, CBScheme;
 
 	private JButton undo;
 	
@@ -76,6 +76,7 @@ public class Frame extends JFrame implements ActionListener {
 		game8 = new JMenuItem("8x8");
 		classicScheme = new JMenuItem("Vintage 2048");
 		darkScheme = new JMenuItem("Dark Blue Night");
+		CBScheme = new JMenuItem("Colorblind Mode");
 
 		// submenu for algorithm picker
 		menuAlgorithm = new JMenu("Computer Algorithm");
@@ -106,6 +107,7 @@ public class Frame extends JFrame implements ActionListener {
 		menuColorScheme = new JMenu("Colors");
 		menuColorScheme.add(classicScheme);
 		menuColorScheme.add(darkScheme);
+		menuColorScheme.add(CBScheme);
 		menuBar.add(menuColorScheme);
 
 		// undo button added
@@ -140,6 +142,7 @@ public class Frame extends JFrame implements ActionListener {
 		game8.addActionListener(this);
 		classicScheme.addActionListener(this);
 		darkScheme.addActionListener(this);
+		CBScheme.addActionListener(this);
 		undo.addActionListener(this);
 
 		// panel and layouts
@@ -239,6 +242,46 @@ public class Frame extends JFrame implements ActionListener {
 			panel.secondaryFontColor = Color.WHITE;
 			panel.setBackground(UIManager.getColor("Panel.background"));
 			panel.theme = "classic";
+
+			panel.repaint();
+		}
+
+		if (e.getSource() == CBScheme) {
+			Color[] classicColorScheme = new Color[12];
+
+			classicColorScheme[0] = new Color(242,242,242);  // color of    2
+			classicColorScheme[1] = new Color(204,204,204);   // color of    4
+			classicColorScheme[2] = new Color(153,153,153);   // color of    8
+			classicColorScheme[3] = new Color(115,115,115);    // color of   16
+			classicColorScheme[4] = new Color(77,77,77);   // color of   32
+			classicColorScheme[5] = new Color(64,64,64);   // color of  64
+			classicColorScheme[6] = new Color(38,38,38);     // color of   128
+			classicColorScheme[7] = new Color(26,26,26);  // color of  256
+			classicColorScheme[8] = new Color(18,18,18);     // color of  512
+			classicColorScheme[9] = new Color(10,10,10);  // color of 1024
+			classicColorScheme[10] = new Color(0, 0,0);      // color of 2048
+			classicColorScheme[11] = new Color(10,10,10);      // color of 4096
+
+			panel.colors = new Hashtable<Integer,Color>();
+			panel.colors.put(0, Color.WHITE);
+			panel.colors.put(2, classicColorScheme[0]);
+			panel.colors.put(4, classicColorScheme[1]);
+			panel.colors.put(8, classicColorScheme[2]);
+			panel.colors.put(16, classicColorScheme[3]);
+			panel.colors.put(32, classicColorScheme[4]);
+			panel.colors.put(64, classicColorScheme[5]);
+			panel.colors.put(128, classicColorScheme[6]);
+			panel.colors.put(256, classicColorScheme[7]);
+			panel.colors.put(512, classicColorScheme[8]);
+			panel.colors.put(1024, classicColorScheme[9]);
+			panel.colors.put(2048, classicColorScheme[10]);
+			panel.colors.put(4096, classicColorScheme[11]);
+			panel.gridColor = Color.LIGHT_GRAY;
+			panel.primaryFontColor = Color.BLACK;
+
+			panel.secondaryFontColor = Color.WHITE;
+			panel.setBackground(new Color(255,255,255));
+			panel.theme = "colorblind";
 
 			panel.repaint();
 		}

@@ -296,12 +296,23 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 				tempLabel.setBounds((int) x, (int) y, (int) d, (int) d);
 				tempLabel.setFont(new Font("Arial", 0, 30));
 
-				if (game.board[i][j] >= 256) {
-					tempLabel.setForeground(secondaryFontColor);
+				if (theme.equals("colorblind")) {
+					if (game.board[i][j] >= 32) {
+						tempLabel.setForeground(secondaryFontColor);
+					}
+					else {
+						tempLabel.setForeground(primaryFontColor);
+					}
 				}
 				else {
-					tempLabel.setForeground(primaryFontColor);
+					if (game.board[i][j] >= 256) {
+						tempLabel.setForeground(secondaryFontColor);
+					}
+					else {
+						tempLabel.setForeground(primaryFontColor);
+					}
 				}
+
 				labels[i][j] = tempLabel;
 			}
 		}
