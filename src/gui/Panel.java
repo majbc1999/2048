@@ -137,10 +137,13 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 					game.playRandomMove();
 				}
 				else if (alg.equals("simulate")) {
-					game.simulateMove(10, random);
+					game.simulateMove(500, random);
 				}
 				else if (alg.equals("emptyspaces")) {
 					game.playEmptySpaces();
+				}
+				else if (alg.equals("simulateDyn")) {
+					game.simulateMoveDynamic(random);
 				}
 				
 				// we cancel the move if someone stops computer in between
@@ -163,6 +166,9 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 						}
 						else if (alg.equals("emptyspaces")) {
 							play("emptyspaces");
+						}
+						else if (alg.equals("simulateDyn")) {
+							play("simulateDyn");
 						}
 					}
 				}

@@ -29,7 +29,7 @@ public class Frame extends JFrame implements ActionListener {
 	private JMenu menu, menuAlgorithm, menuNewSettings;
 	
 	private JMenuItem menuClassic, menuEndless, menuPlayer, menuComputer;
-	private JMenuItem menuRandomAlgorithm, menuSimulator, menuEmptySpacesAlgorithm;
+	private JMenuItem menuRandomAlgorithm, menuSimulator, menuEmptySpacesAlgorithm, menuSimulatorDynamic;
 
 	private JMenuItem menuColorScheme, menuSize;
 	
@@ -86,11 +86,14 @@ public class Frame extends JFrame implements ActionListener {
 		menuRandomAlgorithm.setBackground(new Color(163,184,204));	
 		menuAlgorithm.add(menuRandomAlgorithm);
 
-		menuSimulator = new JMenuItem("Simulator");
+		menuSimulator = new JMenuItem("Simulator 2000");
 		menuAlgorithm.add(menuSimulator);
 
 		menuEmptySpacesAlgorithm = new JMenuItem("Minimum Empty Spaces");
 		menuAlgorithm.add(menuEmptySpacesAlgorithm);
+
+		menuSimulatorDynamic = new JMenuItem("Dynamic Simulator");
+		menuAlgorithm.add(menuSimulatorDynamic);
 
 		menuNewSettings.addSeparator();
 		menuNewSettings.add(menuAlgorithm);
@@ -131,6 +134,7 @@ public class Frame extends JFrame implements ActionListener {
 		menuComputer.addActionListener(this);
 		menuRandomAlgorithm.addActionListener(this); 
 		menuSimulator.addActionListener(this);
+		menuSimulatorDynamic.addActionListener(this);
 		menuEmptySpacesAlgorithm.addActionListener(this);
 
 		menuSize.addActionListener(this);
@@ -165,6 +169,7 @@ public class Frame extends JFrame implements ActionListener {
  		if (e.getSource() == menuRandomAlgorithm) {
 			panel.lastComputer = "random";
 			menuEmptySpacesAlgorithm.setOpaque(false);
+			menuSimulatorDynamic.setOpaque(false);
 			menuSimulator.setOpaque(false);
 			menuRandomAlgorithm.setOpaque(true);
 			menuRandomAlgorithm.setBackground(new Color(163,184,204));
@@ -174,6 +179,7 @@ public class Frame extends JFrame implements ActionListener {
 			panel.lastComputer = "emptyspaces";
 			menuRandomAlgorithm.setOpaque(false);
 			menuSimulator.setOpaque(false);
+			menuSimulatorDynamic.setOpaque(false);
 			menuEmptySpacesAlgorithm.setOpaque(true);
 			menuEmptySpacesAlgorithm.setBackground(new Color(163,184,204));
 		} 
@@ -182,8 +188,18 @@ public class Frame extends JFrame implements ActionListener {
 			panel.lastComputer = "simulate";
 			menuRandomAlgorithm.setOpaque(false);
 			menuEmptySpacesAlgorithm.setOpaque(false);
+			menuSimulatorDynamic.setOpaque(false);
 			menuSimulator.setOpaque(true);
 			menuSimulator.setBackground(new Color(163,184,204));
+		}
+
+		if (e.getSource() == menuSimulatorDynamic) {
+			panel.lastComputer = "simulateDyn";
+			menuRandomAlgorithm.setOpaque(false);
+			menuEmptySpacesAlgorithm.setOpaque(false);
+			menuSimulator.setOpaque(false);
+			menuSimulatorDynamic.setOpaque(true);
+			menuSimulatorDynamic.setBackground(new Color(163,184,204));
 		}
 
 		if (e.getSource() == menuClassic) {		

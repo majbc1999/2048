@@ -379,6 +379,7 @@ public class Game {
         spawnNumber(numbers.get(numbers.size() - 1), coords.get(coords.size() - 1));
     }
 
+    // method for faster game copy
     public void copyGame(Game otherGame) {
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
@@ -776,6 +777,94 @@ public class Game {
         else if (bestPossibleMoves.contains("down")) {
             this.moveDown();
             this.spawnRandomNumber();
+        }
+    }
+
+    // fourth ai: simulator with dynamic depth
+    public void simulateMoveDynamic(Random rand) {
+        if (this.score < 6700) {
+            simulateMove(50, rand);
+        }
+        else if (this.score < 7500) {
+            simulateMove(100, rand);
+        }
+        else if (this.score < 13500) {
+            simulateMove(50, rand);
+        }
+        else if (this.score < 14800) {
+            simulateMove(500, rand);
+        }
+        else if (this.score < 15000) {
+            simulateMove(50, rand);
+        }
+        else if (this.score < 16500) {
+            simulateMove(500, rand);
+        }
+        else if (this.score < 22000) {
+            simulateMove(50, rand);
+        }
+        else if (this.score < 23600) {
+            simulateMove(500, rand);
+        }
+        else if (this.score < 24700) {
+            simulateMove(100, rand);
+        }
+        else if (this.score < 25400) {
+            simulateMove(500, rand);
+        }
+        else if (this.score < 26000) {
+            simulateMove(100, rand);
+        }
+        else if (this.score < 27600) {
+            simulateMove(500, rand);
+        }
+        else if (this.score < 29500) {
+            simulateMove(100, rand);
+        }
+        else if (this.score < 30700) {
+            simulateMove(500, rand);
+        }
+        else if (this.score < 32000) {
+            simulateMove(100, rand);
+        }
+        else if (this.score < 32700) {
+            simulateMove(500, rand);
+        }
+        else if (this.score < 33500) {
+            simulateMove(100, rand);
+        }
+        else if (this.score < 34700) {
+            simulateMove(1000, rand);
+        }
+        else if (this.score < 35000) {
+            simulateMove(100, rand);
+        }
+        else if (this.score < 36500) {
+            simulateMove(1000, rand);
+        }
+        else if (this.score < 49000) {
+            simulateMove(100, rand);
+        }
+        else if (this.score < 51600) {
+            simulateMove(500, rand);
+        }
+        else if (this.score < 58000) {
+            simulateMove(100, rand);
+        }
+        else if (this.score < 61000) {
+            simulateMove(500, rand);
+        }
+        else if (this.score < 69000) {
+            simulateMove(500, rand);
+        }
+        else if (this.score < 72000) {
+            simulateMove(1000, rand);
+        }
+        else if (this.score < 76000) {
+            simulateMove(500, rand);
+        }
+        else {
+            simulateMove(1000, rand);
         }
     }
 
