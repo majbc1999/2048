@@ -782,7 +782,7 @@ public class Game {
 
     // fourth ai: simulator with dynamic depth
     public void simulateMoveDynamic(Random rand) {
-        if (this.score < 6700) {
+        if (this.score < 6000) {
             simulateMove(50, rand);
         }
         else if (this.score < 7500) {
@@ -801,7 +801,7 @@ public class Game {
             simulateMove(500, rand);
         }
         else if (this.score < 22000) {
-            simulateMove(50, rand);
+            simulateMove(100, rand);
         }
         else if (this.score < 23600) {
             simulateMove(500, rand);

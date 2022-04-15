@@ -28,9 +28,10 @@ s020 = import_file_as_db("simulator20", "simulator", 20)
 s050 = import_file_as_db("simulator50", "simulator", 50) 
 s100 = import_file_as_db("simulator100", "simulator", 100)
 s500 = import_file_as_db("simulator500", "simulator", 500)
+sdyn = import_file_as_db("dynamicsimulator", "simulator", "dynamic")
 
 # merged dataframe from all data
-df = pd.concat([espa,rand,s001,s002,s005,s010,s015,s020,s050,s100,s500])
+df = pd.concat([espa,rand,s001,s002,s005,s010,s015,s020,s050,s100,s500,sdyn])
 df["score"] = pd.to_numeric(df["score"])
 df["highest_reached"] = pd.to_numeric(df["highest_reached"])
 
@@ -40,15 +41,16 @@ df["highest_reached"] = pd.to_numeric(df["highest_reached"])
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 histdf = df.groupby(by=["algorithm", "depth"], dropna=False).mean().sort_values(by="score")
+print(histdf)
 
-graph1 = histdf.plot.bar(y="score", rot=45, legend=None, color="navy")
+graph1 = histdf.plot.bar(y="score", rot=90, legend=None, color="navy")
 graph1.set(title="Average score of algorithms", xlabel="algorithm", ylabel="score")
-graph1.set_xticklabels(["Random", "Empty Spaces", "Simulator k=1", "Simulator k=1", "Simulator k=2", "Simulator k=10", "Simulator k=15", "Simulator k=20", "Simulator k=50", "Simulator k=100", "Simulator k=500"])
+graph1.set_xticklabels(["Random", "Empty Spaces", "Simulator k=1", "Simulator k=1", "Simulator k=2", "Simulator k=10", "Simulator k=15", "Simulator k=20", "Simulator k=50", "Simulator k=100", "Dynamic simulator", "Simulator k=500"])
 plt.savefig('plots/graph1.png', bbox_inches = 'tight')
 
-graph2 = histdf.plot.bar(y="highest_reached", rot=45, color="orange", legend=None)
+graph2 = histdf.plot.bar(y="highest_reached", rot=90, color="orange", legend=None)
 graph2.set(title="Average highest number reached of algorithms", xlabel="algorithm", ylabel="highest number")
-graph2.set_xticklabels(["Random", "Empty Spaces", "Simulator k=1", "Simulator k=1", "Simulator k=2", "Simulator k=10", "Simulator k=15", "Simulator k=20", "Simulator k=50", "Simulator k=100", "Simulator k=500"])
+graph2.set_xticklabels(["Random", "Empty Spaces", "Simulator k=1", "Simulator k=1", "Simulator k=2", "Simulator k=10", "Simulator k=15", "Simulator k=20", "Simulator k=50", "Simulator k=100", "Dynamic simulator", "Simulator k=500"])
 plt.savefig('plots/graph2.png', bbox_inches = 'tight')
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -84,3 +86,9 @@ graph7 = sns.displot(df500, x="score", bins=30, color="navy")
 graph7.set(title="Distribution of Simulator with k=500", xlabel="score", ylabel="distribution")
 plt.vlines(np.quantile(df500.score, 0.1), 0, 35, linestyles='dashed', colors='red')
 plt.savefig('plots/graph7.png', bbox_inches = 'tight')
+
+dfdyn = df[(df.algorithm == "simulator") & (df.depth == "dynamic")]
+graph8 = sns.displot(dfdyn, x="score", bins=30, color="orange")
+graph8.set(title="Distribution of Dynamic simulator", xlabel="score", ylabel="distribution")
+plt.vlines(np.quantile(dfdyn.score, 0.1), 0, 35, linestyles='dashed', colors='red')
+plt.savefig('plots/graph8.png', bbox_inches = 'tight')
