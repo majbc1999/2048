@@ -851,9 +851,6 @@ public class Game {
         else if (this.score < 58000) {
             simulateMove(100, rand);
         }
-        else if (this.score < 61000) {
-            simulateMove(500, rand);
-        }
         else if (this.score < 69000) {
             simulateMove(500, rand);
         }
