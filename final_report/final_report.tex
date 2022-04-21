@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
+
+\title{Projekt pri Matematiki z računalnikom: 2048}
+\author{Maj Gaberšček}
+\date{Ljubljana, april 2022}
+
+\begin{document}
+
+\maketitle
+
+\section{Uvod}
+Pri predmetu Matematika z računalnikom si je vsak študent izbral svoj projekt med številnimi, ki so vključevali projekte raznih industrijskih panog, projekte iz optimizacije, teorije iger,... Moj projekt je imel naslov \emph{Games 3: 2048}. V sklopu projekta sem si zastavil nalogo, da uspešno zasnujem uporabniški vmesnik za igranje igre 2048. Ta bo uporabniku omogočal, da sam odigra igro, ali pa izbere računalniški algoritem, ki nato sam odigra igro. Mogoča je tudi kombinacija: igralec odigra igro do neke poteze in najprej računalnik, ali obratno. Za implementacijo sem si izbral programski jezik \texttt{Java}, ki s knjižnico \texttt{Swing} omogoča relativno preprosto implementacijo uporabniškega vmesnika. Projekt sem sproti objavljal tudi na repozitorij na \texttt{Github}.
+
+\section{Predstavitev igre 2048}
+
+\subsection{Predstavitev}
+
+2048 je enoigralska video igra, ki jo je izumil italijanski razvijalec Gabriele Cirulli leta 2048 in jo objavil na \texttt{Github}. Cilj igre je skupaj sestavljati različne številke na mreži in doseči število 2048. Mreža je praviloma velikosti 4x4, čeprav se v različnih variantah igre pojavlja tudi v drugih velikostih (na primer 3x3 ali 5x5).
+
+\subsection{Pravila}
+
+Uporabnik lahko, ko je na vrsti, naredi potezo, pri čemer ima ponavadi na voljo 4 različne: premik gor, premik dol, premik levo in premik desno. Ob premiku v želeno smer se vsako število premakne najdlje možno v tisto smer, dokler ni zaustavljena s koncem mreže ali z drugo številko. Pri tem se, če se zaletita dve enaki števili, združita v novo število, ki je vsota obeh (dvakratnik). Pri tem moramo upoštevati, da se, v kolikor se zaletijo tri enaka števila, v dvakratnih združita samo tisti dve, ki sta najdlje v smeri premika. Premika, ki mreže ne spremeni (torej ostane enaka kot pred premikom), ne smemo odigrati.
+
+Po vsakem premiku se na naključno prazno mesto na mreži pojavi novo število, ki je 2 z verjetnostjo 90\% in 4 z verjetnostjo 10\%.
+
+Igra je izgubljena, ko uporabnik nima več možnih potez, torej nobena poteza ne spremeni mreže. Če uporabnik doseže število 2048, je igro premagal. Večina aplikacij sicer uporabniku omogoča igranje naprej po zmagi, z ustrezno strategijo je namreč igro precej preprosto premagati.
+
+\subsection{Točkovanje}
+
+Igra ponuja tudi točkovanje. Po zmagi je namreč cilj uporabnikov to, da dosežejo čim več točk.
+
+Točke se zbirajo tako, da vsakič, ko se dve števili združita v njuno vsoto, se le-ta prišteje točkam.
+
+\subsection{Strategija človeka}
+
+Ljudje, ki igro igrajo, ponavadi uporabijo strategijo, da največje število na mreži hranijo v določenem kotu, zraven nje pa ostala velika števila, pri čemer je cilj predvsem v tem, da največje število ne skoči iz kota.
+
+Potrebno je tudi poudariti, da igre seveda ni mogoče igrati v nedogled. Največje število, ki ga lahko z idealno igro in precej sreče (teoretično) dosežemo, je 131072.
+
+\section{Načrt dela}
+
+Najprej sem v programskem jeziku \texttt{Java} ustvaril razred \texttt{Game.java}, ki predstavlja igro. Na razredu sem implementiral metode, ki služijo premikom, pojavitvam novih števil.
+
+Nato sem s pomočjo knjižnice \texttt{Swing} definiral dva nova razreda. Razred \texttt{Panel.java}, nekakšno platno, ki služi za risanje igre in podpira interakcijo uporabnika s tipkami (premiki na igri) in razred \texttt{Frame.java}, okno, ki vsebuje platno. Okno vsebuje tudi menijsko vrstico, s pomočjo katere izbiramo nastavitve igre in igralce.
+
+Zadnji korak je vključeval zasnovo algoritmov, ki bodo (uspešno) reševali igro in implementacija delovanja algoritmov na igri. Algoritmi so predstavljeni kot metode na razredu \texttt{Game.java}, pri čemer klic metode odigra potezo, ki jo posamezen algoritem izbere. Algoritmi so različno uspešni, predvsem pa velja pravilo, da je uspešnost algoritmov ponavadi obratno sorazmerna s časom na potezo. 
+
+\section{Uporabniški vmesnik}
+
+\section{Računalnikovi algoritmi}
+
+\section{Analiza uspešnosti}
+
+\section{Zaključek}
+
+\section{Viri in literatura}
+\begin{itemize}
+    \item https://en.wikipedia.org/wiki/2048_(video_game)
+\end{itemize}
+
+\end{document}
