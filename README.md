@@ -62,3 +62,9 @@ After analysing performance of *AI 2* with differenth depth, this algorithm uses
 - [x] problem of slow simulator algorithm comes mainly from slow copying of the games (find a better way to copy a game)
 - [x] when computer plays, human shall not interrupt it (also undo should not work then)
 - [x] another algorithm: simulator with dynamic depth
+
+## Instructions for installation
+1. (Install java)[https://www.java.com/en/download/] for your operating system
+2. Clone this repository and open it in VS Code or Eclipse
+3. Run Main.java and a pop-out window will appear
+4. Play the game 
