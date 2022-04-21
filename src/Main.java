@@ -1,9 +1,5 @@
 import java.awt.Color;
 import java.io.File;
-import java.io.FileWriter;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.Random;
 
 import javax.imageio.ImageIO;
 
@@ -37,38 +33,6 @@ public class Main {
         frame.setIconImage(ImageIO.read(new File("static/2048.png")));
         frame.pack();
         frame.setVisible(true);
-        
-        Random rand = new Random(System.currentTimeMillis());
-
-        Game newGame = new Game(4);
-        for (int i = 0; i < 10; i++) {
-            FileWriter fw = new FileWriter("data/time.txt", true);
-            newGame = new Game(4);
-            newGame.gameMode = true;
-            newGame.spawnRandomNumber();
-            frame.panel.game = newGame;
-
-            Instant start = Instant.now();
-            int movesNumber = 0;
-
-            while (newGame.status() && !newGame.win()) {
-                newGame.simulateMove(500, rand);;
-                frame.panel.repaint();
-                movesNumber++;
-            }
-
-            Instant end = Instant.now();
-            Duration timeElapsed = Duration.between(start, end);
-            
-            //String str = Integer.toString(newGame.score) + "," + Integer.toString(newGame.maxNumber());
-
-            fw.write(Integer.toString(movesNumber));
-            fw.write(",");
-            fw.write(Long.toString(timeElapsed.toMillis()));
-            fw.write("\n");
-            fw.close();
-            System.out.println(i + 1);
-        } 
 
     }
 }

@@ -74,8 +74,8 @@ public class Frame extends JFrame implements ActionListener {
 		game5 = new JMenuItem("5x5");
 		game6 = new JMenuItem("6x6");
 		game8 = new JMenuItem("8x8");
-		classicScheme = new JMenuItem("Vintage 2048");
-		darkScheme = new JMenuItem("Dark Blue Night");
+		classicScheme = new JMenuItem("Classic 2048");
+		darkScheme = new JMenuItem("Dark Blue Theme");
 		CBScheme = new JMenuItem("Colorblind Mode");
 
 		// submenu for algorithm picker
@@ -417,8 +417,10 @@ public class Frame extends JFrame implements ActionListener {
 		}
 
 		if (e.getSource() == undo) {
-			panel.game.undo();
-			repaint();
+			if (panel.stopSwingworker) {
+				panel.game.undo();
+				repaint();
+			}
 		}
 	}
 }
