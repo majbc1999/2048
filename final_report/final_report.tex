@@ -3,7 +3,11 @@
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{hyperref}
-\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\usepackage{xcolor}
+\usepackage{caption}
+\captionsetup[figure]{name=Slika}
 
 \title{Projekt pri Matematiki z računalnikom: 2048}
 \author{Maj Gaberšček}
@@ -52,9 +56,46 @@ Zadnji korak je vključeval zasnovo algoritmov, ki bodo (uspešno) reševali igr
 
 \section{Uporabniški vmesnik}
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=8cm]{ui.jpg}
+\caption{Posnetek zaslona uporabniškega vmesnika, ko aplikacijo zaženemo}
+\label{ui}
+\end{figure}
+
+Na Sliki \ref{ui} je posnetek zaslona uporabniškega vmesnika aplikacije. Kot lahko vidimo, se čez večino okna nariše mreža (v primeru klasične igre 4x4). Vsakič, ko aplikacijo zaženemo, se privzeto pojavi nova igra velikosti 4x4, ki jo lahko igramo. 
+
+Zgoraj desno imamo napis \emph{Score}, ki nam sporoča trenutno število točk, ki smo jih dosegli. Zgoraj levo je ikonica, ki nam sporoča, kateri način igre trenutno igramo. V aplikacijo sem sprogramiral dva načina igranja: \emph{Classic}, kar pomeni da se igra konča, ko dosežemo število 2048, ter \emph{Endless}, ki omogoča igranje, dokler ne izgubimo. Način igranja izberemo v menijski vrstici, pod zavihkom \emph{New Game}.
+
+V menijski vrstici lahko pod zavihkom \emph{Players} izbiramo igralca. Izberemo lahko igralca \emph{Player} in potem igro igramo sami, ali pa izberemo igralca \emph{Computer}. V slednjem primeru bo izbrani računalniški algoritem (ki ga izberemo pod zavihkom \emph{Computer Algorithm}) poskušal odigrati igro. Če želimo med igro spremeniti igralca, samo izberemo drugega igralca v tem podmeniju. Na primer, aplikacija omogoča, da računalnik odigra do neke poteze in potem naprej odigramo mi ali obratno.
+
+V zavihku \emph{Size} v menijski vrstici izbiramo velikost mreže igre. Pri tem je potrebno paziti, saj vsaka sprememba rezultira v novi igri (staro igro izgubimo). Implemenirane so velikosti igre 3x3, 4x4, 5x5, 6x6 in 8x8.
+
+Zavihek \emph{Colors} nam omogoča, da si izberemo barvno shemo, ki spremeni barve. Barvne sheme lahko menjamo med igranjem, brez da to vpliva na igro.
+
+Desno od menijske vrstice je še gumb z napisom \emph{Undo}, ki služi razveljavitvi poteze. Medtem, ko igra računalnik, gumb ne deluje. Prav tako med igranjem računalnika tudi ne delujejo tipke, ki odigravajo človekove poteze (w, a, s in d). Zavedam se, da gumb \emph{Undo} lahko uporabljamo za goljufanje igre (manipuliramo kje na mreži se bo pojavila nova številka). Vseeno je tak gumb koristen, če na primer odigramo potezo, ki je nismo želeli odigrati.
+
+Okno z igro je spremenjive velikosti, vendar igra 4x4 najlepše izgleda v privzeti velikosti. Če okno preveč pomanjšamo, bodo številke postale prevelike za prikaz na mreži in se jih ne bo videlo.
+
 \section{Računalnikovi algoritmi}
 
+Implementiral sem štiri različne računalnikove algoritme za reševanje igre, ki so med seboj različno uspešni.
+
+\subsection{Algoritem \texttt{Random moves}}
+
+Kot nam že ime samo po sebi pove, ta algoritem uporablja naključne poteze za reševanje igre. Algoritem sam po sebi ni pretirano uspešen, je pa podlaga za bolj uspešna in kompleksna algoritma, opisana v naslednjih dveh podpoglavjih.
+
+\subsection{Algoritem \texttt{Simulator(k)}}
+
+Ta algoritem je v teoriji iger znan kot \emph{Pure Monte Carlo game search}. Algoritem sprejme naravno število $k$. Nato določi vse možne poteze, ki jih v dani poziciji na mreži lahko odigra. Za vsako izmed teh nato v ozadju odigra $k$ naključnih iger, kjer najprej odigra izbrano potezo, nato pa dokonča igro z algoritmom \emph{Random moves}, ki je opisan v prejšnjem podpoglavju, dokler ne izgubi. Nato primerja igre različnih potez in izbere tisto potezo, katere igre (simulacije) so v povprečju dosegle največje število točk, preden so izgubile.
+
+Na primer, v dani poziciji sta možni potezi \emph{Premik gor} in \emph{Premik desno}. Recimo, da uporabimo število $k=10$. Algoritem v ozadju ustvari 10 kopij igre in na vsaki od njih najprej odigra potezo \emph{Premik gor}. Nato vse igre dokonča z algoritmom \emph{Random moves}. Algoritem v neko spremenjivko shrani povprečno število točk, ki jih je dosegel pri teh 10 igrah. Nato postopek ponovi za potezo \emph{Premik desno}. Ustvari 10 kopij originalne igre in na njih odigra \emph{Premik desno}, ter jih dokonča z naključnimi potezami, dokler ne izgubi vsake. Spet si v drugo spremenljivko shrani povprečno število točk na teh 10 igrah. Nato primerja povprečno število točk za potezo \emph{Premik gor} in \emph{Premik desno}. Odigra tisto, ki je v povprečju dosegla več točk.
+
+\subsection{Algoritem \texttt{Dynamic simulator}}
+
 \section{Analiza uspešnosti}
+
+\section{Posnetki zaslona}
 
 \section{Zaključek}
 
