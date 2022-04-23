@@ -1,8 +1,10 @@
 # script for analysing algorithms and drawing graphs
-import matplotlib
+from xml.dom.minicompat import defproperty
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import scipy
 import seaborn as sns
 
 
@@ -41,16 +43,15 @@ df["highest_reached"] = pd.to_numeric(df["highest_reached"])
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 histdf = df.groupby(by=["algorithm", "depth"], dropna=False).mean().sort_values(by="score")
-print(histdf)
 
 graph1 = histdf.plot.bar(y="score", rot=90, legend=None, color="navy")
 graph1.set(title="Average score of algorithms", xlabel="algorithm", ylabel="score")
-graph1.set_xticklabels(["Random", "Empty Spaces", "Simulator k=1", "Simulator k=1", "Simulator k=2", "Simulator k=10", "Simulator k=15", "Simulator k=20", "Simulator k=50", "Simulator k=100", "Dynamic simulator", "Simulator k=500"])
+graph1.set_xticklabels(["Random", "Empty Spaces", "Simulator k=1", "Simulator k=2", "Simulator k=5", "Simulator k=10", "Simulator k=15", "Simulator k=20", "Simulator k=50", "Simulator k=100", "Dynamic simulator", "Simulator k=500"])
 plt.savefig('plots/graph1.png', bbox_inches = 'tight')
 
 graph2 = histdf.plot.bar(y="highest_reached", rot=90, color="orange", legend=None)
 graph2.set(title="Average highest number reached of algorithms", xlabel="algorithm", ylabel="highest number")
-graph2.set_xticklabels(["Random", "Empty Spaces", "Simulator k=1", "Simulator k=1", "Simulator k=2", "Simulator k=10", "Simulator k=15", "Simulator k=20", "Simulator k=50", "Simulator k=100", "Dynamic simulator", "Simulator k=500"])
+graph2.set_xticklabels(["Random", "Empty Spaces", "Simulator k=1", "Simulator k=2", "Simulator k=5", "Simulator k=10", "Simulator k=15", "Simulator k=20", "Simulator k=50", "Simulator k=100", "Dynamic simulator", "Simulator k=500"])
 plt.savefig('plots/graph2.png', bbox_inches = 'tight')
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -94,7 +95,7 @@ plt.vlines(np.quantile(dfdyn.score, 0.1), 0, 35, linestyles='dashed', colors='re
 plt.savefig('plots/graph8.png', bbox_inches = 'tight')
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-# 2. distributions for simulator algorithms of different depths
+# 3. dynamic simulator graph
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 graph9 = plt.figure()
@@ -131,3 +132,43 @@ plt.xlabel("game score")
 plt.title("Dynamic depths of simulator algorithm")
 plt.savefig('plots/graph9.png', bbox_inches = 'tight')
 
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+# 4. percentage of beating games
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+df_filter = df[df["highest_reached"] >= 2048]
+
+dfper = pd.DataFrame(df_filter.groupby(by=["algorithm", "depth"], dropna=False).count().reset_index())
+
+new_dict1 = {
+    "algorithm": "simulator",
+    "depth": 1,
+    "highest_reached": 0,
+    "score": 0
+}
+
+new_dict2 = {
+    "algorithm": "simulator",
+    "depth": 2,
+    "highest_reached": 0,
+    "score": 0
+}
+
+dfper = dfper.append(new_dict1, ignore_index=True)
+dfper = dfper.append(new_dict2, ignore_index=True)
+
+dfper = dfper[["depth", "score"]][dfper["depth"] != "dynamic"].sort_values(by="score")
+dfper = dfper.rename(columns={"score": "reached 2048 (percentage)", "depth": "number of simulations per move"})
+
+
+x = dfper["number of simulations per move"].astype(str).astype(float)
+y = dfper["reached 2048 (percentage)"].astype(str).astype(float)
+
+fig, graph10 = plt.subplots()
+graph10.scatter(x, y, color="orange")
+
+# scipy not working as I wished -> no problem
+p = scipy.optimize.curve_fit(lambda t,a,b: a + b * np.log(t),  x,  y)
+plt.plot(x, y, color="orange")
+
+graph10.set(title="Success of Simulator algorithm", xlabel="number of simulations per move", ylabel="reached 2048 (percentage)")
+plt.savefig('plots/graph10.png', bbox_inches = 'tight')
