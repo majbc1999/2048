@@ -93,7 +93,48 @@ Na primer, v dani poziciji sta možni potezi \emph{Premik gor} in \emph{Premik d
 
 \subsection{Algoritem \texttt{Dynamic simulator}}
 
+\texttt{Dynamic simulator} je algoritem, ki je izboljšava zgornjega algoritma, Simulatorja. Simulator ima namreč problem, da za nezahtevne pozicije porabi preveč časa, da izračuna potezo. Največ težav imajo vsi algoritmi tik pred tem, da izgradijo novo največjo številko, saj je takrat na mreži največ zasedenih polj. Na primer, preden algoritem zgradi število 2048, mora imeti na mreži že števila 1024, 512, 256, 128, 64. Takoj po tem ko število 2048 zgradi, ima vsa polja na mreži prosta, razen tistega z 2048. Torej bo precej večja verjetnost, da izgubimo tik pred izgradnjo novega najvišjega števila, kot po tem. 
+
+Zato je \texttt{Dynamic simulator} sestavljen tako, da glede na stanje na mreži ustrezno prilagaja število $k$ algoritma \texttt{Simulator(k)}. Če je pozicija bolj zahtevna, uporabimo večji $k$ (in je poteza bolj časovno zahtevna). Če pa je pozicija lažja, lahko uporabimo manjši $k$. Algoritem je tako časovno manj zahteven od navadnega \texttt{Simulatorja}. Prikaz odvisnosti $k$-ja od števila točk, doseženega na igri je prikazana na grafu na Sliki \ref{dynsim}. Uspešnost tega algorima sem analiziral v poglavju 6. Analiza uspešnosti.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=12cm]{dynamic_sim.png}
+\caption{Število simulacij na potezo v odvisnosti od točk za \texttt{Dynamic simulator}}
+\label{dynsim}
+\end{figure}
+
+\subsection{Algoritem \texttt{Empty spaces}}
+
+Ta algoritem za vsako potezo pogleda število praznih mest na mreži po njej. Izbere potezo, ki ima najmanjše število praznih polj. Če ima več potez enako število praznih mest, izbere po preferenčnem seznamu: \textit{Premik gor, Premik desno, Premik levo, Premik dol}. Algoritem sicer dobro posnema človekovo strategijo, vendar ni pretirano uspešen pri igranju.
+
 \section{Analiza uspešnosti}
+
+Algoritmi so različno uspešni v reševanju igre in različno hitri. Za vsak algoritem in za $k \in \{1,2,5,10,15,20,50,100,500\}$ (\texttt{Simulator(k)}) sem igro pognal 100-krat in analiziral uspešnost posamezega algoritma. Najprej je treba poudariti, da je hitrost \texttt{Simulatorja} linearno odvisna od števila simuliranih iger $k$. Zato hitrosti ne bom primerjal med njimi. 
+
+Najhitrejši je algoritem naključnih potez, \texttt{Random moves}, sledi pa mu \texttt{Empty spaces}. \texttt{Simulator} je hitrejši od \texttt{Dynamic simulatorja} za manjše $k$-je, za večje pa je kar precej počasnejši.
+
+Uspešnost algoritmov glede na povprečno največje dosežene točke, je prikazan na Sliki \ref{score}. Čeprav je \texttt{Dynamic simulator} malce slabši od \texttt{Simulatorja(500)}, pa je več kot štirikrat hitrejši. V povprečju \texttt{Simulator(500)} rabi približno 210 sekund, pri čemer \texttt{Dynamic simulator} igro v povprečju premaga v manj kot 40 sekund.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=12cm]{score.png}
+\caption{Povprečno maksimalno število točk, doseženih za posamezen algoritem}
+\label{score}
+\end{figure}
+
+Najpomembnejši kazalec uspešnosti algoritmov je, glede na naravo naloge, uspešnost pri premagovanju igre. Uspešnost \texttt{Simulatorja} prikazuje graf \ref{performance}. Algoritma \texttt{Random moves} in \texttt{Empty Spaces} v 100 poskusih igre nista uspela premagati. Algoritem \texttt{Dynamic Simulator} je igro premagal 92-krat od 100 poskusov.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=12cm]{simulator.png}
+\caption{Odvisnost števila simulacij od uspešnosti za \texttt{Simulator}}
+\label{performance}
+\end{figure}
+
+Nekako se zdi, da uspešnost logaritemsko narašča s številom simulacij. Za boljši pregled odvisnosti bi bilo potrebno testirati tudi vrednosti med $k=100$ in $k=500$.
+
+Kot sem že prej poudaril, je po uspešnosti \texttt{Dynamic simulator} najbližje \texttt{Simulatorju(500)}, a je precej hitrejši. \texttt{Dynamic simulator} bi lahko bil prilagojen tako, da bi igro reševal bolje, vendar sem se zadovoljil z 92\% uspešnostjo in zelo hitrim reševanjem.
 
 \section{Posnetki zaslona}
 
@@ -103,5 +144,6 @@ Na primer, v dani poziciji sta možni potezi \emph{Premik gor} in \emph{Premik d
 \begin{itemize}
     \item https://en.wikipedia.org/wiki/2048_(video_game)
 \end{itemize}
+
 
 \end{document}
