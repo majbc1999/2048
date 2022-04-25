@@ -894,6 +894,10 @@ public class Game {
     public void undo() {
         if (this.movesHistory.size() >= 1) {
             Game newGame = new Game(N);
+            
+            if (gameMode) {newGame.gameMode = true;}
+            else {newGame.gameMode = false;}
+
             newGame.playMovesUntilLast(this.movesHistory, this.numbersSpawned, this.spawnPositions);
             this.board = new int[N][N];
             this.score = 0;

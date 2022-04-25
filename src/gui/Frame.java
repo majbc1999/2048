@@ -408,6 +408,7 @@ public class Frame extends JFrame implements ActionListener {
 	
 		if (e.getSource() == menuPlayer) {
 			panel.stopSwingworker = true;
+			panel.repaint();
 		}
 
 		if (e.getSource() == menuComputer) {

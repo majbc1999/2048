@@ -132,7 +132,12 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 			@Override
 			protected Game doInBackground() {
 				Game newGame = new Game(game.N);
+
+				if (game.gameMode) {newGame.gameMode = true;}
+				else {newGame.gameMode = false;}
+
 				newGame.playMoves(game.movesHistory, game.numbersSpawned, game.spawnPositions);
+
 				if (alg.equals("random")) {
 					game.playRandomMove();
 				}
@@ -149,7 +154,7 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 				// we cancel the move if someone stops computer in between
 				if (stopSwingworker) {
 					game = newGame;
-				}
+				}	
 				return game;
 			}
 
@@ -175,7 +180,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 				repaint();
 			}
 		};
-		worker.execute();				
+
+		if (!stopSwingworker) {
+			worker.execute();	
+		}
 	}
 
 	// preffered dimension of our panel
