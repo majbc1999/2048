@@ -7,7 +7,9 @@
 \usepackage[export]{adjustbox}
 \usepackage{xcolor}
 \usepackage{caption}
+\usepackage[section]{placeins}
 \captionsetup[figure]{name=Slika}
+\renewcommand\refname{Viri in literatura}
 
 \title{Projekt pri Matematiki z računalnikom: 2048}
 \author{Maj Gaberšček}
@@ -24,7 +26,7 @@ Pri predmetu Matematika z računalnikom si je vsak študent izbral svoj projekt 
 
 \subsection{Predstavitev}
 
-2048 je enoigralska video igra, ki jo je izumil italijanski razvijalec Gabriele Cirulli leta 2048 in jo objavil na \texttt{Github}. Cilj igre je skupaj sestavljati različne številke na mreži in doseči število 2048. Mreža je praviloma velikosti 4x4, čeprav se v različnih variantah igre pojavlja tudi v drugih velikostih (na primer 3x3 ali 5x5).
+2048 je enoigralska video igra, ki jo je izumil italijanski razvijalec Gabriele Cirulli leta 2048 in jo objavil na \texttt{Github}. Cilj igre je skupaj sestavljati različne številke na mreži in doseči število 2048. Mreža je praviloma velikosti 4x4, čeprav se v različnih variantah igre pojavlja tudi v drugih velikostih (na primer 3x3 ali 5x5) \cite{wiki:2048_(video_game)}.
 
 \subsection{Pravila}
 
@@ -136,14 +138,44 @@ Nekako se zdi, da uspešnost logaritemsko narašča s številom simulacij. Za bo
 
 Kot sem že prej poudaril, je po uspešnosti \texttt{Dynamic simulator} najbližje \texttt{Simulatorju(500)}, a je precej hitrejši. \texttt{Dynamic simulator} bi lahko bil prilagojen tako, da bi igro reševal bolje, vendar sem se zadovoljil z 92\% uspešnostjo in zelo hitrim reševanjem.
 
+\pagebreak
 \section{Posnetki zaslona}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=6.5cm]{scr1.jpg}
+\caption{Temna tema in izbiranje računalnikovega algoritma}
+\label{scr1}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=6.5cm]{scr2.jpg}
+\caption{Igra velikosti 5x5 v \emph{Endless} načinu (ikona zgoraj levo)}
+\label{scr2}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=12cm]{scr3.png}
+\caption{Posnetek okna v primeru zmage (levo) in v primeru poraza (desno)}
+\label{scr3}
+\end{figure}
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=6.5cm]{scr4.jpg}
+\caption{V \emph{Endless} načinu lahko dosežemo tudi večja števila kot 2048}
+\label{scr4}
+\end{figure}
+
 
 \section{Zaključek}
 
-\section{Viri in literatura}
-\begin{itemize}
-    \item https://en.wikipedia.org/wiki/2048_(video_game)
-\end{itemize}
+Cilj te naloge je bilo ustvariti delujočo aplikacijo, ki ponuja uporabniško izkušnjo, ter nekaj različno dobrih in hitrih računalniških algoritmov. Mislim, da mi je to do neke mere uspelo, algoritem \texttt{Dynamic simulator} je dokaj hiter in dokaj uspešen. Če bi želeli še izboljšati uspešnost, bi lahko povečali $k$ v algoritmu \texttt{Simulator(k)}. Na primer, vemo, da algoritem vedno premaga igro za $k=10000$ \cite{stackoverflow}, vendar nihče noče čakati nekaj sekund na potezo. Igra namreč potem traja več kot pol ure. Zato sem se zadovoljil z zelo verjetno zmago in raje hitrejšim časom. Glede izboljšav aplikacije sem lahko najbolj kritičen glede uporabniške izkušnje. Igra bi precej bolje izgledala, če bi vsaka poteza imela animacijo, kot na primer originalna igra. Vseeno sem ocenil, da bi kaj takšnega vzelo preveč časa in sem se zato raje osredotočil na algoritme, analizo in korektno delovanje aplikacije.
 
+\addcontentsline{toc}{chapter}{Viri in literatura}
+\bibliographystyle{unsrt}
+\bibliography{literature}
 
 \end{document}
