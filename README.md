@@ -66,6 +66,7 @@ After analysing performance of *AI 2* with differenth depth, this algorithm uses
 
 ## Instructions for installation
 1. [Install java](https://www.java.com/en/download/) for your operating system
-2. Clone this repository and open it in VS Code or Eclipse
-3. Run Main.java and a pop-out window will appear
-4. Play the game 
+2. Clone this repository and open it in VS Code
+3. Install [Extension Pack for Java](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-pack), the VS code extension for working with Java
+4. Run Main.java and a pop-out window will appear
+5. Play the game 
