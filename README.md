@@ -27,7 +27,7 @@ As per game modes, we will implement 2 similar game modes: *Classic* and *Endles
 ## Game settings
 We can control game size (choose from menubar). Game sizes available *3x3*,*4x4*,*5x5*,*6x6*,*8x8*. Note however, it is not possible to beat the game in 3x3 mode (we get maximum 4-8-16-32-64-128-256-512-1024 in the 9 squares).
 
-Different color themes can be chosen: *Vintage 2048* (classic 2048 colors), *Dark Blue Night* (dark theme) and *Colorblind Mode* (black and white theme) can be chosen.
+Different color themes can be chosen: *Classic 2048* (classic 2048 colors), *Dark Blue Mode* (dark theme) and *Colorblind Mode* (black and white theme) can be chosen.
 
 ## Solving programs
 

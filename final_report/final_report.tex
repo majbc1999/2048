@@ -20,7 +20,7 @@
 \maketitle
 
 \section{Uvod}
-Pri predmetu Matematika z računalnikom si je vsak študent izbral svoj projekt med projekti, ki so vključevali projekte raznih industrijskih panog, projekte iz optimizacije, teorije iger,... Sam sem si izbral projekt z naslovom \emph{Games 3: 2048}. V sklopu projekta sem si zastavil nalogo, da uspešno zasnujem uporabniški vmesnik za igranje igre 2048. Ta bo uporabniku omogočal, da sam odigra igro, ali pa izbere računalniški algoritem, ki nato odigra igro in jo skuša premagati. Mogoča je tudi kombinacija: igralec odigra igro do neke poteze, potem pa jo naprej skuša rešiti računalnik, ali obratno. Za implementacijo sem si izbral programski jezik \texttt{Java}, ki s knjižnico \texttt{Swing} omogoča relativno preprosto implementacijo uporabniškega vmesnika. Projekt sem sproti objavljal tudi na repozitorij na \texttt{Githubu}.
+Pri predmetu Matematika z računalnikom si je vsak študent izbral svoj projekt med nalogami, ki so vključevale projekte raznih industrijskih panog, projekte iz optimizacije, teorije iger,... Sam sem si izbral projekt z naslovom \emph{Games 3: 2048}. V sklopu projekta sem si zastavil nalogo, da uspešno zasnujem uporabniški vmesnik za igranje igre 2048. Ta bo uporabniku omogočal, da sam odigra igro, ali pa izbere računalniški algoritem, ki nato odigra igro in jo skuša premagati. Mogoča je tudi kombinacija: igralec odigra igro do neke poteze, potem pa jo naprej skuša rešiti računalnik, ali obratno. Za implementacijo sem si izbral programski jezik \texttt{Java}, ki s knjižnico \texttt{Swing} omogoča relativno preprosto implementacijo uporabniškega vmesnika. Projekt sem sproti objavljal tudi na repozitorij na \texttt{Githubu}.
 
 \section{Predstavitev igre 2048}
 
@@ -65,7 +65,7 @@ Zadnji korak je vključeval zasnovo algoritmov, ki (uspešno) rešujejo igro in 
 \label{ui}
 \end{figure}
 
-Na Sliki \ref{ui} je posnetek zaslona uporabniškega vmesnika aplikacije. Kot lahko vidimo, se čez večino okna nariše mreža (v primeru klasične igre je velikosti 4x4). Vsakič, ko aplikacijo zaženemo, se privzeto pojavi nova igra velikosti 4x4, ki jo lahko igramo. 
+Na Sliki \ref{ui} je posnetek zaslona uporabniškega vmesnika aplikacije. Kot lahko vidimo, se čez večino okna nariše mreža (v primeru klasične igre je velikosti 4x4). Vsakič, ko aplikacijo zaženemo, se privzeto pojavi nova igra velikosti 4x4, ki jo lahko igramo. Igro igramo s pomočjo tipk \textit{w, a, s, d}. 
 
 Zgoraj desno imamo napis \emph{Score}, ki nam sporoča trenutno število točk, ki smo jih dosegli. Zgoraj levo je ikonica, ki nam sporoča, kateri način igre trenutno igramo. V aplikacijo sem sprogramiral dva načina igranja: način \emph{Classic}, ki pomeni, da se igra konča, ko dosežemo število 2048, ter način \emph{Endless}, ki omogoča igranje, dokler ne izgubimo. Način igranja izberemo v menijski vrstici, pod zavihkom \emph{New Game}.
 
@@ -116,7 +116,7 @@ Algoritmi so različno uspešni v reševanju igre in različno hitri. Za vsak al
 
 Najhitrejši je algoritem naključnih potez, \texttt{Random moves}, sledi pa mu \texttt{Empty spaces}. \texttt{Simulator} je hitrejši od \texttt{Dynamic simulatorja} za manjše $k$-je, za večje pa je kar precej počasnejši.
 
-Uspešnost algoritmov glede na povprečno največje dosežene točke, je prikazan na Sliki \ref{score}. Čeprav je \texttt{Dynamic simulator} malce slabši od \texttt{Simulatorja(500)}, pa je več kot štirikrat hitrejši. V povprečju \texttt{Simulator(500)} rabi za dosego števila 2048 približno 210 sekund, pri čemer \texttt{Dynamic simulator} igro v povprečju premaga v manj kot 40 sekund.
+Uspešnost algoritmov glede na povprečno največje dosežene točke, je prikazan na Sliki \ref{score}. Čeprav je \texttt{Dynamic simulator} malce slabši od \texttt{Simulatorja(500)}, pa je več kot štirikrat hitrejši. V povprečju \texttt{Simulator(500)} rabi za dosego števila 2048 približno 210 sekund, pri čemer \texttt{Dynamic simulator} igro v povprečju premaga v manj kot 40. sekundah.
 
 \begin{figure}[ht!]
 \centering
@@ -125,7 +125,7 @@ Uspešnost algoritmov glede na povprečno največje dosežene točke, je prikaza
 \label{score}
 \end{figure}
 
-Najpomembnejši kazalec uspešnosti algoritmov je, glede na naravo naloge, uspešnost pri premagovanju igre. Uspešnost \texttt{Simulatorja} prikazuje graf \ref{performance}. Algoritma \texttt{Random moves} in \texttt{Empty Spaces} v 100 poskusih igre nista uspela premagati. Algoritem \texttt{Dynamic Simulator} je igro premagal 92-krat od 100 poskusov.
+Najpomembnejši kazalec uspešnosti algoritmov je, glede na naravo naloge, uspešnost pri premagovanju igre. Uspešnost \texttt{Simulatorja} prikazuje graf na Sliki \ref{performance}. Algoritma \texttt{Random moves} in \texttt{Empty Spaces} v 100 poskusih igre nista uspela premagati. Algoritem \texttt{Dynamic Simulator} je igro premagal 92-krat od 100 poskusov.
 
 \begin{figure}[ht!]
 \centering
@@ -172,7 +172,9 @@ Kot sem že prej poudaril, je po uspešnosti \texttt{Dynamic simulator} najbliž
 
 \section{Zaključek}
 
-Cilj te naloge je bilo ustvariti delujočo aplikacijo, ki ponuja uporabniško izkušnjo, ter nekaj različno dobrih in hitrih računalniških algoritmov. Mislim, da mi je to do neke mere uspelo, algoritem \texttt{Dynamic simulator} je dokaj hiter in dokaj uspešen. Če bi želeli še izboljšati uspešnost, bi lahko povečali $k$ v algoritmu \texttt{Simulator(k)}. Na primer, vemo, da algoritem vedno premaga igro za $k=10000$ \cite{stackoverflow}, vendar nihče noče čakati več sekund za posamezno potezo, saj je to zelo dolgočasno. Igra potem traja več kot pol ure. Zato sem se zadovoljil z zelo verjetno zmago in raje hitrejšim časom. Glede izboljšav aplikacije sem lahko najbolj kritičen glede uporabniške izkušnje. Igra bi precej bolje izgledala, če bi vsaka poteza imela animacijo, kot na primer originalna igra Gabrieleja Cirullija, kjer se številke premaknejo iz začetnega mesta pred potezo na končno mesto po potezi. Vseeno sem ocenil, da bi kaj takšnega vzelo preveč časa in sem se zato raje osredotočil na algoritme, analizo in korektno delovanje aplikacije.
+Cilj te naloge je bilo ustvariti delujočo aplikacijo, ki ponuja uporabniško izkušnjo, ter nekaj različno dobrih in hitrih računalniških algoritmov. Mislim, da mi je to do neke mere uspelo, algoritem \texttt{Dynamic simulator} je dokaj hiter in dokaj uspešen. Če bi želeli še izboljšati uspešnost, bi lahko povečali $k$ v algoritmu \texttt{Simulator(k)}. Na primer, vemo, da algoritem vedno premaga igro za $k=10000$ \cite{stackoverflow}, vendar nihče noče čakati več sekund za posamezno potezo, saj je to zelo dolgočasno. Igra potem traja več kot pol ure. Zato sem se zadovoljil z zelo verjetno zmago in raje hitrejšim časom. Glede izboljšav aplikacije sem lahko najbolj kritičen glede uporabniške izkušnje. Igra bi precej bolje izgledala, če bi vsaka poteza imela animacijo, kot na primer originalna igra Gabrieleja Cirullija, kjer se številke premaknejo iz začetnega mesta pred potezo na končno mesto po potezi. Vseeno sem ocenil, da bi kaj takšnega vzelo preveč čas in sem se zato raje osredotočil na algoritme, analizo in korektno delovanje aplikacije.
+
+Glede algoritmov bi lahko dodal tudi kakšnega, ki uporablja evalvacijo pozicije. Tega nisem storil, saj bi bil algoritem, ki deluje na pozicijski bazi, neuporaben za mrežo različnih velikosti. Zato sem se raje osredotočil na Monte Carlo algoritme, je pa treba poudariti, da s povečanjem mreže algoritmi rabijo precej več časa za izračun poteze. Igro namreč \texttt{Random moves} ne izgubi tako hitro in simulacije vzamejo več časa.
 
 \addcontentsline{toc}{chapter}{Viri in literatura}
 \bibliographystyle{unsrt}
