@@ -948,30 +948,85 @@ public class Game {
     public float moveEval() {
         // check all empty spaces
         ArrayList<Coordinates> emptySpaces = this.emptySpaces();
-        int numberOfEmptySpaces = emptySpaces.size();
-        int expectedScore = 0;
+        float numberOfEmptySpaces = emptySpaces.size();
+        float expectedScore = 0;
 
         // for each empty space, we spawn a 2 or a 4
         for (Coordinates coord: emptySpaces) {
             Game newGame2 = new Game(N);
             newGame2.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
             newGame2.spawnNumber(2, coord);
-            int eval2 = newGame2.positionEval();
+            float eval2 = newGame2.positionEval();
             expectedScore += 1 / numberOfEmptySpaces * eval2 * 0.9;
 
             Game newGame3 = new Game(N);
             newGame3.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
             newGame3.spawnNumber(4, coord);
-            int eval4 = newGame3.positionEval();
+            float eval4 = newGame3.positionEval();
             expectedScore += 1 / numberOfEmptySpaces * eval4 * 0.1;
         }
 
         return expectedScore;
     }
 
-    // TODO: position evaluator
-    public int positionEval() {
-        return 0;
+    public float positionEval() {
+        return positionEval(0f, 4000f, 2000f, 1.2f);
+    }
+
+    public float positionEval(float scoreMultiplier,
+                              float emptyTilesMultiplier,
+                              float maxTileMultiplier,
+                              float maxTileDivisor) {
+        
+        float eval = 0;
+
+        // score
+        eval += this.score * scoreMultiplier;
+
+        // empty tiles
+        eval += this.countEmptySpaces() * emptyTilesMultiplier;
+        
+        // corner tiles
+        // question: should max tile be dependent on current score?
+        int maxTile = 0;
+        int secondMaxTile = 0;
+        int thirdMaxTile = 0;
+        int fourthMaxTile = 0;
+
+        for (int i=0; i < this.N; i++) {
+            for (int j=0; j < this.N; j++) {
+                if (this.board[i][j] > maxTile) {
+                    fourthMaxTile = thirdMaxTile;
+                    thirdMaxTile = secondMaxTile;
+                    secondMaxTile = maxTile;
+                    maxTile = this.board[i][j];
+                }
+            }
+        }
+
+        ArrayList<Integer> pref = new ArrayList<Integer>();
+        pref.add(maxTile);
+        pref.add(secondMaxTile);
+        pref.add(thirdMaxTile);
+        pref.add(fourthMaxTile);
+        
+        for (int i=1; i < this.N + 1; i++) {
+            if (board[0][this.N - i] == 0) {
+                continue;
+            }
+            else if (board[0][this.N - i] == pref.get(0)) {
+                eval += maxTileMultiplier;
+                maxTileMultiplier /= maxTileDivisor;
+                pref.remove(0);
+            }
+            else {
+                break;
+            }
+        }
+        
+        System.out.println(eval);
+
+        return eval;
     }
 
     // returns the empty spaces on the board
