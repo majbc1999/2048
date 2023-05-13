@@ -29,7 +29,7 @@ public class Frame extends JFrame implements ActionListener {
 	private JMenu menu, menuAlgorithm, menuNewSettings;
 	
 	private JMenuItem menuClassic, menuEndless, menuPlayer, menuComputer;
-	private JMenuItem menuRandomAlgorithm, menuSimulator, menuEmptySpacesAlgorithm, menuSimulatorDynamic;
+	private JMenuItem menuRandomAlgorithm, menuSimulator, menuEmptySpacesAlgorithm, menuSimulatorDynamic, menuPositionEvalAlgorithm;
 
 	private JMenuItem menuColorScheme, menuSize;
 	
@@ -95,6 +95,9 @@ public class Frame extends JFrame implements ActionListener {
 		menuSimulatorDynamic = new JMenuItem("Dynamic Simulator");
 		menuAlgorithm.add(menuSimulatorDynamic);
 
+		menuPositionEvalAlgorithm = new JMenuItem("Position Evaluator");
+		menuAlgorithm.add(menuPositionEvalAlgorithm);
+
 		menuNewSettings.addSeparator();
 		menuNewSettings.add(menuAlgorithm);
 
@@ -136,6 +139,7 @@ public class Frame extends JFrame implements ActionListener {
 		menuSimulator.addActionListener(this);
 		menuSimulatorDynamic.addActionListener(this);
 		menuEmptySpacesAlgorithm.addActionListener(this);
+		menuPositionEvalAlgorithm.addActionListener(this);
 
 		menuSize.addActionListener(this);
 		menuColorScheme.addActionListener(this);
@@ -171,6 +175,7 @@ public class Frame extends JFrame implements ActionListener {
 			menuEmptySpacesAlgorithm.setOpaque(false);
 			menuSimulatorDynamic.setOpaque(false);
 			menuSimulator.setOpaque(false);
+			menuPositionEvalAlgorithm.setOpaque(false);
 			menuRandomAlgorithm.setOpaque(true);
 			menuRandomAlgorithm.setBackground(new Color(163,184,204));
 		} 
@@ -180,6 +185,7 @@ public class Frame extends JFrame implements ActionListener {
 			menuRandomAlgorithm.setOpaque(false);
 			menuSimulator.setOpaque(false);
 			menuSimulatorDynamic.setOpaque(false);
+			menuPositionEvalAlgorithm.setOpaque(false);
 			menuEmptySpacesAlgorithm.setOpaque(true);
 			menuEmptySpacesAlgorithm.setBackground(new Color(163,184,204));
 		} 
@@ -189,6 +195,7 @@ public class Frame extends JFrame implements ActionListener {
 			menuRandomAlgorithm.setOpaque(false);
 			menuEmptySpacesAlgorithm.setOpaque(false);
 			menuSimulatorDynamic.setOpaque(false);
+			menuPositionEvalAlgorithm.setOpaque(false);
 			menuSimulator.setOpaque(true);
 			menuSimulator.setBackground(new Color(163,184,204));
 		}
@@ -198,8 +205,19 @@ public class Frame extends JFrame implements ActionListener {
 			menuRandomAlgorithm.setOpaque(false);
 			menuEmptySpacesAlgorithm.setOpaque(false);
 			menuSimulator.setOpaque(false);
+			menuPositionEvalAlgorithm.setOpaque(false);
 			menuSimulatorDynamic.setOpaque(true);
 			menuSimulatorDynamic.setBackground(new Color(163,184,204));
+		}
+
+		if (e.getSource() == menuPositionEvalAlgorithm) {
+			panel.lastComputer = "positionEval";
+			menuRandomAlgorithm.setOpaque(false);
+			menuEmptySpacesAlgorithm.setOpaque(false);
+			menuSimulator.setOpaque(false);
+			menuSimulatorDynamic.setOpaque(false);
+			menuPositionEvalAlgorithm.setOpaque(true);
+			menuPositionEvalAlgorithm.setBackground(new Color(163,184,204));
 		}
 
 		if (e.getSource() == menuClassic) {		

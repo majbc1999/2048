@@ -865,6 +865,128 @@ public class Game {
         }
     }
 
+    // fifth ai: simulator with position eval
+    public void playPositionEvalAlgorithm(Random rand) {
+        // this is only for 4x4 board
+        
+        float bestEval = -1000000000;
+        String bestMove = "";
+
+        if (possibleMoves().contains("up")) {
+            // simulate up
+            Game newGame = new Game(N);
+            newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+            newGame.moveUp();
+            
+            float upEval = newGame.moveEval();
+            if (upEval > bestEval) {
+                bestEval = upEval;
+                bestMove = "up";
+            }
+        }
+
+        else if (possibleMoves().contains("right")) {
+            Game newGame = new Game(N);
+            newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+            newGame.moveUp();
+            
+            float rightEval = newGame.moveEval();
+            
+            if (rightEval > bestEval) {
+                bestEval = rightEval;
+                bestMove = "right";
+            }
+        }
+        
+        else if (possibleMoves().contains("down")) {
+            Game newGame = new Game(N);
+            newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+            newGame.moveUp();
+            
+            float downEval = newGame.moveEval();
+            
+            if (downEval > bestEval) {
+                bestEval = downEval;
+                bestMove = "down";
+            }
+        }
+        
+        else if (possibleMoves().contains("left")) {
+            Game newGame = new Game(N);
+            newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+            newGame.moveUp();
+            
+            float leftEval = newGame.moveEval();
+            
+            if (leftEval > bestEval) {
+                bestEval = leftEval;
+                bestMove = "left";
+            }
+        }
+
+        switch (bestMove) {
+            case "up":
+                this.moveUp();
+                this.spawnRandomNumber();
+                break;
+            case "right":
+                this.moveRight();
+                this.spawnRandomNumber();
+                break;
+            case "down":
+                this.moveDown();
+                this.spawnRandomNumber();
+                break;
+            case "left":
+                this.moveLeft();
+                this.spawnRandomNumber();
+                break;
+        }
+
+    }
+
+    public float moveEval() {
+        // check all empty spaces
+        ArrayList<Coordinates> emptySpaces = this.emptySpaces();
+        int numberOfEmptySpaces = emptySpaces.size();
+        int expectedScore = 0;
+
+        // for each empty space, we spawn a 2 or a 4
+        for (Coordinates coord: emptySpaces) {
+            Game newGame2 = new Game(N);
+            newGame2.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+            newGame2.spawnNumber(2, coord);
+            int eval2 = newGame2.positionEval();
+            expectedScore += 1 / numberOfEmptySpaces * eval2 * 0.9;
+
+            Game newGame3 = new Game(N);
+            newGame3.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+            newGame3.spawnNumber(4, coord);
+            int eval4 = newGame3.positionEval();
+            expectedScore += 1 / numberOfEmptySpaces * eval4 * 0.1;
+        }
+
+        return expectedScore;
+    }
+
+    // TODO: position evaluator
+    public int positionEval() {
+        return 0;
+    }
+
+    // returns the empty spaces on the board
+    public ArrayList<Coordinates> emptySpaces() {
+        ArrayList<Coordinates> emptySpaces = new ArrayList<Coordinates>();
+        for (int i=0; i < this.N; i++) {
+            for (int j=0; j < this.N; j++) {
+                if (this.board[i][j] == 0) {
+                    emptySpaces.add(new Coordinates(i, j));
+                }
+            }
+        }
+        return emptySpaces;
+    }
+
     // prints the board (for debugging)
     public void print() {
         for (int i=0; i < this.N; i++) {

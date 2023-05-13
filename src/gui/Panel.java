@@ -150,6 +150,9 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 				else if (alg.equals("simulateDyn")) {
 					game.simulateMoveDynamic(random);
 				}
+				else if (alg.equals("positionEval")){
+					game.playPositionEvalAlgorithm(random);
+				}
 				
 				// we cancel the move if someone stops computer in between
 				if (stopSwingworker) {
@@ -174,6 +177,9 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 						}
 						else if (alg.equals("simulateDyn")) {
 							play("simulateDyn");
+						}
+						else if (alg.equals("positionEval")) {
+							play("positionEval");
 						}
 					}
 				}
