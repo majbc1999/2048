@@ -872,6 +872,8 @@ public class Game {
         float bestEval = -1000000000;
         String bestMove = "";
 
+        System.out.println("possible moves: " + possibleMoves());
+
         if (possibleMoves().contains("up")) {
             // simulate up
             Game newGame = new Game(N);
@@ -883,12 +885,13 @@ public class Game {
                 bestEval = upEval;
                 bestMove = "up";
             }
+            System.out.println("upEval: " + upEval);
         }
 
-        else if (possibleMoves().contains("right")) {
+        if (possibleMoves().contains("right")) {
             Game newGame = new Game(N);
             newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
-            newGame.moveUp();
+            newGame.moveRight();
             
             float rightEval = newGame.moveEval();
             
@@ -896,12 +899,13 @@ public class Game {
                 bestEval = rightEval;
                 bestMove = "right";
             }
+            System.out.println("rightEval: " + rightEval);
         }
         
-        else if (possibleMoves().contains("down")) {
+        if (possibleMoves().contains("down")) {
             Game newGame = new Game(N);
             newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
-            newGame.moveUp();
+            newGame.moveDown();
             
             float downEval = newGame.moveEval();
             
@@ -909,12 +913,13 @@ public class Game {
                 bestEval = downEval;
                 bestMove = "down";
             }
+            System.out.println("downEval: " + downEval);
         }
         
-        else if (possibleMoves().contains("left")) {
+        if (possibleMoves().contains("left")) {
             Game newGame = new Game(N);
             newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
-            newGame.moveUp();
+            newGame.moveLeft();
             
             float leftEval = newGame.moveEval();
             
@@ -922,6 +927,7 @@ public class Game {
                 bestEval = leftEval;
                 bestMove = "left";
             }
+            System.out.println("leftEval: " + leftEval);
         }
 
         switch (bestMove) {
@@ -945,6 +951,7 @@ public class Game {
 
     }
 
+    // weighted position eval calculated
     public float moveEval() {
         // check all empty spaces
         ArrayList<Coordinates> emptySpaces = this.emptySpaces();
@@ -969,10 +976,12 @@ public class Game {
         return expectedScore;
     }
 
+    // position eval
     public float positionEval() {
-        return positionEval(0f, 4000f, 2000f, 1.2f);
+        return positionEval(1f, 20f, 1000f, 1.2f);
     }
 
+    // position eval with weights
     public float positionEval(float scoreMultiplier,
                               float emptyTilesMultiplier,
                               float maxTileMultiplier,
@@ -1001,6 +1010,18 @@ public class Game {
                     secondMaxTile = maxTile;
                     maxTile = this.board[i][j];
                 }
+                else if (this.board[i][j] > secondMaxTile) {
+                    fourthMaxTile = thirdMaxTile;
+                    thirdMaxTile = secondMaxTile;
+                    secondMaxTile = this.board[i][j];
+                }
+                else if (this.board[i][j] > thirdMaxTile) {
+                    fourthMaxTile = thirdMaxTile;
+                    thirdMaxTile = this.board[i][j];
+                }
+                else if (this.board[i][j] > fourthMaxTile) {
+                    fourthMaxTile = this.board[i][j];
+                }
             }
         }
 
@@ -1024,8 +1045,6 @@ public class Game {
             }
         }
         
-        System.out.println(eval);
-
         return eval;
     }
 

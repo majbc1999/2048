@@ -34,5 +34,12 @@ public class Main {
         frame.pack();
         frame.setVisible(true);
 
+        // computer plays the game
+
+        Thread.sleep(1000);
+        frame.panel.lastComputer = "positionEval";
+        frame.panel.stopSwingworker = false;
+		frame.panel.repaint();
+		frame.panel.play(frame.panel.lastComputer);
     }
 }

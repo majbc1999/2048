@@ -61,10 +61,10 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 	String theme;
 
 	// variable to stop computer swingworker
-	Boolean stopSwingworker;
+	public Boolean stopSwingworker;
 
 	// last computer algorithm (for button computer)
-	String lastComputer;
+	public String lastComputer;
 
 	// random 
 	Random random;
