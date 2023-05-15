@@ -866,13 +866,11 @@ public class Game {
     }
 
     // fifth ai: simulator with position eval
-    public void playPositionEvalAlgorithm(Random rand) {
+    public void playPositionEvalAlgorithm(int depth) {
         // this is only for 4x4 board
         
         float bestEval = -1000000000;
         String bestMove = "";
-
-        System.out.println("possible moves: " + possibleMoves());
 
         if (possibleMoves().contains("up")) {
             // simulate up
@@ -880,12 +878,11 @@ public class Game {
             newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
             newGame.moveUp();
             
-            float upEval = newGame.moveEval();
+            float upEval = newGame.moveEval(depth);
             if (upEval > bestEval) {
                 bestEval = upEval;
                 bestMove = "up";
             }
-            System.out.println("upEval: " + upEval);
         }
 
         if (possibleMoves().contains("right")) {
@@ -893,13 +890,12 @@ public class Game {
             newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
             newGame.moveRight();
             
-            float rightEval = newGame.moveEval();
+            float rightEval = newGame.moveEval(depth);
             
             if (rightEval > bestEval) {
                 bestEval = rightEval;
                 bestMove = "right";
             }
-            System.out.println("rightEval: " + rightEval);
         }
         
         if (possibleMoves().contains("down")) {
@@ -907,13 +903,12 @@ public class Game {
             newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
             newGame.moveDown();
             
-            float downEval = newGame.moveEval();
+            float downEval = newGame.moveEval(depth);
             
             if (downEval > bestEval) {
                 bestEval = downEval;
                 bestMove = "down";
             }
-            System.out.println("downEval: " + downEval);
         }
         
         if (possibleMoves().contains("left")) {
@@ -921,13 +916,12 @@ public class Game {
             newGame.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
             newGame.moveLeft();
             
-            float leftEval = newGame.moveEval();
+            float leftEval = newGame.moveEval(depth);
             
             if (leftEval > bestEval) {
                 bestEval = leftEval;
                 bestMove = "left";
             }
-            System.out.println("leftEval: " + leftEval);
         }
 
         switch (bestMove) {
@@ -952,33 +946,52 @@ public class Game {
     }
 
     // weighted position eval calculated
-    public float moveEval() {
+    public float moveEval(int depth) {
         // check all empty spaces
         ArrayList<Coordinates> emptySpaces = this.emptySpaces();
         float numberOfEmptySpaces = emptySpaces.size();
         float expectedScore = 0;
 
         // for each empty space, we spawn a 2 or a 4
-        for (Coordinates coord: emptySpaces) {
-            Game newGame2 = new Game(N);
-            newGame2.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
-            newGame2.spawnNumber(2, coord);
-            float eval2 = newGame2.positionEval();
-            expectedScore += 1 / numberOfEmptySpaces * eval2 * 0.9;
+        if (depth == 1) {
+            for (Coordinates coord: emptySpaces) {
+                Game newGame2 = new Game(N);
+                newGame2.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+                newGame2.spawnNumber(2, coord);
+                float eval2 = newGame2.positionEval();
+                expectedScore += 1 / numberOfEmptySpaces * eval2 * 0.9;
 
-            Game newGame3 = new Game(N);
-            newGame3.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
-            newGame3.spawnNumber(4, coord);
-            float eval4 = newGame3.positionEval();
-            expectedScore += 1 / numberOfEmptySpaces * eval4 * 0.1;
+                Game newGame3 = new Game(N);
+                newGame3.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+                newGame3.spawnNumber(4, coord);
+                float eval4 = newGame3.positionEval();
+                expectedScore += 1 / numberOfEmptySpaces * eval4 * 0.1;
+            }
+            return expectedScore;
         }
+        else {
+            for (Coordinates coord: emptySpaces) {
+                Game newGame2 = new Game(N);
+                newGame2.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+                newGame2.spawnNumber(2, coord);
+                newGame2.playPositionEvalAlgorithm(depth - 1);
+                float eval2 = newGame2.positionEval();
+                expectedScore += 1 / numberOfEmptySpaces * eval2 * 0.9;
 
-        return expectedScore;
+                Game newGame3 = new Game(N);
+                newGame3.playMoves(this.movesHistory, this.numbersSpawned, this.spawnPositions);
+                newGame3.spawnNumber(4, coord);
+                newGame3.playPositionEvalAlgorithm(depth - 1);
+                float eval4 = newGame3.positionEval();
+                expectedScore += 1 / numberOfEmptySpaces * eval4 * 0.1;
+            }
+            return expectedScore;
+        }
     }
 
     // position eval
     public float positionEval() {
-        return positionEval(1f, 20f, 1000f, 1.2f);
+        return positionEval(5f, 20f, 500f, 1.2f);
     }
 
     // position eval with weights
