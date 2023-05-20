@@ -867,7 +867,6 @@ public class Game {
 
     // fifth ai: simulator with position eval
     public void playPositionEvalAlgorithm(int depth) {
-        // this is only for 4x4 board
         
         float bestEval = -1000000000;
         String bestMove = "";
@@ -952,6 +951,11 @@ public class Game {
         float numberOfEmptySpaces = emptySpaces.size();
         float expectedScore = 0;
 
+        // check if game is over
+        if (!this.status()) {
+            return -10000f;
+        }
+
         // for each empty space, we spawn a 2 or a 4
         if (depth == 1) {
             for (Coordinates coord: emptySpaces) {
@@ -991,14 +995,22 @@ public class Game {
 
     // position eval
     public float positionEval() {
-        return positionEval(5f, 20f, 500f, 1.2f);
+        return positionEval(
+            1f, // scoreMultiplier
+            10f, // emptyTilesMultiplier
+            200f, // maxTileMultiplier
+            50f, // smoothnessMultiplierTopRow
+            30f  // smoothnessMultiplierCols
+        );
     }
 
     // position eval with weights
     public float positionEval(float scoreMultiplier,
                               float emptyTilesMultiplier,
                               float maxTileMultiplier,
-                              float maxTileDivisor) {
+                              float smoothnessMultiplierTopRow,
+                              float smoothnessMultiplierCols
+                              ) {
         
         float eval = 0;
 
@@ -1009,55 +1021,61 @@ public class Game {
         eval += this.countEmptySpaces() * emptyTilesMultiplier;
         
         // corner tiles
-        // question: should max tile be dependent on current score?
         int maxTile = 0;
-        int secondMaxTile = 0;
-        int thirdMaxTile = 0;
-        int fourthMaxTile = 0;
 
         for (int i=0; i < this.N; i++) {
             for (int j=0; j < this.N; j++) {
                 if (this.board[i][j] > maxTile) {
-                    fourthMaxTile = thirdMaxTile;
-                    thirdMaxTile = secondMaxTile;
-                    secondMaxTile = maxTile;
                     maxTile = this.board[i][j];
-                }
-                else if (this.board[i][j] > secondMaxTile) {
-                    fourthMaxTile = thirdMaxTile;
-                    thirdMaxTile = secondMaxTile;
-                    secondMaxTile = this.board[i][j];
-                }
-                else if (this.board[i][j] > thirdMaxTile) {
-                    fourthMaxTile = thirdMaxTile;
-                    thirdMaxTile = this.board[i][j];
-                }
-                else if (this.board[i][j] > fourthMaxTile) {
-                    fourthMaxTile = this.board[i][j];
                 }
             }
         }
-
-        ArrayList<Integer> pref = new ArrayList<Integer>();
-        pref.add(maxTile);
-        pref.add(secondMaxTile);
-        pref.add(thirdMaxTile);
-        pref.add(fourthMaxTile);
         
-        for (int i=1; i < this.N + 1; i++) {
-            if (board[0][this.N - i] == 0) {
-                continue;
-            }
-            else if (board[0][this.N - i] == pref.get(0)) {
+        if (board[0][this.N - 1] == maxTile) {
                 eval += maxTileMultiplier;
-                maxTileMultiplier /= maxTileDivisor;
-                pref.remove(0);
-            }
-            else {
+        }
+
+        // smoothness: check if every row and column is sorted
+        // most important: first row
+
+        ArrayList<Integer> firstRow = new ArrayList<Integer>();
+        for (int i=0; i < this.N; i++) {
+            firstRow.add(this.board[0][i]);
+        }
+        
+
+        // check if firstRow is sorted
+        boolean sorted = true;
+        for (int i=0; i < firstRow.size() - 1; i++) {
+            if (firstRow.get(i) > firstRow.get(i + 1)) {
+                sorted = false;
                 break;
             }
         }
-        
+
+        if (sorted) {
+            eval += smoothnessMultiplierTopRow;
+        }
+
+        // check if colums are sorted
+        for (int i=0; i < this.N; i++) {
+            ArrayList<Integer> column = new ArrayList<Integer>();
+            for (int j=0; j < this.N; j++) {
+                column.add(this.board[j][i]);
+            }
+
+            sorted = true;
+            for (int j=0; j < column.size() - 1; j++) {
+                if (column.get(j) < column.get(j + 1)) {
+                    sorted = false;
+                    break;
+                }
+            }
+            if (sorted) {
+                eval += smoothnessMultiplierCols;
+            }
+        }
+
         return eval;
     }
 

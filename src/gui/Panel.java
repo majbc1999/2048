@@ -151,7 +151,6 @@ public class Panel extends JPanel implements MouseListener, KeyListener {
 					game.simulateMoveDynamic(random);
 				}
 				else if (alg.equals("positionEval")){
-					// TODO: adjust depth
 					game.playPositionEvalAlgorithm(2);
 				}
 				
