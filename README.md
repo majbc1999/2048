@@ -63,6 +63,8 @@ After analysing performance of *AI 2* with differenth depth, this algorithm uses
 - [x] when computer plays, human shall not interrupt it (also undo should not work then)
 - [x] another algorithm: simulator with dynamic depth
 - [x] for *Endless* and big score, switching from computer to player doesn't work
+- [ ] play old moves takes too much time, simply deepcopy everything, should be faster
+
 
 ## Instructions for installation
 1. [Install java](https://www.java.com/en/download/) for your operating system
