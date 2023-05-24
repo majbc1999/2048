@@ -33,13 +33,5 @@ public class Main {
         frame.setIconImage(ImageIO.read(new File("static/2048.png")));
         frame.pack();
         frame.setVisible(true);
-
-        // computer plays the game
-
-        Thread.sleep(1000);
-        frame.panel.lastComputer = "positionEval";
-        frame.panel.stopSwingworker = false;
-		frame.panel.repaint();
-		frame.panel.play(frame.panel.lastComputer);
     }
 }

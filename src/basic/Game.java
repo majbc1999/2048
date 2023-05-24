@@ -93,7 +93,7 @@ public class Game {
             }
         }
         else {
-            System.out.print("Can't spawn a number. There are insufficient empty spaces.");
+            System.out.println("Can't spawn a number. There are insufficient empty spaces.");
         }
     }
 
@@ -926,22 +926,21 @@ public class Game {
         switch (bestMove) {
             case "up":
                 this.moveUp();
-                this.spawnRandomNumber();
                 break;
             case "right":
                 this.moveRight();
-                this.spawnRandomNumber();
                 break;
             case "down":
                 this.moveDown();
-                this.spawnRandomNumber();
                 break;
             case "left":
                 this.moveLeft();
-                this.spawnRandomNumber();
                 break;
+            }
+        
+        if (this.emptySpaces().size() > 0) {
+            this.spawnRandomNumber();
         }
-
     }
 
     // weighted position eval calculated

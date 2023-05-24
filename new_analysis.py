@@ -17,9 +17,9 @@ s050 = import_file_as_db("simulator50", "simulator", 50)
 s500 = import_file_as_db("simulator500", "simulator", 500)
 sdyn = import_file_as_db("dynamicsimulator", "simulator", "dynamic")
 evl1 = import_file_as_db("evaluator1", "evaluator", 1)
-# evl2 = import_file_as_db("evaluator2", "evaluator", 2)
+evl2 = import_file_as_db("evaluator2", "evaluator", 2)
 
-df = pd.concat([espa,rand,s005, s050, s500,sdyn, evl1]) # evl1])
+df = pd.concat([espa,rand,s005, s050, s500,sdyn, evl1, evl2])
 df["score"] = pd.to_numeric(df["score"])
 df["highest_reached"] = pd.to_numeric(df["highest_reached"])
 
@@ -50,6 +50,7 @@ distribution = df.groupby('algorithm')['highest_reached'].value_counts().unstack
 
 # order the columns by the highest number reached
 distribution = distribution.reindex(sorted(distribution.columns), axis=1)
+distribution = distribution.sort_values(by=[4096, 2048, 1024, 512], ascending=False)
 
 colors = {
     32: 'black',
@@ -67,6 +68,7 @@ distribution.plot.bar(stacked=True, color=distribution.columns.map(colors))
 plt.xlabel('Algorithm')
 plt.ylabel('Distribution of highest number')
 plt.title('Distribution of highest number reached by Algorithm')
+plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 plt.savefig('plots/distribution_of_highest_reached.png', bbox_inches='tight')
 plt.show()
 
